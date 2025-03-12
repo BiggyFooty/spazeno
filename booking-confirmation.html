@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparez - Booking Confirmation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="confirmation-page">
+    <div class="app-shell">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="time">9:41</div>
+            <div class="icons">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <a href="home.html" class="back-button">
+                <i class="fas fa-chevron-left"></i> Back to Home
+            </a>
+        </div>
+
+        <!-- Confirmation Content -->
+        <div class="container" style="text-align: center; padding: var(--spacing-xl) var(--spacing-lg);">
+            <div style="margin-bottom: var(--spacing-xl);">
+                <div style="width: 80px; height: 80px; background-color: var(--success-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--spacing-lg);">
+                    <i class="fas fa-check" style="color: white; font-size: 40px;"></i>
+                </div>
+                <h1 style="font-size: var(--font-size-xl); margin-bottom: var(--spacing-md);">Booking Confirmed!</h1>
+                <p style="color: var(--text-muted); margin-bottom: var(--spacing-lg);">Your hotel spa appointment has been successfully booked.</p>
+            </div>
+
+            <!-- Booking Details -->
+            <div class="card" style="text-align: left; margin-bottom: var(--spacing-xl);">
+                <div style="padding: var(--spacing-lg);">
+                    <h2 style="font-size: var(--font-size-lg); margin-bottom: var(--spacing-md);">Booking Details</h2>
+                    
+                    <div style="margin-bottom: var(--spacing-md);">
+                        <h3 style="font-size: var(--font-size-md); margin-bottom: var(--spacing-xs);">Service</h3>
+                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="service-name">Swedish Massage</p>
+                    </div>
+                    
+                    <div style="margin-bottom: var(--spacing-md);">
+                        <h3 style="font-size: var(--font-size-md); margin-bottom: var(--spacing-xs);">Hotel Spa</h3>
+                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="hotel-name">Grand Luxury Resort</p>
+                    </div>
+                    
+                    <div style="margin-bottom: var(--spacing-md);">
+                        <h3 style="font-size: var(--font-size-md); margin-bottom: var(--spacing-xs);">Date & Time</h3>
+                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="booking-datetime">March 13, 2025 at 10:30 AM</p>
+                    </div>
+                    
+                    <div style="margin-bottom: var(--spacing-md);">
+                        <h3 style="font-size: var(--font-size-md); margin-bottom: var(--spacing-xs);">Location</h3>
+                        <p style="font-size: var(--font-size-md); font-weight: 500;">Grand Luxury Resort Spa</p>
+                        <p style="font-size: var(--font-size-sm); color: var(--text-muted);">123 Wellness Street, Dubai</p>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-size: var(--font-size-md); margin-bottom: var(--spacing-xs);">Booking ID</h3>
+                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="booking-id">SPZ-12345</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div style="margin-bottom: var(--spacing-xl);">
+                <a href="calendar.html" class="btn btn-primary btn-block" style="margin-bottom: var(--spacing-md);">View in Calendar</a>
+                <a href="home.html" class="btn btn-secondary btn-block">Back to Home</a>
+            </div>
+
+            <!-- Additional Info -->
+            <div style="margin-bottom: var(--spacing-xl);">
+                <p style="font-size: var(--font-size-sm); color: var(--text-muted); margin-bottom: var(--spacing-md);">A confirmation has been sent to your email and phone.</p>
+                <p style="font-size: var(--font-size-sm); color: var(--text-muted);">Need to make changes? You can reschedule or cancel your appointment up to 24 hours before the scheduled time.</p>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="home.html" class="nav-item" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="booking.html" class="nav-item active" data-page="booking">
+                <i class="far fa-calendar"></i>
+                <span>Booking</span>
+            </a>
+            <a href="services.html" class="nav-item" data-page="services">
+                <i class="fas fa-spa"></i>
+                <span>Services</span>
+            </a>
+            <a href="artist-profile.html" class="nav-item" data-page="profile">
+                <i class="far fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate a random booking ID
+            const bookingId = 'SPZ-' + Math.floor(10000 + Math.random() * 90000);
+            document.getElementById('booking-id').textContent = bookingId;
+            
+            // Get URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const service = urlParams.get('service');
+            const artist = urlParams.get('artist');
+            
+            // Set service name based on service parameter
+            if (service) {
+                const serviceElement = document.getElementById('service-name');
+                if (serviceElement) {
+                    if (service.includes('swedish')) {
+                        serviceElement.textContent = 'Swedish Massage';
+                    } else if (service.includes('deep-tissue')) {
+                        serviceElement.textContent = 'Deep Tissue Massage';
+                    } else if (service.includes('hot-stone')) {
+                        serviceElement.textContent = 'Hot Stone Therapy';
+                    } else if (service.includes('facial')) {
+                        serviceElement.textContent = 'Luxury Facial Treatment';
+                    } else {
+                        serviceElement.textContent = 'Spa Treatment';
+                    }
+                }
+            }
+            
+            // Set hotel name based on artist parameter
+            if (artist) {
+                const hotelElement = document.getElementById('hotel-name');
+                if (hotelElement) {
+                    if (artist === '1') {
+                        hotelElement.textContent = 'Grand Luxury Resort';
+                    } else if (artist === '2') {
+                        hotelElement.textContent = 'Serene Wellness Hotel';
+                    } else if (artist === '3') {
+                        hotelElement.textContent = 'Oasis Spa & Resort';
+                    } else {
+                        hotelElement.textContent = 'Elite Spa Hotel';
+                    }
+                }
+            }
+            
+            // Set booking date and time
+            const dateElement = document.getElementById('booking-datetime');
+            if (dateElement) {
+                // Get tomorrow's date
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                
+                // Format the date
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = tomorrow.toLocaleDateString('en-US', options);
+                
+                // Set random time
+                const hours = [9, 10, 11, 14, 15, 16];
+                const randomHour = hours[Math.floor(Math.random() * hours.length)];
+                const minutes = ['00', '30'];
+                const randomMinute = minutes[Math.floor(Math.random() * minutes.length)];
+                
+                dateElement.textContent = `${formattedDate} at ${randomHour}:${randomMinute} ${randomHour >= 12 ? 'PM' : 'AM'}`;
+            }
+        });
+    </script>
+</body>
+</html>

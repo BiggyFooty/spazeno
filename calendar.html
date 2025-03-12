@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparez - Calendar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        
+        .calendar-nav-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #F5F5F5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-medium) var(--easing);
+        }
+        
+        .calendar-nav-btn:hover {
+            background-color: var(--primary-light);
+            color: var(--text-light);
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: var(--spacing-xs);
+            font-size: var(--font-size-xs);
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--spacing-xs);
+            cursor: pointer;
+            transition: all var(--transition-medium) var(--easing);
+            position: relative;
+        }
+        
+        .calendar-day:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .calendar-day.active {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border-color: var(--primary-color);
+        }
+        
+        .calendar-day.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+        
+        .calendar-day.active.has-event::after {
+            background-color: var(--text-light);
+        }
+        
+        .calendar-day.other-month {
+            color: var(--text-muted);
+            background-color: #F9F9F9;
+        }
+        
+        .calendar-day-number {
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+        }
+        
+        .bookings-list {
+            margin-top: var(--spacing-lg);
+        }
+        
+        .booking-item {
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-color);
+            margin-bottom: var(--spacing-md);
+            transition: all var(--transition-medium) var(--easing);
+            animation: fadeIn var(--transition-medium) var(--easing);
+        }
+        
+        .booking-item:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .booking-title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .booking-time {
+            color: var(--text-muted);
+            font-size: var(--font-size-sm);
+        }
+        
+        .booking-location {
+            font-size: var(--font-size-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .booking-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--spacing-sm);
+        }
+        
+        .booking-action-btn {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-size: var(--font-size-xs);
+            cursor: pointer;
+            transition: all var(--transition-fast) var(--easing);
+        }
+        
+        .btn-reschedule {
+            background-color: #F5F5F5;
+            color: var(--text-dark);
+        }
+        
+        .btn-reschedule:hover {
+            background-color: #E0E0E0;
+        }
+        
+        .btn-cancel {
+            background-color: #FEE2E2;
+            color: #DC2626;
+        }
+        
+        .btn-cancel:hover {
+            background-color: #FCA5A5;
+        }
+    </style>
+</head>
+<body class="calendar-page">
+    <div class="app-shell">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="time">9:41</div>
+            <div class="icons">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <a href="booking-confirmation.html" class="back-button">
+                <i class="fas fa-chevron-left"></i> Back
+            </a>
+            <h1>Calendar</h1>
+            <div style="width: 24px;"></div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="container">
+            <div class="calendar-header">
+                <h2>March 2025</h2>
+                <div class="calendar-nav">
+                    <div class="calendar-nav-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="calendar-nav-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="calendar-grid">
+                <!-- Day headers -->
+                <div class="calendar-day-header">Sun</div>
+                <div class="calendar-day-header">Mon</div>
+                <div class="calendar-day-header">Tue</div>
+                <div class="calendar-day-header">Wed</div>
+                <div class="calendar-day-header">Thu</div>
+                <div class="calendar-day-header">Fri</div>
+                <div class="calendar-day-header">Sat</div>
+                
+                <!-- Week 1 -->
+                <div class="calendar-day other-month">
+                    <span class="calendar-day-number">23</span>
+                </div>
+                <div class="calendar-day other-month">
+                    <span class="calendar-day-number">24</span>
+                </div>
+                <div class="calendar-day other-month">
+                    <span class="calendar-day-number">25</span>
+                </div>
+                <div class="calendar-day other-month">
+                    <span class="calendar-day-number">26</span>
+                </div>
+                <div class="calendar-day other-month">
+                    <span class="calendar-day-number">27</span>
+                </div>
+                <div class="calendar-day other-month">
+                    <span class="calendar-day-number">28</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">1</span>
+                </div>
+                
+                <!-- Week 2 -->
+                <div class="calendar-day">
+                    <span class="calendar-day-number">2</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">3</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">4</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">5</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">6</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">7</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">8</span>
+                </div>
+                
+                <!-- Week 3 -->
+                <div class="calendar-day">
+                    <span class="calendar-day-number">9</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">10</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">11</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">12</span>
+                </div>
+                <div class="calendar-day active has-event">
+                    <span class="calendar-day-number">13</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">14</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">15</span>
+                </div>
+                
+                <!-- Week 4 -->
+                <div class="calendar-day">
+                    <span class="calendar-day-number">16</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">17</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">18</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">19</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">20</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">21</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">22</span>
+                </div>
+                
+                <!-- Week 5 -->
+                <div class="calendar-day">
+                    <span class="calendar-day-number">23</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">24</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">25</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">26</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">27</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">28</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">29</span>
+                </div>
+                
+                <!-- Week 6 -->
+                <div class="calendar-day">
+                    <span class="calendar-day-number">30</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="calendar-day-number">31</span>
+                </div>
+                <div class="calendar-day other-month">
+                    <span class="calendar-day-number">1</span>
+                </div>
+                <div class="calendar-day other-month">
+                    <span class="calendar-day-number">2</span>
+                </div>
+                <div class="calendar-day other-month">
+                    <span class="calendar-day-number">3</span>
+                </div>
+                <div class="calendar-day other-month">
+                    <span class="calendar-day-number">4</span>
+                </div>
+                <div class="calendar-day other-month">
+                    <span class="calendar-day-number">5</span>
+                </div>
+            </div>
+            
+            <div class="bookings-list" style="margin-bottom: 100px;">
+                <h3>Bookings for March 13</h3>
+                
+                <div class="booking-item" style="background-color: #FFFFFF; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); padding: var(--spacing-lg);">
+                    <div class="booking-header">
+                        <div>
+                            <h4 class="booking-title" style="font-size: var(--font-size-lg); color: var(--primary-color);">Swedish Massage</h4>
+                            <p class="booking-time">11:30 AM - 12:30 PM</p>
+                        </div>
+                        <span class="booking-id" style="font-size: var(--font-size-xs); color: var(--text-muted);">SPZ-80978</span>
+                    </div>
+                    <p class="booking-location" style="margin: var(--spacing-md) 0;">Grand Luxury Resort Spa</p>
+                    
+                    <div style="display: flex; gap: var(--spacing-md); margin-top: var(--spacing-lg);">
+                        <button class="btn btn-secondary" style="flex: 1; padding: var(--spacing-md);" onclick="window.location.href='booking.html'">Reschedule</button>
+                        <button class="btn" style="flex: 1; padding: var(--spacing-md); background-color: #FEE2E2; color: #DC2626;" onclick="if(confirm('Are you sure you want to cancel this booking?')){alert('Booking cancelled successfully!');window.location.href='home.html';}">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="home.html" class="nav-item" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="booking.html" class="nav-item active" data-page="booking">
+                <i class="far fa-calendar"></i>
+                <span>Booking</span>
+            </a>
+            <a href="services.html" class="nav-item" data-page="services">
+                <i class="fas fa-spa"></i>
+                <span>Services</span>
+            </a>
+            <a href="artist-profile.html" class="nav-item" data-page="profile">
+                <i class="far fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get booking details from URL parameters or localStorage
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookingId = urlParams.get('bookingId') || 'SPZ-80978';
+            
+            // Update booking ID in the list
+            const bookingIdElement = document.querySelector('.booking-id');
+            if (bookingIdElement) {
+                bookingIdElement.textContent = bookingId;
+            }
+            
+            // Calendar day click event
+            const calendarDays = document.querySelectorAll('.calendar-day');
+            calendarDays.forEach(day => {
+                day.addEventListener('click', function() {
+                    calendarDays.forEach(d => d.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update bookings list title
+                    const dayNumber = this.querySelector('.calendar-day-number').textContent;
+                    document.querySelector('.bookings-list h3').textContent = `Bookings for March ${dayNumber}`;
+                    
+                    // In a real app, this would fetch bookings for the selected date
+                    // For this demo, we'll just show/hide the booking item
+                    const bookingItem = document.querySelector('.booking-item');
+                    if (dayNumber === '13') {
+                        bookingItem.style.display = 'block';
+                    } else {
+                        bookingItem.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Booking action buttons
+            const rescheduleBtn = document.querySelector('.btn-reschedule');
+            if (rescheduleBtn) {
+                rescheduleBtn.addEventListener('click', function() {
+                    window.location.href = 'booking.html';
+                });
+            }
+            
+            const cancelBtn = document.querySelector('.btn-cancel');
+            if (cancelBtn) {
+                cancelBtn.addEventListener('click', function() {
+                    if (confirm('Are you sure you want to cancel this booking?')) {
+                        alert('Booking cancelled successfully!');
+                        window.location.href = 'home.html';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

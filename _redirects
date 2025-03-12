@@ -1,0 +1,15 @@
+# Netlify redirects file
+# This file provides an alternative way to configure redirects in addition to netlify.toml
+
+# Handle SPA routing - redirect all paths to index.html
+/*    /index.html   200
+
+# Handle direct file access
+/*.html    /:splat.html    200
+/css/*     /css/:splat     200
+/js/*      /js/:splat      200
+/img/*     /img/:splat     200
+
+# Allow external resources
+/fonts/*   https://fonts.googleapis.com/:splat   200
+/images/*  https://images.unsplash.com/:splat    200

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparez - Hotel Spa Reservations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="home-page">
+    <div class="app-shell">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="time">9:41</div>
+            <div class="icons">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>Welcome to Sparez</h1>
+            <div style="width: 40px; height: 40px; border-radius: 50%; background-color: #F5F5F5; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-user" style="color: var(--text-muted);"></i>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="container">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Find luxury hotel spa services...">
+                <i class="fas fa-sliders-h"></i>
+            </div>
+        </div>
+
+        <!-- Service Categories -->
+        <div class="container">
+            <h2 class="section-title">Premium Spa Services</h2>
+            
+            <div class="service-categories">
+                <a href="#" class="service-category" data-id="massage">
+                    <div class="service-category-icon">
+                        <i class="fas fa-hand-sparkles"></i>
+                    </div>
+                    <span class="service-category-name">Massage</span>
+                </a>
+                
+                <a href="#" class="service-category" data-id="facial">
+                    <div class="service-category-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <span class="service-category-name">Luxury Facial</span>
+                </a>
+                
+                <a href="#" class="service-category" data-id="treatment">
+                    <div class="service-category-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <span class="service-category-name">Spa Treatment</span>
+                </a>
+                
+                <a href="#" class="service-category" data-id="hotstone">
+                    <div class="service-category-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <span class="service-category-name">Hot Stone</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Top Hotels -->
+        <div class="container">
+            <div class="section-title">
+                <h2>Top Hotel Spas</h2>
+                <a href="services.html">View all</a>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                <!-- Hotel Card 1 -->
+                <div class="card" data-id="1" style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aG90ZWwlMjBzcGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Luxury Spa Resort" class="card-img" style="height: 150px;">
+                    <div style="position: absolute; top: 8px; right: 8px; background-color: rgba(255, 255, 255, 0.8); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                        <i class="far fa-heart"></i>
+                    </div>
+                    <div class="card-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                            <h3 class="card-title" style="margin: 0;">Grand Luxury Resort</h3>
+                            <div class="rating">
+                                <span class="stars">★</span>
+                                <span class="value">4.8</span>
+                            </div>
+                        </div>
+                        <p class="card-subtitle" style="margin: 0;">5-Star Hotel Spa</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                            <span style="font-weight: 600; color: var(--primary-color);">$89.00<span style="font-weight: 400; color: var(--text-muted); font-size: var(--font-size-xs);">/session</span></span>
+                            <span style="font-size: var(--font-size-xs); color: var(--text-muted);"><i class="fas fa-map-marker-alt"></i> 0.4 km</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hotel Card 2 -->
+                <div class="card" data-id="2" style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWwlMjBzcGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Wellness Retreat" class="card-img" style="height: 150px;">
+                    <div style="position: absolute; top: 8px; right: 8px; background-color: rgba(255, 255, 255, 0.8); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                        <i class="far fa-heart"></i>
+                    </div>
+                    <div class="card-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                            <h3 class="card-title" style="margin: 0;">Serene Wellness Hotel</h3>
+                            <div class="rating">
+                                <span class="stars">★</span>
+                                <span class="value">4.6</span>
+                            </div>
+                        </div>
+                        <p class="card-subtitle" style="margin: 0;">Luxury Spa & Wellness</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                            <span style="font-weight: 600; color: var(--primary-color);">$75.00<span style="font-weight: 400; color: var(--text-muted); font-size: var(--font-size-xs);">/session</span></span>
+                            <span style="font-size: var(--font-size-xs); color: var(--text-muted);"><i class="fas fa-map-marker-alt"></i> 1.2 km</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nearby Hotel Spas -->
+        <div class="container" style="margin-top: 24px;">
+            <div class="section-title">
+                <h2>Nearby Hotel Spas</h2>
+                <a href="services.html">View all</a>
+            </div>
+            
+            <!-- Hotel Spa Card -->
+            <div class="card" style="margin-bottom: 80px;">
+                <div style="display: flex; padding: 16px;">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWwlMjBzcGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Oasis Spa Hotel" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover;">
+                    <div style="margin-left: 16px; flex: 1;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div class="rating" style="margin-bottom: 4px;">
+                                    <span class="stars">★</span>
+                                    <span class="value">4.5</span>
+                                </div>
+                                <h3 style="margin: 0; font-size: var(--font-size-md);">Oasis Spa & Resort</h3>
+                                <p style="margin: 4px 0 0; font-size: var(--font-size-xs); color: var(--text-muted);">Premium Wellness Center</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-muted);"><i class="fas fa-map-marker-alt"></i> 0.7 km</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="home.html" class="nav-item active" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="booking.html" class="nav-item" data-page="booking">
+                <i class="far fa-calendar"></i>
+                <span>Booking</span>
+            </a>
+            <a href="services.html" class="nav-item" data-page="services">
+                <i class="fas fa-spa"></i>
+                <span>Services</span>
+            </a>
+            <a href="artist-profile.html" class="nav-item" data-page="profile">
+                <i class="far fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

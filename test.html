@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparez - Language Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .language-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #6a3093;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .language-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .language-toggle.en::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://flagcdn.com/w40/gb.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .language-toggle.tr::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://flagcdn.com/w40/tr.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .language-toggle span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .content-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        h1, h2 {
+            color: #6a3093;
+        }
+        
+        .server-info {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-toggle en">
+        <span>EN</span>
+    </div>
+    
+    <h1 data-i18n="appName">Sparez</h1>
+    <p data-i18n="appTagline">Luxury Hotel Spa Reservations</p>
+    
+    <div class="content-section">
+        <h2 data-i18n="loginTitle">Let's get you Login!</h2>
+        <p data-i18n="loginSubtitle">Enter your information below.</p>
+        
+        <form>
+            <div style="margin-bottom: 15px;">
+                <label data-i18n="emailAddress">Email Address</label>
+                <input type="email" style="display: block; width: 100%; padding: 8px; margin-top: 5px;">
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <label data-i18n="password">Password</label>
+                <input type="password" style="display: block; width: 100%; padding: 8px; margin-top: 5px;">
+            </div>
+            
+            <button type="button" data-i18n="login" style="background-color: #6a3093; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Login</button>
+        </form>
+    </div>
+    
+    <div class="content-section">
+        <h2 data-i18n="bookingDetails">Booking Details</h2>
+        <p><strong data-i18n="service">Service</strong>: <span data-i18n="swedishMassage">Swedish Massage</span></p>
+        <p><strong data-i18n="dateTime">Date & Time</strong>: March 13, 2025 at 10:30 AM</p>
+        <p><strong data-i18n="location">Location</strong>: Grand Luxury Resort Spa</p>
+    </div>
+    
+    <div class="server-info">
+        <h3>Server Information</h3>
+        <p>This page is being served from: <span id="server-url">file://</span></p>
+        <p>To test the page on other devices, run the server with:</p>
+        <pre>npm install
+npm start</pre>
+        <p>Then access the page at the network URL displayed in the terminal.</p>
+    </div>
+    
+    <script>
+        // Simple translations
+        const translations = {
+            en: {
+                appName: "Sparez",
+                appTagline: "Luxury Hotel Spa Reservations",
+                loginTitle: "Let's get you Login!",
+                loginSubtitle: "Enter your information below.",
+                emailAddress: "Email Address",
+                password: "Password",
+                login: "Login",
+                bookingDetails: "Booking Details",
+                service: "Service",
+                swedishMassage: "Swedish Massage",
+                dateTime: "Date & Time",
+                location: "Location"
+            },
+            tr: {
+                appName: "Sparez",
+                appTagline: "Lüks Otel Spa Rezervasyonları",
+                loginTitle: "Hadi Giriş Yapalım!",
+                loginSubtitle: "Bilgilerinizi aşağıya girin.",
+                emailAddress: "E-posta Adresi",
+                password: "Şifre",
+                login: "Giriş Yap",
+                bookingDetails: "Rezervasyon Detayları",
+                service: "Hizmet",
+                swedishMassage: "İsveç Masajı",
+                dateTime: "Tarih & Saat",
+                location: "Konum"
+            }
+        };
+        
+        // Current language
+        let currentLanguage = localStorage.getItem('language') || 'en';
+        
+        // Function to update content based on language
+        function updateContent() {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (key && translations[currentLanguage][key]) {
+                    element.textContent = translations[currentLanguage][key];
+                }
+            });
+            
+            // Update language toggle
+            const toggle = document.querySelector('.language-toggle');
+            toggle.className = 'language-toggle ' + currentLanguage;
+            toggle.querySelector('span').textContent = currentLanguage.toUpperCase();
+            
+            // Update html lang attribute
+            document.documentElement.lang = currentLanguage;
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateContent();
+            
+            // Language toggle click handler
+            document.querySelector('.language-toggle').addEventListener('click', function() {
+                currentLanguage = currentLanguage === 'en' ? 'tr' : 'en';
+                localStorage.setItem('language', currentLanguage);
+                updateContent();
+            });
+            
+            // Update server URL if running on server
+            if (window.location.protocol !== 'file:') {
+                document.getElementById('server-url').textContent = window.location.href;
+            }
+        });
+    </script>
+</body>
+</html>
