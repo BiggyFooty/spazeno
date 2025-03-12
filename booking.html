@@ -453,7 +453,7 @@
                         showLoadingOverlay("Randevunuz Oluşturuldu!", 1500, () => {
                             const href = this.getAttribute('href');
                             // Add all the selected information to the URL
-                            window.location.href = `${href}&service=${encodeURIComponent(serviceName)}&date=${encodeURIComponent(dateText)}&time=${encodeURIComponent(timeText)}&gender=${encodeURIComponent(genderText)}&hotel=${encodeURIComponent(hotelName)}`;
+                            window.location.href = `${href}?service=${encodeURIComponent(serviceName)}&date=${encodeURIComponent(dateText)}&time=${encodeURIComponent(timeText)}&gender=${encodeURIComponent(genderText)}&hotel=${encodeURIComponent(hotelName)}`;
                         });
                     });
                 });
