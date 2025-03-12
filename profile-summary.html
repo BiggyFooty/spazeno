@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparez - Profil Özeti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .profile-header {
+            background-color: #f5f7fa;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background-color: #4361ee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            position: relative;
+        }
+        
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .profile-rating .stars {
+            color: #FFD700;
+            margin-right: 0.5rem;
+        }
+        
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem;
+            padding: 0 1rem;
+        }
+        
+        .habits-container {
+            padding: 0 1rem;
+        }
+        
+        .habit-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .habit-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background-color: #f5f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: #4361ee;
+            font-size: 1.5rem;
+        }
+        
+        .habit-info {
+            flex: 1;
+        }
+        
+        .habit-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .habit-count {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .habit-progress {
+            width: 100%;
+            height: 6px;
+            background-color: #f0f0f0;
+            border-radius: 3px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .habit-progress-bar {
+            height: 100%;
+            background-color: #4361ee;
+            border-radius: 3px;
+        }
+        
+        .favorite-hotel {
+            padding: 0 1rem;
+            margin-bottom: 5rem;
+        }
+        
+        .hotel-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .hotel-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        
+        .hotel-content {
+            padding: 1rem;
+        }
+        
+        .hotel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hotel-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .hotel-rating {
+            display: flex;
+            align-items: center;
+        }
+        
+        .hotel-rating .stars {
+            color: #FFD700;
+            margin-right: 0.25rem;
+        }
+        
+        .hotel-subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hotel-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .hotel-price {
+            font-weight: 600;
+            color: #4361ee;
+        }
+        
+        .hotel-location {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .view-profile-btn {
+            display: block;
+            margin: 1.5rem 1rem;
+            padding: 1rem;
+            background-color: #4361ee;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .view-profile-btn:hover {
+            background-color: #3651d4;
+        }
+    </style>
+</head>
+<body class="profile-summary-page">
+    <div class="app-shell">
+        <!-- Header -->
+        <div class="header">
+            <a href="home.html" class="back-button">
+                <i class="fas fa-chevron-left"></i> Geri
+            </a>
+            <h1>Profil Özeti</h1>
+            <div style="width: 24px;"></div>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="profile-content">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="profile-name">Ahmet Yılmaz</h2>
+                
+                <div class="profile-rating">
+                    <div class="stars">★★★★★</div>
+                    <span>5.0</span>
+                </div>
+                
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">Spa Ziyareti</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Rezervasyon</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Değerlendirme</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Habits Section -->
+            <h3 class="section-title">Alışkanlıklarınız</h3>
+            <div class="habits-container">
+                <!-- Habit 1 -->
+                <div class="habit-item">
+                    <div class="habit-icon">
+                        <i class="fas fa-hand-sparkles"></i>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">İsveç Masajı</div>
+                        <div class="habit-count">12 ziyaret</div>
+                        <div class="habit-progress">
+                            <div class="habit-progress-bar" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Habit 2 -->
+                <div class="habit-item">
+                    <div class="habit-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">Sıcak Taş Terapisi</div>
+                        <div class="habit-count">8 ziyaret</div>
+                        <div class="habit-progress">
+                            <div class="habit-progress-bar" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Habit 3 -->
+                <div class="habit-item">
+                    <div class="habit-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <div class="habit-info">
+                        <div class="habit-name">Aromaterapi Masajı</div>
+                        <div class="habit-count">4 ziyaret</div>
+                        <div class="habit-progress">
+                            <div class="habit-progress-bar" style="width: 30%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Favorite Hotel -->
+            <h3 class="section-title">Favori Spa Oteliniz</h3>
+            <div class="favorite-hotel">
+                <div class="hotel-card">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aG90ZWwlMjBzcGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Grand Lüks Resort" class="hotel-image">
+                    <div class="hotel-content">
+                        <div class="hotel-header">
+                            <h3 class="hotel-title">Grand Lüks Resort</h3>
+                            <div class="hotel-rating">
+                                <span class="stars">★</span>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        <p class="hotel-subtitle">5 Yıldızlı Otel Spa</p>
+                        <p class="hotel-description">Lüks spa deneyimi ve profesyonel masaj terapistleri ile premium hizmet.</p>
+                        <div class="hotel-footer">
+                            <span class="hotel-price">₺1.590<span style="font-weight: 400; color: #666; font-size: 0.85rem;">/seans</span></span>
+                            <span class="hotel-location"><i class="fas fa-map-marker-alt"></i> İstanbul</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- View Full Profile Button -->
+            <a href="user-profile.html" class="view-profile-btn">
+                Tam Profili Görüntüle
+            </a>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="home.html" class="nav-item" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>Ana Sayfa</span>
+            </a>
+            <a href="booking.html" class="nav-item" data-page="booking">
+                <i class="far fa-calendar"></i>
+                <span>Rezervasyon</span>
+            </a>
+            <a href="services.html" class="nav-item" data-page="services">
+                <i class="fas fa-spa"></i>
+                <span>Hizmetler</span>
+            </a>
+            <a href="profile-summary.html" class="nav-item active" data-page="profile">
+                <i class="far fa-user"></i>
+                <span>Profil</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
