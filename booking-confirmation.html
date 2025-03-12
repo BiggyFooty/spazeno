@@ -16,6 +16,13 @@
             <a href="home.html" class="back-button">
                 <i class="fas fa-chevron-left"></i> Ana Sayfaya Dön
             </a>
+            <div style="flex: 1; text-align: center;">
+                <h1 style="font-size: var(--font-size-lg);">Rezervasyon Onayı</h1>
+            </div>
+            <a href="user-profile.html" style="width: 40px; height: 40px; border-radius: 50%; background-color: #F5F5F5; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; position: relative; overflow: hidden;">
+                <i class="fas fa-user" style="color: var(--primary-color);"></i>
+                <div class="profile-pulse" style="position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--primary-color); opacity: 0; animation: pulse 2s infinite;"></div>
+            </a>
         </div>
 
         <!-- Confirmation Content -->
@@ -88,17 +95,35 @@
                 <i class="fas fa-spa"></i>
                 <span>Hizmetler</span>
             </a>
-            <a href="profile-summary.html" class="nav-item" data-page="profile">
-                <i class="far fa-user"></i>
-                <span>Profil</span>
-            </a>
         </div>
     </div>
 
     <script src="js/app.js"></script>
     <script src="js/hotel-data.js"></script>
+    <script src="js/loading-animation.js"></script>
     <script>
+        // Add animation for profile icon
         document.addEventListener('DOMContentLoaded', function() {
+            // Add CSS for profile pulse animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse {
+                    0% {
+                        transform: scale(1);
+                        opacity: 0.7;
+                    }
+                    70% {
+                        transform: scale(1.2);
+                        opacity: 0;
+                    }
+                    100% {
+                        transform: scale(1);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
             // Generate a random booking ID
             const bookingId = 'SPZ-' + Math.floor(10000 + Math.random() * 90000);
             document.getElementById('booking-id').textContent = bookingId;

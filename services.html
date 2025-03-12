@@ -17,6 +17,10 @@
                 <i class="fas fa-chevron-left"></i> Geri
             </a>
             <h1 id="service-category-title">Lüks Spa Hizmetleri</h1>
+            <a href="user-profile.html" style="width: 40px; height: 40px; border-radius: 50%; background-color: #F5F5F5; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; position: relative; overflow: hidden;">
+                <i class="fas fa-user" style="color: var(--primary-color);"></i>
+                <div class="profile-pulse" style="position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--primary-color); opacity: 0; animation: pulse 2s infinite;"></div>
+            </a>
         </div>
 
         <!-- Service List -->
@@ -45,7 +49,7 @@
                             </div>
                             <p style="margin: var(--spacing-sm) 0; font-size: var(--font-size-sm);">Rahatlamayı teşvik etmek ve kas gerginliğini hafifletmek için nazik, akıcı vuruşlarla klasik bir tam vücut masajı.</p>
                             <div style="margin-top: var(--spacing-md); text-align: right;">
-                                <a href="booking.html?service=swedish-massage" class="btn btn-primary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">Rezervasyon</a>
+                                <a href="services.html?service=swedish-massage" class="btn btn-primary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">Otelleri Gör</a>
                             </div>
                         </div>
                     </div>
@@ -67,7 +71,7 @@
                             </div>
                             <p style="margin: var(--spacing-sm) 0; font-size: var(--font-size-sm);">Kronik gerginlik modellerini serbest bırakmak için kasın ve bağ dokusunun daha derin katmanlarını hedefler.</p>
                             <div style="margin-top: var(--spacing-md); text-align: right;">
-                                <a href="booking.html?service=deep-tissue" class="btn btn-primary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">Rezervasyon</a>
+                                <a href="services.html?service=deep-tissue" class="btn btn-primary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">Otelleri Gör</a>
                             </div>
                         </div>
                     </div>
@@ -89,7 +93,7 @@
                             </div>
                             <p style="margin: var(--spacing-sm) 0; font-size: var(--font-size-sm);">Isıtılmış taşlar, gergin kasları ısıtmak ve gevşetmek için vücudun belirli bölgelerine yerleştirilir.</p>
                             <div style="margin-top: var(--spacing-md); text-align: right;">
-                                <a href="booking.html?service=hot-stone" class="btn btn-primary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">Rezervasyon</a>
+                                <a href="services.html?service=hot-stone" class="btn btn-primary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">Otelleri Gör</a>
                             </div>
                         </div>
                     </div>
@@ -111,7 +115,7 @@
                             </div>
                             <p style="margin: var(--spacing-sm) 0; font-size: var(--font-size-sm);">Cildinizi temizlemek, peeling yapmak ve nemlendirmek için yüksek kaliteli ürünler kullanan premium bir cilt bakımı.</p>
                             <div style="margin-top: var(--spacing-md); text-align: right;">
-                                <a href="booking.html?service=luxury-facial" class="btn btn-primary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">Rezervasyon</a>
+                                <a href="services.html?service=luxury-facial" class="btn btn-primary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">Otelleri Gör</a>
                             </div>
                         </div>
                     </div>
@@ -133,17 +137,37 @@
                 <i class="fas fa-spa"></i>
                 <span>Hizmetler</span>
             </a>
-            <a href="profile-summary.html" class="nav-item" data-page="profile">
-                <i class="far fa-user"></i>
-                <span>Profil</span>
-            </a>
         </div>
     </div>
 
     <script src="js/app.js"></script>
     <script src="js/page-transitions.js"></script>
     <script src="js/hotel-data.js"></script>
+    <script src="js/loading-animation.js"></script>
     <script>
+        // Add animation for profile icon
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add CSS for profile pulse animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse {
+                    0% {
+                        transform: scale(1);
+                        opacity: 0.7;
+                    }
+                    70% {
+                        transform: scale(1.2);
+                        opacity: 0;
+                    }
+                    100% {
+                        transform: scale(1);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+
         // Get the category from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const category = urlParams.get('category');
@@ -198,26 +222,8 @@
                 titleElement.textContent = 'Lüks Cilt Bakımı Sunan Oteller';
             }
             
-            // Add loading animation with quotes
-            const loadingElement = document.createElement('div');
-            loadingElement.style.textAlign = 'center';
-            loadingElement.style.padding = '2rem 0';
-            loadingElement.innerHTML = `
-                <div class="loading-spinner" style="margin-bottom: 1rem;">
-                    <i class="fas fa-spa fa-spin" style="font-size: 2rem; color: var(--primary-color);"></i>
-                </div>
-                <p class="quote" style="font-style: italic; color: var(--text-muted); margin-bottom: 0.5rem;">
-                    "Huzurlu bir zihin, sağlıklı bir vücudun temelidir."
-                </p>
-                <p style="font-size: 0.8rem; color: var(--text-muted);">Oteller yükleniyor...</p>
-            `;
-            serviceContainer.appendChild(loadingElement);
-            
-            // Simulate loading delay
-            setTimeout(() => {
-                // Remove loading animation
-                serviceContainer.removeChild(loadingElement);
-                
+            // Show loading overlay
+            showLoadingOverlay("Oteller yükleniyor...", 2000, () => {
                 // Filter hotels (in a real app, this would be based on which hotels offer the service)
                 // For demo, we'll just show all hotels
                 const hotels = window.hotelData || [];
@@ -272,8 +278,7 @@
                     </a>
                 `;
                 serviceContainer.appendChild(viewAllButton);
-                
-            }, 2000); // 2 second loading delay for demo
+            });
         }
     </script>
 </body>
