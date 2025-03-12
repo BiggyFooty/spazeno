@@ -336,16 +336,39 @@ This script will:
 npm run github:token
 ```
 
-This script uses the provided personal access token (`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`) to authenticate with GitHub, making it easier to push your code without having to enter credentials. This is especially useful for:
-- CI/CD environments
-- Automated deployments
-- Systems where you can't use interactive authentication
+This script uses the provided personal access token (`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`) to authenticate with GitHub, making it easier to push your code without having to enter credentials.
+
+### Fixed GitHub Push (For Detached HEAD Issues)
+
+If you encounter a "detached HEAD" error when trying to push to GitHub, use these fixed versions:
+
+```bash
+# Standard push with detached HEAD fix
+npm run github:fix
+
+# Push with token and detached HEAD fix
+npm run github:fix:token
+```
+
+These scripts will:
+1. Detect if your repository is in a detached HEAD state
+2. Create a temporary branch to save your changes
+3. Create or checkout the target branch (e.g., main)
+4. Merge your changes from the temporary branch
+5. Continue with the normal push process
+
+This is especially useful when:
+- You're working with an existing repository
+- You've checked out a specific commit
+- You're experiencing "detached HEAD" errors
+- You need to push changes from a CI/CD environment
 
 These scripts make it easy to:
 - Version control your project
 - Collaborate with others
 - Deploy to platforms that integrate with GitHub
 - Set up continuous integration/deployment
+- Recover from common Git errors
 
 ## Custom Domain Setup
 
@@ -373,4 +396,4 @@ If you need to add additional external resources, you'll need to update:
 
 This project is licensed under the MIT License.
 "# spazeno" 
-"# spazeno" 
+"# spazeno"

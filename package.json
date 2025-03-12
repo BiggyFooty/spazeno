@@ -14,7 +14,9 @@
     "check:netlify": "node check-netlify-files.js",
     "check-netlify": "node check-netlify-files.js",
     "github": "node push-to-github.js",
-    "github:token": "node push-to-github-with-token.js"
+    "github:token": "node push-to-github-with-token.js",
+    "github:fix": "node push-to-github-fix.js",
+    "github:fix:token": "node push-to-github-fix-with-token.js"
   },
   "dependencies": {
     "compression": "^1.7.4",
