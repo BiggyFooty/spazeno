@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sparez - Otel Spa Rezervasyonları</title>
+    <title>Sparez - Kayıt Ol</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/login.css">
@@ -132,31 +132,6 @@
             transition: color 0.3s ease;
         }
         
-        .form-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-        }
-        
-        .remember-me {
-            display: flex;
-            align-items: center;
-        }
-        
-        .remember-me input {
-            margin-right: 0.5rem;
-            cursor: pointer;
-            accent-color: #4361ee;
-        }
-        
-        .forgot-password {
-            color: #4361ee;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
         .submit-btn {
             width: 100%;
             padding: 0.9rem;
@@ -189,73 +164,17 @@
         }
     </style>
 </head>
-<body class="login-page">
+<body class="signup-page">
     <div class="app-shell">
-        <!-- Login Content -->
+        <!-- Signup Content -->
         <div class="login-container">
             <div class="login-logo">
                 <i class="fas fa-layer-group"></i>
             </div>
             
             <div class="form-container">
-                <!-- Login Form -->
-                <div class="login-form active" id="loginForm">
-                    <div class="login-header">
-                        <h2>Tekrar hoş geldiniz</h2>
-                        <p>Giriş yapmak için bilgilerinizi girin.</p>
-                    </div>
-                    
-                    <!-- Social Login Buttons -->
-                    <div class="social-login">
-                        <button class="social-btn" data-provider="apple">
-                            <i class="fab fa-apple"></i>
-                        </button>
-                        <button class="social-btn" data-provider="google">
-                            <i class="fab fa-google"></i>
-                        </button>
-                        <button class="social-btn" data-provider="twitter">
-                            <i class="fab fa-twitter"></i>
-                        </button>
-                    </div>
-                    
-                    <!-- Divider -->
-                    <div class="divider">
-                        <span>VEYA</span>
-                    </div>
-                    
-                    <form>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="loginEmail" placeholder="E-posta adresinizi girin..." required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <div class="password-field">
-                                <input type="password" class="form-control" id="loginPassword" placeholder="••••••••" required>
-                                <button type="button" class="password-toggle" id="loginPasswordToggle">
-                                    <i class="far fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="form-footer">
-                            <div class="remember-me">
-                                <input type="checkbox" id="rememberMe">
-                                <label for="rememberMe">Beni hatırla</label>
-                            </div>
-                            <a href="#" class="forgot-password">Şifremi unuttum?</a>
-                        </div>
-                        
-                        <button type="submit" class="submit-btn">Giriş Yap</button>
-                    </form>
-                    
-                    <div class="signup-link">
-                        <span>Henüz bir hesabınız yok mu?</span> 
-                        <a href="#" id="showSignup">Kayıt Ol</a>
-                    </div>
-                </div>
-                
                 <!-- Signup Form -->
-                <div class="signup-form" id="signupForm">
+                <div class="signup-form active">
                     <div class="login-header">
                         <h2>Hesap Oluştur</h2>
                         <p>Hesap oluşturmak için bilgilerinizi doldurun.</p>
@@ -306,12 +225,12 @@
                             </div>
                         </div>
                         
-                        <button type="submit" class="submit-btn">Hesap Oluştur</button>
+                        <button type="submit" class="submit-btn">Kayıt Ol</button>
                     </form>
                     
                     <div class="signup-link">
                         <span>Zaten bir hesabınız var mı?</span> 
-                        <a href="#" id="showLogin">Giriş Yap</a>
+                        <a href="index.html">Giriş Yap</a>
                     </div>
                 </div>
             </div>
@@ -335,19 +254,6 @@
                 icon.classList.toggle('fa-eye');
                 icon.classList.toggle('fa-eye-slash');
             });
-        });
-        
-        // Toggle between login and signup forms
-        document.getElementById('showSignup').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('loginForm').classList.remove('active');
-            document.getElementById('signupForm').classList.add('active');
-        });
-        
-        document.getElementById('showLogin').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('signupForm').classList.remove('active');
-            document.getElementById('loginForm').classList.add('active');
         });
     </script>
 </body>

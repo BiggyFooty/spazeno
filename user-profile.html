@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparez - Kullanıcı Profili</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .profile-header {
+            background-color: #f5f7fa;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background-color: #4361ee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            position: relative;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .edit-avatar {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 32px;
+            height: 32px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4361ee;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .profile-email {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .profile-menu {
+            background-color: white;
+            border-radius: 12px;
+            margin: 1rem;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .menu-section {
+            margin-bottom: 1rem;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: #f5f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: #4361ee;
+        }
+        
+        .menu-text {
+            flex: 1;
+        }
+        
+        .menu-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .menu-subtitle {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .menu-arrow {
+            color: #ccc;
+        }
+        
+        .logout-btn {
+            display: block;
+            margin: 2rem 1rem;
+            padding: 1rem;
+            background-color: #fee2e2;
+            color: #dc2626;
+            border: none;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: #fecaca;
+        }
+    </style>
+</head>
+<body class="profile-page">
+    <div class="app-shell">
+        <!-- Header -->
+        <div class="header">
+            <a href="home.html" class="back-button">
+                <i class="fas fa-chevron-left"></i> Geri
+            </a>
+            <h1>Profil</h1>
+            <div style="width: 24px;"></div>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="profile-content">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                    <div class="edit-avatar">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <h2 class="profile-name">Ahmet Yılmaz</h2>
+                <p class="profile-email">ahmet.yilmaz@example.com</p>
+                
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Rezervasyon</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">Favori</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Değerlendirme</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Profile Menu -->
+            <div class="profile-menu">
+                <div class="menu-section">
+                    <div class="menu-item" onclick="window.location.href='edit-profile.html'">
+                        <div class="menu-icon">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <div class="menu-text">
+                            <div class="menu-title">Profili Düzenle</div>
+                            <div class="menu-subtitle">Kişisel bilgilerinizi güncelleyin</div>
+                        </div>
+                        <div class="menu-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="window.location.href='payment-methods.html'">
+                        <div class="menu-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="menu-text">
+                            <div class="menu-title">Ödeme Yöntemleri</div>
+                            <div class="menu-subtitle">Ödeme kartlarınızı yönetin</div>
+                        </div>
+                        <div class="menu-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="window.location.href='notifications.html'">
+                        <div class="menu-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="menu-text">
+                            <div class="menu-title">Bildirim Ayarları</div>
+                            <div class="menu-subtitle">Bildirim tercihlerinizi yönetin</div>
+                        </div>
+                        <div class="menu-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-section">
+                    <div class="menu-item" onclick="window.location.href='privacy.html'">
+                        <div class="menu-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="menu-text">
+                            <div class="menu-title">Gizlilik Ayarları</div>
+                            <div class="menu-subtitle">Hesap gizliliğinizi yönetin</div>
+                        </div>
+                        <div class="menu-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="window.location.href='language.html'">
+                        <div class="menu-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="menu-text">
+                            <div class="menu-title">Dil</div>
+                            <div class="menu-subtitle">Türkçe</div>
+                        </div>
+                        <div class="menu-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-item" onclick="window.location.href='help.html'">
+                        <div class="menu-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div class="menu-text">
+                            <div class="menu-title">Yardım ve Destek</div>
+                            <div class="menu-subtitle">SSS ve müşteri desteği</div>
+                        </div>
+                        <div class="menu-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Logout Button -->
+            <button class="logout-btn" onclick="window.location.href='index.html'">
+                <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+            </button>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="home.html" class="nav-item" data-page="home">
+                <i class="fas fa-home"></i>
+                <span>Ana Sayfa</span>
+            </a>
+            <a href="booking.html" class="nav-item" data-page="booking">
+                <i class="far fa-calendar"></i>
+                <span>Rezervasyon</span>
+            </a>
+            <a href="services.html" class="nav-item" data-page="services">
+                <i class="fas fa-spa"></i>
+                <span>Hizmetler</span>
+            </a>
+            <a href="user-profile.html" class="nav-item active" data-page="profile">
+                <i class="far fa-user"></i>
+                <span>Profil</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

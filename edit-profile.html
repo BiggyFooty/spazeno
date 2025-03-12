@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparez - Profil Düzenle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .profile-header {
+            background-color: #f5f7fa;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background-color: #4361ee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            position: relative;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .edit-avatar {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 32px;
+            height: 32px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4361ee;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        
+        .form-container {
+            padding: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #fff;
+        }
+        
+        .form-control:focus {
+            border-color: #4361ee;
+            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+        
+        .form-hint {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        .save-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background-color: #222;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .save-btn:hover {
+            background-color: #000;
+        }
+        
+        .cancel-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background-color: #f5f5f5;
+            color: #333;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body class="edit-profile-page">
+    <div class="app-shell">
+        <!-- Header -->
+        <div class="header">
+            <a href="user-profile.html" class="back-button">
+                <i class="fas fa-chevron-left"></i> Geri
+            </a>
+            <h1>Profili Düzenle</h1>
+            <div style="width: 24px;"></div>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="profile-content">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                    <div class="edit-avatar">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Edit Form -->
+            <div class="form-container">
+                <form id="editProfileForm">
+                    <div class="form-group">
+                        <label for="fullName" class="form-label">Ad Soyad</label>
+                        <input type="text" id="fullName" class="form-control" value="Ahmet Yılmaz" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">E-posta Adresi</label>
+                        <input type="email" id="email" class="form-control" value="ahmet.yilmaz@example.com" required>
+                        <div class="form-hint">E-posta adresinizi değiştirmek için doğrulama gerekecektir.</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Telefon Numarası</label>
+                        <input type="tel" id="phone" class="form-control" value="+90 555 123 4567" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthdate" class="form-label">Doğum Tarihi</label>
+                        <input type="date" id="birthdate" class="form-control" value="1985-06-15">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="gender" class="form-label">Cinsiyet</label>
+                        <select id="gender" class="form-control">
+                            <option value="male" selected>Erkek</option>
+                            <option value="female">Kadın</option>
+                            <option value="other">Diğer</option>
+                            <option value="prefer-not-to-say">Belirtmek İstemiyorum</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address" class="form-label">Adres</label>
+                        <textarea id="address" class="form-control" rows="3">Atatürk Mah. Cumhuriyet Cad. No: 123 Daire: 5, Kadıköy, İstanbul</textarea>
+                    </div>
+                    
+                    <button type="submit" class="save-btn">Değişiklikleri Kaydet</button>
+                    <button type="button" class="cancel-btn" onclick="window.location.href='user-profile.html'">İptal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real app, this would send the form data to the server
+            // For this demo, we'll just redirect back to the profile page
+            alert('Profil bilgileriniz başarıyla güncellendi!');
+            window.location.href = 'user-profile.html';
+        });
+    </script>
+</body>
+</html>
