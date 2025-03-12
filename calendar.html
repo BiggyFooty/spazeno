@@ -394,16 +394,74 @@
     </div>
 
     <script src="js/app.js"></script>
+    <script src="js/booking-data.json.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Get booking details from URL parameters or localStorage
-            const urlParams = new URLSearchParams(window.location.search);
-            const bookingId = urlParams.get('bookingId') || 'SPZ-80978';
+            // Get booking details from the global variable
+            const bookingData = window.CURRENT_BOOKING_DATA || {};
             
-            // Update booking ID in the list
+            // Get booking details from URL parameters as fallback
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookingId = bookingData.bookingId || urlParams.get('bookingId') || 'SPZ-80978';
+            
+            // Update booking details in the list
             const bookingIdElement = document.querySelector('.booking-id');
             if (bookingIdElement) {
                 bookingIdElement.textContent = bookingId;
+            }
+            
+            // Update booking title (service name)
+            const bookingTitleElement = document.querySelector('.booking-title');
+            if (bookingTitleElement && bookingData.service) {
+                bookingTitleElement.textContent = bookingData.service;
+            }
+            
+            // Update booking time
+            const bookingTimeElement = document.querySelector('.booking-time');
+            if (bookingTimeElement && bookingData.time) {
+                // Calculate end time (assuming 1 hour duration)
+                const startTime = bookingData.time;
+                let [hours, minutes] = startTime.split(':').map(Number);
+                let endHours = hours + 1;
+                let endMinutes = minutes;
+                
+                if (endHours > 23) {
+                    endHours = 0;
+                }
+                
+                const endTime = `${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
+                bookingTimeElement.textContent = `${startTime} - ${endTime}`;
+            }
+            
+            // Update booking location (hotel name)
+            const bookingLocationElement = document.querySelector('.booking-location');
+            if (bookingLocationElement && bookingData.hotel) {
+                bookingLocationElement.textContent = `${bookingData.hotel} Spa`;
+            }
+            
+            // Highlight the correct day in the calendar
+            if (bookingData.date) {
+                // Extract the day number from the date (e.g., "Per 13" -> "13")
+                const dayMatch = bookingData.date.match(/\d+/);
+                if (dayMatch) {
+                    const dayNumber = dayMatch[0];
+                    
+                    // Find and activate the corresponding calendar day
+                    const calendarDays = document.querySelectorAll('.calendar-day');
+                    calendarDays.forEach(day => {
+                        const dayNumberElement = day.querySelector('.calendar-day-number');
+                        if (dayNumberElement && dayNumberElement.textContent === dayNumber) {
+                            // Remove active class from all days
+                            calendarDays.forEach(d => d.classList.remove('active', 'has-event'));
+                            
+                            // Add active and has-event classes to the booking day
+                            day.classList.add('active', 'has-event');
+                            
+                            // Update bookings list title
+                            document.querySelector('.bookings-list h3').textContent = `${dayNumber} Mart için Rezervasyonlar`;
+                        }
+                    });
+                }
             }
             
             // Calendar day click event
