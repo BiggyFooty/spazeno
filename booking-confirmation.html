@@ -6,6 +6,22 @@
     <title>Sparez - Rezervasyon Onayı</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            70% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body class="confirmation-page">
     <div class="app-shell">
@@ -101,58 +117,56 @@
     <script src="js/app.js"></script>
     <script src="js/hotel-data.js"></script>
     <script src="js/loading-animation.js"></script>
+    <script src="js/booking-cache.js"></script>
     <script>
-        // Add animation for profile icon
         document.addEventListener('DOMContentLoaded', function() {
-            // Add CSS for profile pulse animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes pulse {
-                    0% {
-                        transform: scale(1);
-                        opacity: 0.7;
-                    }
-                    70% {
-                        transform: scale(1.2);
-                        opacity: 0;
-                    }
-                    100% {
-                        transform: scale(1);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-            
             // Generate a random booking ID
             const bookingId = 'SPZ-' + Math.floor(10000 + Math.random() * 90000);
             document.getElementById('booking-id').textContent = bookingId;
             
-            // Get URL parameters
+            // Get booking details from cache
+            const cachedBookingDetails = getBookingFromCache();
+            
+            // Get URL parameters as fallback
             const urlParams = new URLSearchParams(window.location.search);
-            const service = urlParams.get('service');
-            const artist = urlParams.get('artist');
+            const hotelParam = urlParams.get('hotel') || (cachedBookingDetails ? cachedBookingDetails.hotel : null);
+            const serviceParam = urlParams.get('service') || (cachedBookingDetails ? cachedBookingDetails.service : null);
+            const dateParam = urlParams.get('date') || (cachedBookingDetails ? cachedBookingDetails.date : null);
+            const timeParam = urlParams.get('time') || (cachedBookingDetails ? cachedBookingDetails.time : null);
+            const genderParam = urlParams.get('gender') || (cachedBookingDetails ? cachedBookingDetails.gender : null);
             
             // Set service name based on service parameter
-            if (service) {
+            if (serviceParam) {
                 const serviceElement = document.getElementById('service-name');
                 if (serviceElement) {
-                    if (service.includes('swedish')) {
-                        serviceElement.textContent = 'İsveç Masajı';
-                    } else if (service.includes('deep-tissue')) {
-                        serviceElement.textContent = 'Derin Doku Masajı';
-                    } else if (service.includes('hot-stone')) {
-                        serviceElement.textContent = 'Sıcak Taş Terapisi';
-                    } else if (service.includes('facial')) {
-                        serviceElement.textContent = 'Lüks Cilt Bakımı';
-                    } else {
-                        serviceElement.textContent = 'Spa Tedavisi';
-                    }
+                    serviceElement.textContent = serviceParam;
                 }
             }
             
-            // Get hotel parameter from URL
-            const hotelParam = urlParams.get('hotel');
+            // Set booking date and time based on parameters
+            const dateElement = document.getElementById('booking-datetime');
+            if (dateElement && dateParam && timeParam) {
+                // Get current year
+                const year = new Date().getFullYear();
+                dateElement.textContent = `${dateParam} ${year}, ${timeParam}`;
+            } else if (dateElement) {
+                // Fallback to default date/time generation
+                // Get tomorrow's date
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                
+                // Format the date
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = tomorrow.toLocaleDateString('tr-TR', options);
+                
+                // Set random time
+                const hours = [9, 10, 11, 14, 15, 16];
+                const randomHour = hours[Math.floor(Math.random() * hours.length)];
+                const minutes = ['00', '30'];
+                const randomMinute = minutes[Math.floor(Math.random() * minutes.length)];
+                
+                dateElement.textContent = `${formattedDate}, ${randomHour}:${randomMinute}`;
+            }
             
             // Set hotel name based on hotel parameter
             if (hotelParam) {
@@ -176,53 +190,17 @@
                         locationAddressElement.textContent = 'İstanbul, Türkiye';
                     }
                 }
-            } 
-            // Fallback to artist parameter if hotel parameter is not provided
-            else if (artist) {
-                const hotelElement = document.getElementById('hotel-name');
-                const locationNameElement = document.getElementById('location-name');
-                const locationAddressElement = document.getElementById('location-address');
-                
-                if (hotelElement && locationNameElement && locationAddressElement) {
-                    if (artist === '1') {
-                        hotelElement.textContent = 'Grand Luxury Resort';
-                        locationNameElement.textContent = 'Grand Luxury Resort Spa';
-                        locationAddressElement.textContent = '123 Wellness Caddesi, İstanbul';
-                    } else if (artist === '2') {
-                        hotelElement.textContent = 'Huzur Wellness Otel';
-                        locationNameElement.textContent = 'Huzur Wellness Spa';
-                        locationAddressElement.textContent = '45 Deniz Manzara Sokak, Antalya';
-                    } else if (artist === '3') {
-                        hotelElement.textContent = 'Vaha Spa & Resort';
-                        locationNameElement.textContent = 'Vaha Spa Merkezi';
-                        locationAddressElement.textContent = '78 Palmiye Bulvarı, Bodrum';
-                    } else {
-                        hotelElement.textContent = 'Elite Spa Otel';
-                        locationNameElement.textContent = 'Elite Spa & Wellness';
-                        locationAddressElement.textContent = '22 Lüks Yaşam Caddesi, İzmir';
-                    }
-                }
             }
             
-            // Set booking date and time
-            const dateElement = document.getElementById('booking-datetime');
-            if (dateElement) {
-                // Get tomorrow's date
-                const tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                
-                // Format the date
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                const formattedDate = tomorrow.toLocaleDateString('tr-TR', options);
-                
-                // Set random time
-                const hours = [9, 10, 11, 14, 15, 16];
-                const randomHour = hours[Math.floor(Math.random() * hours.length)];
-                const minutes = ['00', '30'];
-                const randomMinute = minutes[Math.floor(Math.random() * minutes.length)];
-                
-                dateElement.textContent = `${formattedDate}, ${randomHour}:${randomMinute}`;
-            }
+            // Log booking details for debugging
+            console.log('Booking details from cache:', cachedBookingDetails);
+            console.log('Booking details from URL:', { 
+                hotel: hotelParam, 
+                service: serviceParam, 
+                date: dateParam, 
+                time: timeParam, 
+                gender: genderParam 
+            });
         });
     </script>
 </body>

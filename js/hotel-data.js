@@ -10,210 +10,70 @@ var hotelData = [
     "sube_adi": "Elite World Europe",
     "adres": "Yeşilköy Mah., Havaalanı Caddesi No: 34, Bakırköy, İstanbul",
     "google_yildiz": 4.3,
-    "fotograf_linki": "https://www.google.com/search?q=Elite+World+Europe+hotel"
-  },
-  {
-    "otel_isim": "Elite World",
-    "sube_adi": "Elite World Business",
-    "adres": "Kocatepe Mah., Abide-i Hürriyet Cd. No: 29, Şişli, İstanbul",
-    "google_yildiz": 4.4,
-    "fotograf_linki": "https://www.google.com/search?q=Elite+World+Business+hotel"
+    "fotograf_linki": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "aciklama": "Elite World Europe, lüks ve konforun mükemmel bir şekilde harmanlandığı bir spa deneyimi sunuyor. Modern tesislerimiz ve uzman terapistlerimizle kendinizi yenilenmiş hissedeceksiniz.",
+    "hizmetler": ["İsveç Masajı", "Derin Doku Masajı", "Sıcak Taş Terapisi", "Aromaterapi", "Yüz Bakımı"],
+    "yorumlar": [
+      {"kullanici": "Ayşe Y.", "yildiz": 5, "yorum": "Harika bir deneyimdi, kesinlikle tekrar geleceğim!"},
+      {"kullanici": "Mehmet K.", "yildiz": 4, "yorum": "Terapistler çok profesyonel, ortam çok rahatlatıcı."},
+      {"kullanici": "Zeynep A.", "yildiz": 4, "yorum": "Masaj sonrası kendimi yenilenmiş hissettim."}
+    ]
   },
   {
     "otel_isim": "Radisson Blu",
     "sube_adi": "Radisson Blu Bosphorus",
     "adres": "Çırağan Caddesi No: 46, Beşiktaş, İstanbul",
     "google_yildiz": 4.5,
-    "fotograf_linki": "https://www.google.com/search?q=Radisson+Blu+Bosphorus+hotel"
-  },
-  {
-    "otel_isim": "Radisson Blu",
-    "sube_adi": "Radisson Blu Şişli",
-    "adres": "Büyükdere Cad. No: 19, Şişli, İstanbul",
-    "google_yildiz": 4.2,
-    "fotograf_linki": "https://www.google.com/search?q=Radisson+Blu+Şişli+hotel"
+    "fotograf_linki": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "aciklama": "Boğaz manzarası eşliğinde lüks bir spa deneyimi yaşayın. Radisson Blu Bosphorus, İstanbul'un kalbinde benzersiz bir rahatlama fırsatı sunuyor.",
+    "hizmetler": ["İsveç Masajı", "Aromaterapi", "Sıcak Taş Terapisi", "Türk Hamamı", "Cilt Bakımı"],
+    "yorumlar": [
+      {"kullanici": "Deniz K.", "yildiz": 5, "yorum": "Boğaz manzarası eşliğinde masaj harika bir deneyimdi."},
+      {"kullanici": "Ece Y.", "yildiz": 5, "yorum": "Terapistler çok profesyonel, kesinlikle tavsiye ederim."},
+      {"kullanici": "Murat S.", "yildiz": 4, "yorum": "Ortam çok lüks ve rahatlatıcı."}
+    ]
   },
   {
     "otel_isim": "Lazzoni",
     "sube_adi": "Lazzoni Hotel",
     "adres": "Ortabayır Mah., Dereboyu Cd. No: 37, Beşiktaş, İstanbul",
     "google_yildiz": 4.6,
-    "fotograf_linki": "https://www.google.com/search?q=Lazzoni+Hotel"
+    "fotograf_linki": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "aciklama": "Lazzoni Hotel, modern tasarımı ve özel spa hizmetleriyle misafirlerine unutulmaz bir deneyim sunuyor. Uzman terapistlerimiz sizin için en uygun tedaviyi önerecektir.",
+    "hizmetler": ["İsveç Masajı", "Derin Doku Masajı", "Bali Masajı", "Aromaterapi", "Vücut Bakımı"],
+    "yorumlar": [
+      {"kullanici": "Gizem Y.", "yildiz": 5, "yorum": "Modern tasarım ve kaliteli hizmet bir arada."},
+      {"kullanici": "Onur K.", "yildiz": 4, "yorum": "Bali masajı gerçekten çok rahatlatıcıydı."},
+      {"kullanici": "Seda M.", "yildiz": 5, "yorum": "Terapistler alanında uzman, çok memnun kaldım."}
+    ]
   },
   {
     "otel_isim": "Richmond",
     "sube_adi": "Richmond Nua Wellness Spa",
     "adres": "Merkez Mah., Darıcadı Sokak No: 3, Kadıköy, İstanbul",
     "google_yildiz": 4.1,
-    "fotograf_linki": "https://www.google.com/search?q=Richmond+Nua+Wellness+Spa"
-  },
-  {
-    "otel_isim": "Elite World",
-    "sube_adi": "Elite World Istanbul",
-    "adres": "Florya Mah., Yeşilköy Caddesi No: 47, Bakırköy, İstanbul",
-    "google_yildiz": 4.3,
-    "fotograf_linki": "https://www.google.com/search?q=Elite+World+Istanbul+hotel"
-  },
-  {
-    "otel_isim": "Radisson Blu",
-    "sube_adi": "Radisson Blu Taksim",
-    "adres": "Cihangir Mah., Sıraselviler Caddesi No: 8, Beyoğlu, İstanbul",
-    "google_yildiz": 4.0,
-    "fotograf_linki": "https://www.google.com/search?q=Radisson+Blu+Taksim+hotel"
-  },
-  {
-    "otel_isim": "Lazzoni",
-    "sube_adi": "Lazzoni Spa & Wellness",
-    "adres": "Ulus Mah., Ahmet Adnan Saygun Cd. No: 45, Beşiktaş, İstanbul",
-    "google_yildiz": 4.7,
-    "fotograf_linki": "https://www.google.com/search?q=Lazzoni+Spa+%26+Wellness"
-  },
-  {
-    "otel_isim": "Richmond",
-    "sube_adi": "Richmond İstanbul",
-    "adres": "İstinye Mah., Sakıp Sabancı Cd. No: 12, Sarıyer, İstanbul",
-    "google_yildiz": 4.2,
-    "fotograf_linki": "https://www.google.com/search?q=Richmond+İstanbul+hotel"
-  },
-  {
-    "otel_isim": "Elite World",
-    "sube_adi": "Elite World Asia",
-    "adres": "Ataköy Mah., Çobançeşme Yolu No: 14, Bakırköy, İstanbul",
-    "google_yildiz": 4.3,
-    "fotograf_linki": "https://www.google.com/search?q=Elite+World+Asia+hotel"
-  },
-  {
-    "otel_isim": "Radisson Blu",
-    "sube_adi": "Radisson Blu Ortaköy",
-    "adres": "Ortaköy Mah., Dereboyu Cd. No: 25, Beşiktaş, İstanbul",
-    "google_yildiz": 4.4,
-    "fotograf_linki": "https://www.google.com/search?q=Radisson+Blu+Ortaköy+hotel"
-  },
-  {
-    "otel_isim": "Lazzoni",
-    "sube_adi": "Lazzoni Court",
-    "adres": "Nispetiye Mah., Kuruçeşme Cd. No: 22, Beşiktaş, İstanbul",
-    "google_yildiz": 4.5,
-    "fotograf_linki": "https://www.google.com/search?q=Lazzoni+Court"
-  },
-  {
-    "otel_isim": "Richmond",
-    "sube_adi": "Richmond Kadıköy",
-    "adres": "Rasimpaşa Mah., Moda Cd. No: 15, Kadıköy, İstanbul",
-    "google_yildiz": 4.0,
-    "fotograf_linki": "https://www.google.com/search?q=Richmond+Kadıköy+hotel"
-  },
-  {
-    "otel_isim": "Elite World",
-    "sube_adi": "Elite World Florya",
-    "adres": "Florya Mah., Yeşilköy Caddesi No: 52, Bakırköy, İstanbul",
-    "google_yildiz": 4.2,
-    "fotograf_linki": "https://www.google.com/search?q=Elite+World+Florya+hotel"
-  },
-  {
-    "otel_isim": "Radisson Blu",
-    "sube_adi": "Radisson Blu Levent",
-    "adres": "Levent Mah., Büyükdere Cd. No: 22, Şişli, İstanbul",
-    "google_yildiz": 4.3,
-    "fotograf_linki": "https://www.google.com/search?q=Radisson+Blu+Levent+hotel"
-  },
-  {
-    "otel_isim": "Lazzoni",
-    "sube_adi": "Lazzoni Suites",
-    "adres": "Levazım Mah., Zeytinoğlu Cd. No: 33, Beşiktaş, İstanbul",
-    "google_yildiz": 4.6,
-    "fotograf_linki": "https://www.google.com/search?q=Lazzoni+Suites"
-  },
-  {
-    "otel_isim": "Richmond",
-    "sube_adi": "Richmond Ataşehir",
-    "adres": "Ataşehir Mah., Barbaros Cd. No: 10, Ataşehir, İstanbul",
-    "google_yildiz": 4.1,
-    "fotograf_linki": "https://www.google.com/search?q=Richmond+Ataşehir+hotel"
-  },
-  {
-    "otel_isim": "Elite World",
-    "sube_adi": "Elite World Luxury",
-    "adres": "Yeşilköy Mah., Havaalanı Caddesi No: 36, Bakırköy, İstanbul",
-    "google_yildiz": 4.5,
-    "fotograf_linki": "https://www.google.com/search?q=Elite+World+Luxury+hotel"
-  },
-  {
-    "otel_isim": "Radisson Blu",
-    "sube_adi": "Radisson Blu Maslak",
-    "adres": "Maslak Mah., Büyükdere Cd. No: 32, Sarıyer, İstanbul",
-    "google_yildiz": 4.4,
-    "fotograf_linki": "https://www.google.com/search?q=Radisson+Blu+Maslak+hotel"
-  },
-  {
-    "otel_isim": "Lazzoni",
-    "sube_adi": "Lazzoni Residence",
-    "adres": "Etiler Mah., Nispetiye Cd. No: 18, Beşiktaş, İstanbul",
-    "google_yildiz": 4.7,
-    "fotograf_linki": "https://www.google.com/search?q=Lazzoni+Residence"
-  },
-  {
-    "otel_isim": "Richmond",
-    "sube_adi": "Richmond Marmara",
-    "adres": "Kadıköy Mah., Moda Cd. No: 20, Kadıköy, İstanbul",
-    "google_yildiz": 4.0,
-    "fotograf_linki": "https://www.google.com/search?q=Richmond+Marmara+hotel"
-  },
-  {
-    "otel_isim": "Elite World",
-    "sube_adi": "Elite World Plaza",
-    "adres": "Ataköy Mah., Çobançeşme Yolu No: 16, Bakırköy, İstanbul",
-    "google_yildiz": 4.3,
-    "fotograf_linki": "https://www.google.com/search?q=Elite+World+Plaza+hotel"
-  },
-  {
-    "otel_isim": "Radisson Blu",
-    "sube_adi": "Radisson Blu Etiler",
-    "adres": "Etiler Mah., Nispetiye Cd. No: 20, Beşiktaş, İstanbul",
-    "google_yildiz": 4.5,
-    "fotograf_linki": "https://www.google.com/search?q=Radisson+Blu+Etiler+hotel"
+    "fotograf_linki": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "aciklama": "Richmond Nua Wellness Spa, bütünsel bir yaklaşımla vücut ve zihin dengenizi yeniden kurmanıza yardımcı olur. Doğadan ilham alan tedavilerimizle kendinizi yenileyin.",
+    "hizmetler": ["İsveç Masajı", "Sıcak Taş Terapisi", "Ayurveda Masajı", "Detoks Programları", "Yüz Bakımı"],
+    "yorumlar": [
+      {"kullanici": "Hakan T.", "yildiz": 4, "yorum": "Detoks programı sonrası kendimi çok daha iyi hissediyorum."},
+      {"kullanici": "Elif S.", "yildiz": 5, "yorum": "Ayurveda masajı muhteşemdi, kesinlikle tavsiye ederim."},
+      {"kullanici": "Tolga B.", "yildiz": 3, "yorum": "Hizmet iyi ancak fiyatlar biraz yüksek."}
+    ]
   },
   {
     "otel_isim": "Lazzoni",
     "sube_adi": "Lazzoni Tower",
     "adres": "Levent Mah., Büyükdere Cd. No: 40, Şişli, İstanbul",
     "google_yildiz": 4.6,
-    "fotograf_linki": "https://www.google.com/search?q=Lazzoni+Tower"
-  },
-  {
-    "otel_isim": "Richmond",
-    "sube_adi": "Richmond Bosphorus",
-    "adres": "Bebek Mah., Cevdetpaşa Cd. No: 25, Beşiktaş, İstanbul",
-    "google_yildiz": 4.3,
-    "fotograf_linki": "https://www.google.com/search?q=Richmond+Bosphorus+hotel"
-  },
-  {
-    "otel_isim": "Elite World",
-    "sube_adi": "Elite World Garden",
-    "adres": "Florya Mah., Yeşilköy Caddesi No: 50, Bakırköy, İstanbul",
-    "google_yildiz": 4.2,
-    "fotograf_linki": "https://www.google.com/search?q=Elite+World+Garden+hotel"
-  },
-  {
-    "otel_isim": "Radisson Blu",
-    "sube_adi": "Radisson Blu Kadıköy",
-    "adres": "Kadıköy Mah., Moda Cd. No: 18, Kadıköy, İstanbul",
-    "google_yildiz": 4.1,
-    "fotograf_linki": "https://www.google.com/search?q=Radisson+Blu+Kadıköy+hotel"
-  },
-  {
-    "otel_isim": "Lazzoni",
-    "sube_adi": "Lazzoni Palace",
-    "adres": "Nispetiye Mah., Kuruçeşme Cd. No: 25, Beşiktaş, İstanbul",
-    "google_yildiz": 4.8,
-    "fotograf_linki": "https://www.google.com/search?q=Lazzoni+Palace"
-  },
-  {
-    "otel_isim": "Richmond",
-    "sube_adi": "Richmond İstinye",
-    "adres": "İstinye Mah., Sakıp Sabancı Cd. No: 15, Sarıyer, İstanbul",
-    "google_yildiz": 4.2,
-    "fotograf_linki": "https://www.google.com/search?q=Richmond+İstinye+hotel"
+    "fotograf_linki": "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "aciklama": "Lazzoni Tower, şehrin merkezinde modern ve lüks bir spa deneyimi sunuyor. İş hayatının stresinden uzaklaşmak için ideal bir ortam.",
+    "hizmetler": ["İsveç Masajı", "Derin Doku Masajı", "Sıcak Taş Terapisi", "Yüz Bakımı", "Vücut Bakımı"],
+    "yorumlar": [
+      {"kullanici": "Ceren Y.", "yildiz": 5, "yorum": "İş çıkışı uğradım ve harika bir deneyimdi."},
+      {"kullanici": "Mert K.", "yildiz": 4, "yorum": "Masaj teknikleri gerçekten etkileyici."},
+      {"kullanici": "Ayşe B.", "yildiz": 5, "yorum": "Personel çok ilgili ve profesyonel."}
+    ]
   }
 ];
 

@@ -6,6 +6,44 @@
     <title>Sparez - Rezervasyon</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            70% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+            14% {
+                transform: scale(1.1);
+            }
+            28% {
+                transform: scale(1);
+            }
+            42% {
+                transform: scale(1.1);
+            }
+            70% {
+                transform: scale(1);
+            }
+        }
+        
+        .btn-animated {
+            animation: heartbeat 1.5s infinite;
+        }
+    </style>
 </head>
 <body class="booking-page">
     <div class="app-shell">
@@ -192,29 +230,9 @@
     <script src="js/page-transitions.js"></script>
     <script src="js/hotel-data.js"></script>
     <script src="js/loading-animation.js"></script>
+    <script src="js/booking-cache.js"></script>
     <script>
-        // Add animation for profile icon
         document.addEventListener('DOMContentLoaded', function() {
-            // Add CSS for profile pulse animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes pulse {
-                    0% {
-                        transform: scale(1);
-                        opacity: 0.7;
-                    }
-                    70% {
-                        transform: scale(1.2);
-                        opacity: 0;
-                    }
-                    100% {
-                        transform: scale(1);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-            
             // Get URL parameters
             const urlParams = new URLSearchParams(window.location.search);
             const serviceParam = urlParams.get('service');
@@ -293,10 +311,46 @@
                     // Insert before the confirm button
                     bookingForm.insertBefore(hotelSection, confirmButton);
                     
-                    // Update the confirm button to include hotel information
+                    // Update the confirm button to include hotel information and service information
                     const confirmButtonLink = confirmButton.querySelector('a');
                     const currentHref = confirmButtonLink.getAttribute('href');
-                    confirmButtonLink.setAttribute('href', `${currentHref}?hotel=${encodeURIComponent(selectedHotel.sube_adi)}`);
+                    
+                    // Get the selected service
+                    const activeServiceOption = document.querySelector('.service-option.active');
+                    let serviceName = 'İsveç Masajı'; // Default
+                    
+                    if (activeServiceOption) {
+                        serviceName = activeServiceOption.querySelector('h4').textContent;
+                    }
+                    
+                    // Get the selected date
+                    const activeDateItem = document.querySelector('.date-item.active');
+                    let dateText = '';
+                    
+                    if (activeDateItem) {
+                        const day = activeDateItem.querySelector('.day').textContent;
+                        const date = activeDateItem.querySelector('.date').textContent;
+                        dateText = `${day} ${date}`;
+                    }
+                    
+                    // Get the selected time
+                    const activeTimeSlot = document.querySelector('.time-slot.active');
+                    let timeText = '';
+                    
+                    if (activeTimeSlot) {
+                        timeText = activeTimeSlot.textContent;
+                    }
+                    
+                    // Get the selected gender
+                    const activeGenderOption = document.querySelector('.gender-option.active');
+                    let genderText = '';
+                    
+                    if (activeGenderOption) {
+                        genderText = activeGenderOption.querySelector('span').textContent;
+                    }
+                    
+                    // Update the URL with all the selected information
+                    confirmButtonLink.setAttribute('href', `${currentHref}?hotel=${encodeURIComponent(selectedHotel.sube_adi)}&service=${encodeURIComponent(serviceName)}&date=${encodeURIComponent(dateText)}&time=${encodeURIComponent(timeText)}&gender=${encodeURIComponent(genderText)}`);
                 }
             }
             
@@ -306,10 +360,72 @@
                 confirmButton.addEventListener('click', function(e) {
                     e.preventDefault();
                     
+                    // Get the selected service
+                    const activeServiceOption = document.querySelector('.service-option.active');
+                    let serviceName = 'İsveç Masajı'; // Default
+                    
+                    if (activeServiceOption) {
+                        serviceName = activeServiceOption.querySelector('h4').textContent;
+                    }
+                    
+                    // Get the selected date
+                    const activeDateItem = document.querySelector('.date-item.active');
+                    let dateText = '';
+                    
+                    if (activeDateItem) {
+                        const day = activeDateItem.querySelector('.day').textContent;
+                        const date = activeDateItem.querySelector('.date').textContent;
+                        dateText = `${day} ${date}`;
+                    }
+                    
+                    // Get the selected time
+                    const activeTimeSlot = document.querySelector('.time-slot.active');
+                    let timeText = '';
+                    
+                    if (activeTimeSlot) {
+                        timeText = activeTimeSlot.textContent;
+                    }
+                    
+                    // Get the selected gender
+                    const activeGenderOption = document.querySelector('.gender-option.active');
+                    let genderText = '';
+                    
+                    if (activeGenderOption) {
+                        genderText = activeGenderOption.querySelector('span').textContent;
+                    }
+                    
+                    // Get the selected hotel from URL parameter
+                    let hotelName = '';
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const hotelParam = urlParams.get('hotel');
+                    
+                    if (hotelParam) {
+                        hotelName = hotelParam;
+                    } else {
+                        // Fallback to looking for hotel in the DOM
+                        const hotelElement = document.querySelector('.booking-form-section h4');
+                        if (hotelElement) {
+                            hotelName = hotelElement.textContent;
+                        }
+                    }
+                    
+                    // Create booking details object
+                    const bookingDetails = {
+                        service: serviceName,
+                        date: dateText,
+                        time: timeText,
+                        gender: genderText,
+                        hotel: hotelName
+                    };
+                    
+                    // Save booking details to cache
+                    saveBookingToCache(bookingDetails);
+                    
                     // Show loading overlay
                     showLoadingOverlay("Rezervasyonunuz oluşturuluyor...", 3000, () => {
                         const href = this.getAttribute('href');
-                        window.location.href = href;
+                        // Add all the selected information to the URL
+                        window.location.href = `${href}&service=${encodeURIComponent(serviceName)}&date=${encodeURIComponent(dateText)}&time=${encodeURIComponent(timeText)}&gender=${encodeURIComponent(genderText)}&hotel=${encodeURIComponent(hotelName)}`;
                     });
                 });
             }
