@@ -230,7 +230,7 @@
     <script src="js/page-transitions.js"></script>
     <script src="js/hotel-data.js"></script>
     <script src="js/loading-animation.js"></script>
-    <script src="js/booking-cache.js"></script>
+    <script src="js/booking-data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get URL parameters
@@ -418,8 +418,11 @@
                         hotel: hotelName
                     };
                     
-                    // Save booking details to cache
-                    saveBookingToCache(bookingDetails);
+                    // Save booking details to global variable and localStorage
+                    saveBookingData(bookingDetails);
+                    
+                    // Log for debugging
+                    console.log('Booking details saved:', bookingDetails);
                     
                     // Show loading overlay
                     showLoadingOverlay("Rezervasyonunuz oluşturuluyor...", 3000, () => {

@@ -117,23 +117,23 @@
     <script src="js/app.js"></script>
     <script src="js/hotel-data.js"></script>
     <script src="js/loading-animation.js"></script>
-    <script src="js/booking-cache.js"></script>
+    <script src="js/booking-data.json.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Generate a random booking ID
-            const bookingId = 'SPZ-' + Math.floor(10000 + Math.random() * 90000);
-            document.getElementById('booking-id').textContent = bookingId;
-            
-            // Get booking details from cache
-            const cachedBookingDetails = getBookingFromCache();
+            // Get booking details from the global variable
+            const bookingData = window.CURRENT_BOOKING_DATA || {};
             
             // Get URL parameters as fallback
             const urlParams = new URLSearchParams(window.location.search);
-            const hotelParam = urlParams.get('hotel') || (cachedBookingDetails ? cachedBookingDetails.hotel : null);
-            const serviceParam = urlParams.get('service') || (cachedBookingDetails ? cachedBookingDetails.service : null);
-            const dateParam = urlParams.get('date') || (cachedBookingDetails ? cachedBookingDetails.date : null);
-            const timeParam = urlParams.get('time') || (cachedBookingDetails ? cachedBookingDetails.time : null);
-            const genderParam = urlParams.get('gender') || (cachedBookingDetails ? cachedBookingDetails.gender : null);
+            const hotelParam = urlParams.get('hotel') || bookingData.hotel;
+            const serviceParam = urlParams.get('service') || bookingData.service;
+            const dateParam = urlParams.get('date') || bookingData.date;
+            const timeParam = urlParams.get('time') || bookingData.time;
+            const genderParam = urlParams.get('gender') || bookingData.gender;
+            
+            // Set booking ID
+            const bookingId = bookingData.bookingId || 'SPZ-' + Math.floor(10000 + Math.random() * 90000);
+            document.getElementById('booking-id').textContent = bookingId;
             
             // Set service name based on service parameter
             if (serviceParam) {
@@ -193,7 +193,7 @@
             }
             
             // Log booking details for debugging
-            console.log('Booking details from cache:', cachedBookingDetails);
+            console.log('Booking details from JSON:', bookingData);
             console.log('Booking details from URL:', { 
                 hotel: hotelParam, 
                 service: serviceParam, 
