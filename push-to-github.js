@@ -166,10 +166,49 @@ function addRemote(name, url) {
 }
 
 // Push to remote
-function pushToRemote(name, branch) {
+function pushToRemote(name, branch, token, repoUrl) {
   console.log(`Pushing to ${name}/${branch}...`);
+  
   try {
-    execSync(`git push -u ${name} ${branch}`, { stdio: 'inherit' });
+    // If token is provided, use it for authentication
+    if (token) {
+      // Extract owner and repo from the URL
+      let owner, repo;
+      
+      if (repoUrl.includes('github.com')) {
+        const urlParts = repoUrl
+          .replace(/^https?:\/\//, '')
+          .replace(/\.git$/, '')
+          .split('/');
+        
+        if (urlParts.length >= 3) {
+          owner = urlParts[1];
+          repo = urlParts[2];
+        }
+      }
+      
+      if (owner && repo) {
+        // Create URL with token
+        const tokenUrl = `https://${token}@github.com/${owner}/${repo}.git`;
+        console.log(`Using personal access token for authentication...`);
+        execSync(`git push -u ${name} ${branch}`, { 
+          stdio: 'inherit',
+          env: { ...process.env, GIT_TERMINAL_PROMPT: '0' },
+          input: tokenUrl
+        });
+      } else {
+        // Fallback to using the token directly in the URL
+        const tokenUrl = repoUrl.replace('https://', `https://${token}@`);
+        execSync(`git remote set-url ${name} "${tokenUrl}"`, { stdio: 'ignore' });
+        execSync(`git push -u ${name} ${branch}`, { stdio: 'inherit' });
+        // Reset the URL to not include the token (for security)
+        execSync(`git remote set-url ${name} "${repoUrl}"`, { stdio: 'ignore' });
+      }
+    } else {
+      // Regular push without token
+      execSync(`git push -u ${name} ${branch}`, { stdio: 'inherit' });
+    }
+    
     console.log(`✅ Successfully pushed to ${name}/${branch}!`);
     return true;
   } catch (error) {
@@ -315,10 +354,25 @@ async function main() {
     return;
   }
   
+  // Get personal access token
+  const defaultToken = process.env.GITHUB_TOKEN || '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';
+  
+  let token = defaultToken;
+  
+  if (!defaultToken) {
+    token = await new Promise(resolve => {
+      rl.question('GitHub personal access token (leave blank to use password authentication): ', answer => {
+        resolve(answer.trim());
+      });
+    });
+  } else {
+    console.log('✅ Using provided GitHub personal access token.');
+  }
+  
   // Push to remote
-  if (!pushToRemote('origin', branchName)) {
+  if (!pushToRemote('origin', branchName, token, repoUrl)) {
     console.log('\nIf you\'re seeing an authentication error, you might need to:');
-    console.log('1. Use a personal access token instead of your password');
+    console.log('1. Use a different personal access token with the correct scopes (repo)');
     console.log('2. Set up SSH keys for GitHub');
     console.log('3. Use the GitHub CLI to authenticate');
     

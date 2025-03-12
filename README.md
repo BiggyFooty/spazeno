@@ -314,7 +314,9 @@ For more control, you can deploy to a Virtual Private Server:
 
 ## GitHub Integration
 
-We've added a helper script to easily push your project to GitHub:
+We've added helper scripts to easily push your project to GitHub:
+
+### Standard GitHub Push
 
 ```bash
 npm run github
@@ -328,7 +330,18 @@ This script will:
 5. Commit and push all files to GitHub
 6. Provide next steps for deployment
 
-This makes it easy to:
+### GitHub Push with Personal Access Token
+
+```bash
+npm run github:token
+```
+
+This script uses the provided personal access token (`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`) to authenticate with GitHub, making it easier to push your code without having to enter credentials. This is especially useful for:
+- CI/CD environments
+- Automated deployments
+- Systems where you can't use interactive authentication
+
+These scripts make it easy to:
 - Version control your project
 - Collaborate with others
 - Deploy to platforms that integrate with GitHub
