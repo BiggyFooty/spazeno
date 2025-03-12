@@ -9,15 +9,7 @@
 </head>
 <body class="booking-page">
     <div class="app-shell">
-        <!-- Status Bar -->
-        <div class="status-bar">
-            <div class="time">9:41</div>
-            <div class="icons">
-                <i class="fas fa-signal"></i>
-                <i class="fas fa-wifi"></i>
-                <i class="fas fa-battery-full"></i>
-            </div>
-        </div>
+        <!-- Status Bar removed as requested -->
 
         <!-- Header -->
         <div class="header">
@@ -167,8 +159,11 @@
                         <div class="time-slot disabled">4:00 PM</div>
                         <div class="time-slot">5:00 PM</div>
                     </div>
-                    
-                    <a href="booking-confirmation.html" class="btn btn-primary btn-block btn-animated">Confirm Booking</a>
+                </div>
+                
+                <!-- Confirm Button - Moved outside the section for better positioning -->
+                <div style="padding: 0 var(--spacing-md); margin-bottom: 100px;">
+                    <a href="booking-confirmation.html" class="btn btn-primary btn-block btn-animated" style="position: relative; z-index: 10;">Confirm Booking</a>
                 </div>
             </form>
         </div>
@@ -195,6 +190,7 @@
     </div>
 
     <script src="js/app.js"></script>
+    <script src="js/page-transitions.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Service category selection
