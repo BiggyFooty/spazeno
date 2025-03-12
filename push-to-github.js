@@ -355,7 +355,7 @@ async function main() {
   }
   
   // Get personal access token
-  const defaultToken = process.env.GITHUB_TOKEN || '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';
+  const defaultToken = process.env.GITHUB_TOKEN || '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';
   
   let token = defaultToken;
   

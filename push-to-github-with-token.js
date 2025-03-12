@@ -13,7 +13,7 @@ const { spawn } = require('child_process');
 const path = require('path');
 
 // The personal access token provided by the user
-const GITHUB_TOKEN = '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';
+const GITHUB_TOKEN = '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';
 
 console.log('Sparez - GitHub Push Helper with Token');
 console.log('=====================================\n');

@@ -336,7 +336,7 @@ This script will:
 npm run github:token
 ```
 
-This script uses the provided personal access token (`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`) to authenticate with GitHub, making it easier to push your code without having to enter credentials.
+This script uses the provided personal access token (`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`) to authenticate with GitHub, making it easier to push your code without having to enter credentials.
 
 ### Fixed GitHub Push (For Detached HEAD Issues)
 
