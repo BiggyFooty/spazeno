@@ -1,21 +1,18 @@
 /**
  * Sparez - Page Transitions
  * This script adds smooth loading animations between page transitions
- * using Lottie animations for a fluid user experience.
+ * using custom animations for a fluid user experience.
  */
 
-// Load Lottie library
+// Load motion library
 document.addEventListener('DOMContentLoaded', function() {
-    // Create a script element for Lottie
-    const lottieScript = document.createElement('script');
-    lottieScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js';
-    lottieScript.integrity = 'sha512-yAr4fN9WZH6hESbOwoFZjyqmypIgqLYlEHdpf50T3NE5QKn8fX4tsEyoGpLQMKfyJpfPbUEbOgfXAAjGLNS/MA==';
-    lottieScript.crossOrigin = 'anonymous';
-    lottieScript.referrerPolicy = 'no-referrer';
-    document.head.appendChild(lottieScript);
+    // Load motion.js script
+    const motionScript = document.createElement('script');
+    motionScript.src = 'js/motion.js';
+    document.head.appendChild(motionScript);
 
-    // Wait for Lottie to load
-    lottieScript.onload = function() {
+    // Initialize page transitions when motion is loaded
+    motionScript.onload = function() {
         initPageTransitions();
     };
 });
@@ -41,9 +38,9 @@ function initPageTransitions() {
     `;
     document.body.appendChild(overlay);
 
-    // Create animation container with spa-themed content
+    // Create animation container with motion animation
     const animationContainer = document.createElement('div');
-    animationContainer.id = 'lottie-animation';
+    animationContainer.id = 'motion-animation';
     animationContainer.style.cssText = `
         width: 200px;
         height: 200px;
@@ -54,90 +51,42 @@ function initPageTransitions() {
         color: white;
     `;
     
-    // Add spa icon and text
-    const spaIconContainer = document.createElement('div');
-    spaIconContainer.className = 'spa-icon-container';
-    spaIconContainer.style.cssText = `
+    // Create animated box using motion
+    const animatedBox = document.createElement('div');
+    animatedBox.style.cssText = `
+        width: 100px;
+        height: 100px;
+        background-color: #f5f5f5;
+        border-radius: 5px;
         margin-bottom: 20px;
-        animation: pulse 2s infinite ease-in-out;
     `;
+    animationContainer.appendChild(animatedBox);
     
-    const spaIcon = document.createElement('i');
-    spaIcon.className = 'fas fa-spa';
-    spaIcon.style.cssText = `
-        font-size: 60px;
-        color: white;
-    `;
-    
+    // Add loading text
     const loadingText = document.createElement('div');
-    loadingText.textContent = 'Loading...';
+    loadingText.textContent = 'Yükleniyor...';
     loadingText.style.cssText = `
         font-size: 18px;
         margin-top: 15px;
         font-weight: 500;
     `;
-    
-    // Create loading dots animation
-    const loadingDots = document.createElement('div');
-    loadingDots.className = 'loading-dots';
-    loadingDots.style.cssText = `
-        display: flex;
-        gap: 5px;
-        margin-top: 10px;
-    `;
-    
-    for (let i = 0; i < 3; i++) {
-        const dot = document.createElement('div');
-        dot.style.cssText = `
-            width: 8px;
-            height: 8px;
-            background-color: white;
-            border-radius: 50%;
-            animation: loadingDot 1.5s infinite ease-in-out;
-            animation-delay: ${i * 0.2}s;
-        `;
-        loadingDots.appendChild(dot);
-    }
-    
-    // Add elements to container
-    spaIconContainer.appendChild(spaIcon);
-    animationContainer.appendChild(spaIconContainer);
     animationContainer.appendChild(loadingText);
-    animationContainer.appendChild(loadingDots);
+    
+    // Add to overlay
     overlay.appendChild(animationContainer);
     
-    // Add animation styles
-    const animationStyles = document.createElement('style');
-    animationStyles.textContent = `
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes loadingDot {
-            0%, 100% { transform: translateY(0); opacity: 0.5; }
-            50% { transform: translateY(-10px); opacity: 1; }
-        }
-        
-        .spa-icon-container {
-            position: relative;
-        }
-        
-        .spa-icon-container::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 50%;
-            z-index: -1;
-            animation: pulse 2s infinite ease-in-out alternate;
-        }
-    `;
-    document.head.appendChild(animationStyles);
+    // Apply motion animation
+    window.motion.animate(animatedBox, {
+        scale: [1, 2, 2, 1, 1],
+        rotate: [0, 0, 180, 180, 0],
+        borderRadius: ["0%", "0%", "50%", "50%", "0%"],
+    }, {
+        duration: 2,
+        ease: "ease-in-out",
+        times: [0, 0.2, 0.5, 0.8, 1],
+        repeat: Infinity,
+        repeatDelay: 1,
+    });
 
     // Handle all link clicks for page transitions
     document.addEventListener('click', function(e) {
