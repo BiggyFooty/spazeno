@@ -336,7 +336,55 @@ This script will:
 npm run github:token
 ```
 
-This script uses the provided personal access token (`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`) to authenticate with GitHub, making it easier to push your code without having to enter credentials.
+This script uses a personal access token from environment variables to authenticate with GitHub, making it easier to push your code without having to enter credentials each time.
+
+To use this script with a token:
+1. Set the GITHUB_TOKEN environment variable:
+   ```bash
+   # Windows
+   set GITHUB_TOKEN=your_token_here
+   
+   # Linux/macOS
+   export GITHUB_TOKEN=your_token_here
+   ```
+2. Run the script:
+   ```bash
+   npm run github:token
+   ```
+
+If you don't set the environment variable, the script will prompt you to enter the token manually.
+
+### Easy GitHub Push with Helper Scripts
+
+We've also included platform-specific helper scripts that make it even easier to push to GitHub:
+
+#### For Windows Users
+
+```bash
+# Double-click on push-to-github.bat in File Explorer
+# Or run from command line:
+push-to-github.bat
+```
+
+This batch file will:
+1. Prompt you for your GitHub personal access token
+2. Set the token as an environment variable
+3. Run the push-to-github-fix.js script with the token
+
+#### For Linux/macOS Users
+
+```bash
+# Make the script executable first (one-time setup)
+chmod +x push-to-github.sh
+
+# Then run the script
+./push-to-github.sh
+```
+
+This shell script will:
+1. Prompt you for your GitHub personal access token
+2. Set the token as an environment variable
+3. Run the push-to-github-fix.js script with the token
 
 ### Fixed GitHub Push (For Detached HEAD Issues)
 

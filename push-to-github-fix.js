@@ -434,19 +434,21 @@ async function main() {
     return;
   }
   
-  // Get personal access token
-  const defaultToken = process.env.GITHUB_TOKEN || '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';
+  // Get personal access token from environment variable
+  const defaultToken = process.env.GITHUB_TOKEN || '';
   
-  let token = defaultToken;
+  let token;
   
   if (!defaultToken) {
+    // If no token is provided in environment variables, ask the user
     token = await new Promise(resolve => {
       rl.question('GitHub personal access token (leave blank to use password authentication): ', answer => {
         resolve(answer.trim());
       });
     });
   } else {
-    console.log('✅ Using provided GitHub personal access token.');
+    console.log('✅ Using GitHub personal access token from environment variables.');
+    token = defaultToken;
   }
   
   // Push to remote
