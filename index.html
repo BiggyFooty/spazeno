@@ -6,55 +6,7 @@
     <title>Sparez - Hotel Spa Reservations</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
-    <style>
-        .language-toggle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all var(--transition-medium) var(--easing);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .language-toggle:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-        
-        .language-toggle::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.2;
-            z-index: 0;
-        }
-        
-        .language-toggle.en::before {
-            background-image: url('https://flagcdn.com/w40/gb.png');
-        }
-        
-        .language-toggle.tr::before {
-            background-image: url('https://flagcdn.com/w40/tr.png');
-        }
-        
-        .language-toggle span {
-            position: relative;
-            z-index: 1;
-        }
-    </style>
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body class="login-page">
     <div class="app-shell">
@@ -76,66 +28,172 @@
         </div>
 
         <!-- Login Content -->
-        <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 var(--spacing-lg);">
-            <div style="text-align: center; margin-bottom: var(--spacing-xl);">
-                <h1 style="font-size: var(--font-size-xxl); margin-bottom: var(--spacing-md);" data-i18n="appName">Sparez</h1>
-                <p style="color: var(--text-muted); font-size: var(--font-size-md);" data-i18n="appTagline">Luxury Hotel Spa Reservations</p>
+        <div class="login-container">
+            <div class="login-logo">
+                <i class="fas fa-layer-group"></i>
             </div>
             
-            <div style="margin-bottom: var(--spacing-xl);">
-                <h2 style="font-size: var(--font-size-xl); margin-bottom: var(--spacing-md);" data-i18n="loginTitle">Let's get you Login!</h2>
-                <p style="color: var(--text-muted); margin-bottom: var(--spacing-lg);" data-i18n="loginSubtitle">Enter your information below.</p>
-            </div>
-            
-            <!-- Social Login Buttons -->
-            <div style="margin-bottom: var(--spacing-lg);">
-                <a href="#" class="btn btn-outline btn-block social-login-btn" data-provider="facebook" style="margin-bottom: var(--spacing-md); display: flex; align-items: center; justify-content: center;">
-                    <i class="fab fa-facebook" style="margin-right: var(--spacing-sm); color: #1877F2;"></i> Facebook
-                </a>
-                <a href="#" class="btn btn-outline btn-block social-login-btn" data-provider="google" style="display: flex; align-items: center; justify-content: center;">
-                    <i class="fab fa-google" style="margin-right: var(--spacing-sm); color: #DB4437;"></i> Google
-                </a>
-            </div>
-            
-            <!-- Divider -->
-            <div style="display: flex; align-items: center; margin: var(--spacing-lg) 0;">
-                <div style="flex: 1; height: 1px; background-color: var(--border-color);"></div>
-                <span style="padding: 0 var(--spacing-md); color: var(--text-muted);" data-i18n="loginWith">Or login with</span>
-                <div style="flex: 1; height: 1px; background-color: var(--border-color);"></div>
-            </div>
-            
-            <!-- Login Form -->
-            <form class="login-form" style="margin-bottom: var(--spacing-lg);">
-                <div style="margin-bottom: var(--spacing-md);">
-                    <label for="email" style="display: block; margin-bottom: var(--spacing-xs); color: var(--text-muted);" data-i18n="emailAddress">Email Address</label>
-                    <input type="email" id="email" value="bellinghamd03@gmail.com" style="width: 100%; padding: var(--spacing-md); border: 1px solid var(--border-color); border-radius: var(--border-radius-md);">
-                </div>
-                
-                <div style="margin-bottom: var(--spacing-md);">
-                    <label for="password" style="display: block; margin-bottom: var(--spacing-xs); color: var(--text-muted);" data-i18n="password">Password</label>
-                    <div style="position: relative;">
-                        <input type="password" id="password" value="••••••••" style="width: 100%; padding: var(--spacing-md); border: 1px solid var(--border-color); border-radius: var(--border-radius-md);">
-                        <button type="button" style="position: absolute; right: var(--spacing-md); top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted);">
-                            <i class="far fa-eye"></i>
+            <div class="form-container">
+                <!-- Login Form -->
+                <div class="login-form active" id="loginForm">
+                    <div class="login-header">
+                        <h2 data-i18n="welcomeBack">Welcome back</h2>
+                        <p data-i18n="pleaseEnterDetails">Please enter your details to sign in.</p>
+                    </div>
+                    
+                    <!-- Social Login Buttons -->
+                    <div class="social-login">
+                        <button class="social-btn" data-provider="apple">
+                            <i class="fab fa-apple"></i>
                         </button>
+                        <button class="social-btn" data-provider="google">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button class="social-btn" data-provider="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Divider -->
+                    <div class="divider">
+                        <span data-i18n="or">OR</span>
+                    </div>
+                    
+                    <form>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="loginEmail" placeholder="Enter your email..." value="test@gmail.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="password-field">
+                                <input type="password" class="form-control" id="loginPassword" placeholder="••••••••" value="test" required>
+                                <button type="button" class="password-toggle" id="loginPasswordToggle">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-footer">
+                            <div class="remember-me">
+                                <input type="checkbox" id="rememberMe">
+                                <label for="rememberMe" data-i18n="rememberMe">Remember me</label>
+                            </div>
+                            <a href="#" class="forgot-password" data-i18n="forgotPassword">Forgot password?</a>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" data-i18n="signIn">Sign in</button>
+                    </form>
+                    
+                    <div class="signup-link">
+                        <span data-i18n="dontHaveAccount">Don't have an account yet?</span> 
+                        <a href="#" id="showSignup" data-i18n="signUp">Sign Up</a>
                     </div>
                 </div>
                 
-                <div style="text-align: right; margin-bottom: var(--spacing-lg);">
-                    <a href="forgot-password.html" style="color: var(--primary-color); text-decoration: none;" data-i18n="forgotPassword">Forgot Password?</a>
+                <!-- Signup Form -->
+                <div class="signup-form" id="signupForm">
+                    <div class="login-header">
+                        <h2 data-i18n="createAccount">Create account</h2>
+                        <p data-i18n="signupDetails">Please fill in your details to create an account.</p>
+                    </div>
+                    
+                    <!-- Social Signup Buttons -->
+                    <div class="social-login">
+                        <button class="social-btn" data-provider="apple">
+                            <i class="fab fa-apple"></i>
+                        </button>
+                        <button class="social-btn" data-provider="google">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button class="social-btn" data-provider="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Divider -->
+                    <div class="divider">
+                        <span data-i18n="or">OR</span>
+                    </div>
+                    
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="signupName" placeholder="Full name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="signupEmail" placeholder="Email address" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="password-field">
+                                <input type="password" class="form-control" id="signupPassword" placeholder="Create password" required>
+                                <button type="button" class="password-toggle" id="signupPasswordToggle">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="password-field">
+                                <input type="password" class="form-control" id="signupConfirmPassword" placeholder="Confirm password" required>
+                                <button type="button" class="password-toggle" id="signupConfirmPasswordToggle">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" data-i18n="createAccount">Create account</button>
+                    </form>
+                    
+                    <div class="signup-link">
+                        <span data-i18n="alreadyHaveAccount">Already have an account?</span> 
+                        <a href="#" id="showLogin" data-i18n="signIn">Sign In</a>
+                    </div>
                 </div>
-                
-                <button type="submit" class="btn btn-primary btn-block" data-i18n="login">Login</button>
-            </form>
-            
-            <!-- Register Link -->
-            <div style="text-align: center;">
-                <p><span data-i18n="dontHaveAccount">Don't have an account?</span> <a href="register.html" class="register-link" style="color: var(--primary-color); text-decoration: none; font-weight: 600;" data-i18n="registerNow">Register Now</a></p>
             </div>
         </div>
     </div>
 
     <script src="js/app.js"></script>
     <script src="js/translations.js"></script>
+    <script src="js/login-animations.js"></script>
+    <script>
+        // Add translations for new elements
+        if (window.translations) {
+            window.translations.en.welcomeBack = "Welcome back";
+            window.translations.en.pleaseEnterDetails = "Please enter your details to sign in.";
+            window.translations.en.or = "OR";
+            window.translations.en.rememberMe = "Remember me";
+            window.translations.en.signIn = "Sign in";
+            window.translations.en.signUp = "Sign Up";
+            window.translations.en.createAccount = "Create account";
+            window.translations.en.signupDetails = "Please fill in your details to create an account.";
+            window.translations.en.alreadyHaveAccount = "Already have an account?";
+            
+            window.translations.tr.welcomeBack = "Tekrar hoş geldiniz";
+            window.translations.tr.pleaseEnterDetails = "Giriş yapmak için bilgilerinizi girin.";
+            window.translations.tr.or = "VEYA";
+            window.translations.tr.rememberMe = "Beni hatırla";
+            window.translations.tr.signIn = "Giriş yap";
+            window.translations.tr.signUp = "Kayıt ol";
+            window.translations.tr.createAccount = "Hesap oluştur";
+            window.translations.tr.signupDetails = "Hesap oluşturmak için bilgilerinizi doldurun.";
+            window.translations.tr.alreadyHaveAccount = "Zaten bir hesabınız var mı?";
+        }
+        
+        // Toggle password visibility (fallback if JS animations fail)
+        document.querySelectorAll('.password-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const passwordField = this.previousElementSibling;
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                
+                // Toggle eye icon
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            });
+        });
+    </script>
 </body>
 </html>
