@@ -233,10 +233,33 @@
     <script src="js/booking-data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Get existing booking data or initialize new
+            let currentBooking = getBookingData() || {
+                service: "İsveç Masajı",
+                date: "Per 13",
+                time: "11:00",
+                gender: "Erkek",
+                hotel: "",
+                bookingId: null,
+                timestamp: null
+            };
+            
             // Get URL parameters
             const urlParams = new URLSearchParams(window.location.search);
             const serviceParam = urlParams.get('service');
             const hotelParam = urlParams.get('hotel');
+            
+            // Update booking data with URL parameters if available
+            if (serviceParam) {
+                currentBooking.service = serviceParam;
+            }
+            
+            if (hotelParam) {
+                currentBooking.hotel = hotelParam;
+            }
+            
+            // Save the initial booking data
+            saveBookingData(currentBooking);
             
             // Set service based on URL parameter
             if (serviceParam) {
@@ -418,17 +441,20 @@
                         hotel: hotelName
                     };
                     
-                    // Save booking details to global variable and localStorage
-                    saveBookingData(bookingDetails);
-                    
-                    // Log for debugging
-                    console.log('Booking details saved:', bookingDetails);
-                    
-                    // Show loading overlay
-                    showLoadingOverlay("Rezervasyonunuz oluşturuluyor...", 3000, () => {
-                        const href = this.getAttribute('href');
-                        // Add all the selected information to the URL
-                        window.location.href = `${href}&service=${encodeURIComponent(serviceName)}&date=${encodeURIComponent(dateText)}&time=${encodeURIComponent(timeText)}&gender=${encodeURIComponent(genderText)}&hotel=${encodeURIComponent(hotelName)}`;
+                    // Show loading overlay with "Randevu Oluşturuluyor" message
+                    showLoadingOverlay("Randevu Oluşturuluyor...", 1500, () => {
+                        // Save booking details to global variable and localStorage
+                        saveBookingData(bookingDetails);
+                        
+                        // Log for debugging
+                        console.log('Booking data saved:', getBookingData());
+                        
+                        // Show success message after data is saved
+                        showLoadingOverlay("Randevunuz Oluşturuldu!", 1500, () => {
+                            const href = this.getAttribute('href');
+                            // Add all the selected information to the URL
+                            window.location.href = `${href}&service=${encodeURIComponent(serviceName)}&date=${encodeURIComponent(dateText)}&time=${encodeURIComponent(timeText)}&gender=${encodeURIComponent(genderText)}&hotel=${encodeURIComponent(hotelName)}`;
+                        });
                     });
                 });
             }
@@ -439,6 +465,10 @@
                 pill.addEventListener('click', function() {
                     categoryPills.forEach(p => p.classList.remove('active'));
                     this.classList.add('active');
+                    
+                    // Update service options based on category (in a real app)
+                    // For now, we'll just log the category
+                    console.log('Selected category:', this.dataset.category);
                 });
             });
             
@@ -452,6 +482,13 @@
                     });
                     this.classList.add('active');
                     this.querySelector('.service-option-check i').className = 'fas fa-check-circle';
+                    
+                    // Update booking data with selected service
+                    const serviceName = this.querySelector('h4').textContent;
+                    const currentBooking = getBookingData();
+                    currentBooking.service = serviceName;
+                    saveBookingData(currentBooking);
+                    console.log('Updated service:', currentBooking.service);
                 });
             });
             
@@ -461,6 +498,13 @@
                 option.addEventListener('click', function() {
                     genderOptions.forEach(o => o.classList.remove('active'));
                     this.classList.add('active');
+                    
+                    // Update booking data with selected gender
+                    const genderText = this.querySelector('span').textContent;
+                    const currentBooking = getBookingData();
+                    currentBooking.gender = genderText;
+                    saveBookingData(currentBooking);
+                    console.log('Updated gender:', currentBooking.gender);
                 });
             });
             
@@ -470,6 +514,15 @@
                 item.addEventListener('click', function() {
                     dateItems.forEach(d => d.classList.remove('active'));
                     this.classList.add('active');
+                    
+                    // Update booking data with selected date
+                    const day = this.querySelector('.day').textContent;
+                    const date = this.querySelector('.date').textContent;
+                    const dateText = `${day} ${date}`;
+                    const currentBooking = getBookingData();
+                    currentBooking.date = dateText;
+                    saveBookingData(currentBooking);
+                    console.log('Updated date:', currentBooking.date);
                 });
             });
             
@@ -479,6 +532,13 @@
                 slot.addEventListener('click', function() {
                     timeSlots.forEach(s => s.classList.remove('active'));
                     this.classList.add('active');
+                    
+                    // Update booking data with selected time
+                    const timeText = this.textContent;
+                    const currentBooking = getBookingData();
+                    currentBooking.time = timeText;
+                    saveBookingData(currentBooking);
+                    console.log('Updated time:', currentBooking.time);
                 });
             });
             
