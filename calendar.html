@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sparez - Calendar</title>
+    <title>Sparez - Takvim</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
@@ -177,29 +177,21 @@
 </head>
 <body class="calendar-page">
     <div class="app-shell">
-        <!-- Status Bar -->
-        <div class="status-bar">
-            <div class="time">9:41</div>
-            <div class="icons">
-                <i class="fas fa-signal"></i>
-                <i class="fas fa-wifi"></i>
-                <i class="fas fa-battery-full"></i>
-            </div>
-        </div>
+        <!-- Status Bar removed as requested -->
 
         <!-- Header -->
         <div class="header">
             <a href="booking-confirmation.html" class="back-button">
-                <i class="fas fa-chevron-left"></i> Back
+                <i class="fas fa-chevron-left"></i> Geri
             </a>
-            <h1>Calendar</h1>
+            <h1>Takvim</h1>
             <div style="width: 24px;"></div>
         </div>
 
         <!-- Calendar -->
         <div class="container">
             <div class="calendar-header">
-                <h2>March 2025</h2>
+                <h2>Mart 2025</h2>
                 <div class="calendar-nav">
                     <div class="calendar-nav-btn">
                         <i class="fas fa-chevron-left"></i>
@@ -212,13 +204,13 @@
             
             <div class="calendar-grid">
                 <!-- Day headers -->
-                <div class="calendar-day-header">Sun</div>
-                <div class="calendar-day-header">Mon</div>
-                <div class="calendar-day-header">Tue</div>
-                <div class="calendar-day-header">Wed</div>
-                <div class="calendar-day-header">Thu</div>
-                <div class="calendar-day-header">Fri</div>
-                <div class="calendar-day-header">Sat</div>
+                <div class="calendar-day-header">Paz</div>
+                <div class="calendar-day-header">Pzt</div>
+                <div class="calendar-day-header">Sal</div>
+                <div class="calendar-day-header">Çar</div>
+                <div class="calendar-day-header">Per</div>
+                <div class="calendar-day-header">Cum</div>
+                <div class="calendar-day-header">Cmt</div>
                 
                 <!-- Week 1 -->
                 <div class="calendar-day other-month">
@@ -360,21 +352,21 @@
             </div>
             
             <div class="bookings-list" style="margin-bottom: 100px;">
-                <h3>Bookings for March 13</h3>
+                <h3>13 Mart için Rezervasyonlar</h3>
                 
                 <div class="booking-item" style="background-color: #FFFFFF; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); padding: var(--spacing-lg);">
                     <div class="booking-header">
                         <div>
-                            <h4 class="booking-title" style="font-size: var(--font-size-lg); color: var(--primary-color);">Swedish Massage</h4>
-                            <p class="booking-time">11:30 AM - 12:30 PM</p>
+                            <h4 class="booking-title" style="font-size: var(--font-size-lg); color: var(--primary-color);">İsveç Masajı</h4>
+                            <p class="booking-time">11:30 - 12:30</p>
                         </div>
                         <span class="booking-id" style="font-size: var(--font-size-xs); color: var(--text-muted);">SPZ-80978</span>
                     </div>
                     <p class="booking-location" style="margin: var(--spacing-md) 0;">Grand Luxury Resort Spa</p>
                     
                     <div style="display: flex; gap: var(--spacing-md); margin-top: var(--spacing-lg);">
-                        <button class="btn btn-secondary" style="flex: 1; padding: var(--spacing-md);" onclick="window.location.href='booking.html'">Reschedule</button>
-                        <button class="btn" style="flex: 1; padding: var(--spacing-md); background-color: #FEE2E2; color: #DC2626;" onclick="if(confirm('Are you sure you want to cancel this booking?')){alert('Booking cancelled successfully!');window.location.href='home.html';}">Cancel</button>
+                        <button class="btn btn-secondary" style="flex: 1; padding: var(--spacing-md);" onclick="window.location.href='booking.html'">Yeniden Planla</button>
+                        <button class="btn" style="flex: 1; padding: var(--spacing-md); background-color: #FEE2E2; color: #DC2626;" onclick="if(confirm('Bu rezervasyonu iptal etmek istediğinizden emin misiniz?')){alert('Rezervasyon başarıyla iptal edildi!');window.location.href='home.html';}">İptal Et</button>
                     </div>
                 </div>
             </div>
@@ -384,19 +376,19 @@
         <div class="bottom-nav">
             <a href="home.html" class="nav-item" data-page="home">
                 <i class="fas fa-home"></i>
-                <span>Home</span>
+                <span>Ana Sayfa</span>
             </a>
             <a href="booking.html" class="nav-item active" data-page="booking">
                 <i class="far fa-calendar"></i>
-                <span>Booking</span>
+                <span>Rezervasyon</span>
             </a>
             <a href="services.html" class="nav-item" data-page="services">
                 <i class="fas fa-spa"></i>
-                <span>Services</span>
+                <span>Hizmetler</span>
             </a>
             <a href="artist-profile.html" class="nav-item" data-page="profile">
                 <i class="far fa-user"></i>
-                <span>Profile</span>
+                <span>Profil</span>
             </a>
         </div>
     </div>
@@ -423,7 +415,7 @@
                     
                     // Update bookings list title
                     const dayNumber = this.querySelector('.calendar-day-number').textContent;
-                    document.querySelector('.bookings-list h3').textContent = `Bookings for March ${dayNumber}`;
+                    document.querySelector('.bookings-list h3').textContent = `${dayNumber} Mart için Rezervasyonlar`;
                     
                     // In a real app, this would fetch bookings for the selected date
                     // For this demo, we'll just show/hide the booking item
@@ -447,8 +439,8 @@
             const cancelBtn = document.querySelector('.btn-cancel');
             if (cancelBtn) {
                 cancelBtn.addEventListener('click', function() {
-                    if (confirm('Are you sure you want to cancel this booking?')) {
-                        alert('Booking cancelled successfully!');
+                    if (confirm('Bu rezervasyonu iptal etmek istediğinizden emin misiniz?')) {
+                        alert('Rezervasyon başarıyla iptal edildi!');
                         window.location.href = 'home.html';
                     }
                 });
