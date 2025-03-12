@@ -142,10 +142,12 @@
 
     <script src="js/app.js"></script>
     <script src="js/page-transitions.js"></script>
+    <script src="js/hotel-data.js"></script>
     <script>
         // Get the category from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const category = urlParams.get('category');
+        const service = urlParams.get('service');
         
         // Update the page title based on the category
         if (category) {
@@ -168,6 +170,110 @@
                         titleElement.textContent = 'Lüks Spa Hizmetleri';
                 }
             }
+        }
+        
+        // If a service is selected, show hotels that offer this service
+        if (service) {
+            // Get the container for service cards
+            const serviceContainer = document.querySelector('.container div[style="margin-bottom: 80px;"]');
+            
+            // Clear the container
+            serviceContainer.innerHTML = '';
+            
+            // Set the title based on the service
+            const titleElement = document.getElementById('service-category-title');
+            let serviceName = 'Spa Hizmeti';
+            
+            if (service === 'swedish-massage') {
+                serviceName = 'İsveç Masajı';
+                titleElement.textContent = 'İsveç Masajı Sunan Oteller';
+            } else if (service === 'deep-tissue') {
+                serviceName = 'Derin Doku Masajı';
+                titleElement.textContent = 'Derin Doku Masajı Sunan Oteller';
+            } else if (service === 'hot-stone') {
+                serviceName = 'Sıcak Taş Terapisi';
+                titleElement.textContent = 'Sıcak Taş Terapisi Sunan Oteller';
+            } else if (service === 'luxury-facial') {
+                serviceName = 'Lüks Cilt Bakımı';
+                titleElement.textContent = 'Lüks Cilt Bakımı Sunan Oteller';
+            }
+            
+            // Add loading animation with quotes
+            const loadingElement = document.createElement('div');
+            loadingElement.style.textAlign = 'center';
+            loadingElement.style.padding = '2rem 0';
+            loadingElement.innerHTML = `
+                <div class="loading-spinner" style="margin-bottom: 1rem;">
+                    <i class="fas fa-spa fa-spin" style="font-size: 2rem; color: var(--primary-color);"></i>
+                </div>
+                <p class="quote" style="font-style: italic; color: var(--text-muted); margin-bottom: 0.5rem;">
+                    "Huzurlu bir zihin, sağlıklı bir vücudun temelidir."
+                </p>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Oteller yükleniyor...</p>
+            `;
+            serviceContainer.appendChild(loadingElement);
+            
+            // Simulate loading delay
+            setTimeout(() => {
+                // Remove loading animation
+                serviceContainer.removeChild(loadingElement);
+                
+                // Filter hotels (in a real app, this would be based on which hotels offer the service)
+                // For demo, we'll just show all hotels
+                const hotels = window.hotelData || [];
+                
+                // Sort hotels by rating
+                hotels.sort((a, b) => b.google_yildiz - a.google_yildiz);
+                
+                // Take top 5 hotels
+                const topHotels = hotels.slice(0, 5);
+                
+                // Add hotel cards
+                topHotels.forEach(hotel => {
+                    const hotelCard = document.createElement('div');
+                    hotelCard.className = 'card';
+                    hotelCard.style.marginBottom = 'var(--spacing-md)';
+                    
+                    // Generate a placeholder image URL based on hotel name
+                    const imageUrl = `https://source.unsplash.com/300x200/?hotel,spa,${hotel.otel_isim.replace(' ', '')}`;
+                    
+                    hotelCard.innerHTML = `
+                        <div style="display: flex; padding: var(--spacing-md);">
+                            <img src="${imageUrl}" alt="${hotel.sube_adi}" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover;">
+                            <div style="margin-left: var(--spacing-md); flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div>
+                                        <div class="rating" style="margin-bottom: 4px;">
+                                            <span class="stars">★</span>
+                                            <span class="value">${hotel.google_yildiz.toFixed(1)}</span>
+                                        </div>
+                                        <h3 style="margin: 0; font-size: var(--font-size-md);">${hotel.sube_adi}</h3>
+                                        <p style="margin: 4px 0 0; font-size: var(--font-size-xs); color: var(--text-muted);">${hotel.otel_isim}</p>
+                                    </div>
+                                </div>
+                                <p style="margin: var(--spacing-sm) 0; font-size: var(--font-size-sm);">${serviceName} hizmeti sunan lüks spa merkezi.</p>
+                                <div style="margin-top: var(--spacing-md); text-align: right;">
+                                    <a href="booking.html?service=${service}&hotel=${encodeURIComponent(hotel.sube_adi)}" class="btn btn-primary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">Rezervasyon</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    serviceContainer.appendChild(hotelCard);
+                });
+                
+                // Add "View All Hotels" button
+                const viewAllButton = document.createElement('div');
+                viewAllButton.style.textAlign = 'center';
+                viewAllButton.style.marginTop = '1rem';
+                viewAllButton.innerHTML = `
+                    <a href="hotels.html" class="btn btn-secondary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">
+                        Tüm Otelleri Görüntüle
+                    </a>
+                `;
+                serviceContainer.appendChild(viewAllButton);
+                
+            }, 2000); // 2 second loading delay for demo
         }
     </script>
 </body>

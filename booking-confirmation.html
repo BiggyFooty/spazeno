@@ -96,6 +96,7 @@
     </div>
 
     <script src="js/app.js"></script>
+    <script src="js/hotel-data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Generate a random booking ID
@@ -125,8 +126,34 @@
                 }
             }
             
-            // Set hotel name based on artist parameter
-            if (artist) {
+            // Get hotel parameter from URL
+            const hotelParam = urlParams.get('hotel');
+            
+            // Set hotel name based on hotel parameter
+            if (hotelParam) {
+                const hotelElement = document.getElementById('hotel-name');
+                const locationNameElement = document.getElementById('location-name');
+                const locationAddressElement = document.getElementById('location-address');
+                
+                if (hotelElement && locationNameElement && locationAddressElement) {
+                    // Find the hotel in the data
+                    const hotels = window.hotelData || [];
+                    const selectedHotel = hotels.find(h => h.sube_adi === hotelParam);
+                    
+                    if (selectedHotel) {
+                        hotelElement.textContent = selectedHotel.sube_adi;
+                        locationNameElement.textContent = `${selectedHotel.sube_adi} Spa`;
+                        locationAddressElement.textContent = selectedHotel.adres;
+                    } else {
+                        // Fallback if hotel not found
+                        hotelElement.textContent = hotelParam;
+                        locationNameElement.textContent = `${hotelParam} Spa`;
+                        locationAddressElement.textContent = 'İstanbul, Türkiye';
+                    }
+                }
+            } 
+            // Fallback to artist parameter if hotel parameter is not provided
+            else if (artist) {
                 const hotelElement = document.getElementById('hotel-name');
                 const locationNameElement = document.getElementById('location-name');
                 const locationAddressElement = document.getElementById('location-address');
