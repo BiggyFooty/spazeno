@@ -493,12 +493,25 @@
                     const servicePrice = this.querySelector('.service-price').textContent;
                     const serviceDuration = this.querySelector('.service-duration').textContent;
                     
+                    // Determine the category from the parent section
+                    const categorySection = this.closest('.category-section');
+                    let category = 'massage'; // Default category
+                    
+                    if (categorySection) {
+                        const categoryId = categorySection.id;
+                        if (categoryId) {
+                            // Extract category name from ID (e.g., "massage-category" -> "massage")
+                            category = categoryId.split('-')[0];
+                        }
+                    }
+                    
                     // Create booking data object
                     const bookingData = {
                         service: serviceName,
                         serviceId: serviceId,
                         price: servicePrice,
                         duration: serviceDuration,
+                        category: category,
                         timestamp: new Date().toISOString()
                     };
                     
