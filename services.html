@@ -6,17 +6,104 @@
     <title>Sparez - Otel Spa Hizmetleri</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .category-section {
+            margin-bottom: 32px;
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 8px;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            text-decoration: none;
+            color: var(--text-dark);
+            overflow: hidden;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-light);
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .service-content {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .service-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0 0 4px 0;
+            color: var(--text-dark);
+        }
+        
+        .service-price {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+        
+        .service-duration {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .service-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body class="services-page">
     <div class="app-shell">
-        <!-- Status Bar removed as requested -->
-
         <!-- Header -->
         <div class="header">
             <a href="home.html" class="back-button">
                 <i class="fas fa-chevron-left"></i> Geri
             </a>
-            <h1 id="service-category-title">Lüks Spa Hizmetleri</h1>
+            <h1 id="service-category-title">Spa Hizmetleri</h1>
             <a href="user-profile.html" style="width: 40px; height: 40px; border-radius: 50%; background-color: #F5F5F5; display: flex; align-items: center; justify-content: center; text-decoration: none; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; position: relative; overflow: hidden;">
                 <i class="fas fa-user" style="color: var(--primary-color);"></i>
                 <div class="profile-pulse" style="position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--primary-color); opacity: 0; animation: pulse 2s infinite;"></div>
@@ -31,93 +118,317 @@
                 <i class="fas fa-sliders-h"></i>
             </div>
 
-            <!-- Service Cards -->
-            <div style="margin-bottom: 80px;">
-                <!-- Service Card 1 -->
-                <div class="card" style="margin-bottom: var(--spacing-md);">
-                    <div style="display: flex; padding: var(--spacing-md);">
-                        <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3BhJTIwbWFzc2FnZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="İsveç Masajı" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover;">
-                        <div style="margin-left: var(--spacing-md); flex: 1;">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                <div>
-                                    <h3 style="margin: 0; font-size: var(--font-size-md);">İsveç Masajı</h3>
-                                    <p style="margin: 4px 0 0; font-size: var(--font-size-xs); color: var(--text-muted);">60 dakika</p>
-                                </div>
-                                <div style="text-align: right;">
-                                    <p style="margin: var(--spacing-xs) 0 0; font-weight: 600; color: var(--primary-color);">₺1.590</p>
-                                </div>
+            <!-- Service Categories -->
+            <div id="service-container" style="margin-bottom: 80px;">
+                <!-- Massage Category -->
+                <div class="category-section" id="massage-category">
+                    <h2 class="category-title">Masaj</h2>
+                    <div class="service-grid">
+                        <!-- Service Card 1 -->
+                        <a href="hotels.html?service=İsveç Masajı" class="service-card" data-service-id="swedish-massage">
+                            <div class="service-icon">
+                                <i class="fas fa-hand-sparkles"></i>
                             </div>
-                            <p style="margin: var(--spacing-sm) 0; font-size: var(--font-size-sm);">Rahatlamayı teşvik etmek ve kas gerginliğini hafifletmek için nazik, akıcı vuruşlarla klasik bir tam vücut masajı.</p>
-                            <div style="margin-top: var(--spacing-md); text-align: right;">
-                                <a href="services.html?service=swedish-massage" class="btn btn-primary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">Otelleri Gör</a>
+                            <div class="service-content">
+                                <h3 class="service-name">İsveç Masajı</h3>
+                                <p class="service-duration">60 dakika</p>
+                                <p class="service-price">₺1.590</p>
                             </div>
-                        </div>
+                        </a>
+                        
+                        <!-- Service Card 2 -->
+                        <a href="hotels.html?service=Derin Doku Masajı" class="service-card" data-service-id="deep-tissue">
+                            <div class="service-icon">
+                                <i class="fas fa-hands"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Derin Doku Masajı</h3>
+                                <p class="service-duration">90 dakika</p>
+                                <p class="service-price">₺2.050</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 3 -->
+                        <a href="hotels.html?service=Aromaterapi Masajı" class="service-card" data-service-id="aromatherapy">
+                            <div class="service-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Aromaterapi Masajı</h3>
+                                <p class="service-duration">75 dakika</p>
+                                <p class="service-price">₺1.850</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 4 -->
+                        <a href="hotels.html?service=Thai Masajı" class="service-card" data-service-id="thai-massage">
+                            <div class="service-icon">
+                                <i class="fas fa-pray"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Thai Masajı</h3>
+                                <p class="service-duration">90 dakika</p>
+                                <p class="service-price">₺2.150</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 5 -->
+                        <a href="hotels.html?service=Spor Masajı" class="service-card" data-service-id="sports-massage">
+                            <div class="service-icon">
+                                <i class="fas fa-running"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Spor Masajı</h3>
+                                <p class="service-duration">60 dakika</p>
+                                <p class="service-price">₺1.750</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 6 -->
+                        <a href="hotels.html?service=Refleksoloji" class="service-card" data-service-id="reflexology">
+                            <div class="service-icon">
+                                <i class="fas fa-shoe-prints"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Refleksoloji</h3>
+                                <p class="service-duration">45 dakika</p>
+                                <p class="service-price">₺1.250</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
-
-                <!-- Service Card 2 -->
-                <div class="card" style="margin-bottom: var(--spacing-md);">
-                    <div style="display: flex; padding: var(--spacing-md);">
-                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWwlMjBzcGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Derin Doku Masajı" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover;">
-                        <div style="margin-left: var(--spacing-md); flex: 1;">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                <div>
-                                    <h3 style="margin: 0; font-size: var(--font-size-md);">Derin Doku Masajı</h3>
-                                    <p style="margin: 4px 0 0; font-size: var(--font-size-xs); color: var(--text-muted);">90 dakika</p>
-                                </div>
-                                <div style="text-align: right;">
-                                    <p style="margin: var(--spacing-xs) 0 0; font-weight: 600; color: var(--primary-color);">₺2.050</p>
-                                </div>
+                
+                <!-- Facial Category -->
+                <div class="category-section" id="facial-category">
+                    <h2 class="category-title">Cilt Bakımı</h2>
+                    <div class="service-grid">
+                        <!-- Service Card 1 -->
+                        <a href="hotels.html?service=Lüks Cilt Bakımı" class="service-card" data-service-id="luxury-facial">
+                            <div class="service-icon">
+                                <i class="fas fa-magic"></i>
                             </div>
-                            <p style="margin: var(--spacing-sm) 0; font-size: var(--font-size-sm);">Kronik gerginlik modellerini serbest bırakmak için kasın ve bağ dokusunun daha derin katmanlarını hedefler.</p>
-                            <div style="margin-top: var(--spacing-md); text-align: right;">
-                                <a href="services.html?service=deep-tissue" class="btn btn-primary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">Otelleri Gör</a>
+                            <div class="service-content">
+                                <h3 class="service-name">Lüks Cilt Bakımı</h3>
+                                <p class="service-duration">75 dakika</p>
+                                <p class="service-price">₺1.750</p>
                             </div>
-                        </div>
+                        </a>
+                        
+                        <!-- Service Card 2 -->
+                        <a href="hotels.html?service=Nemlendirici Cilt Bakımı" class="service-card" data-service-id="hydrating-facial">
+                            <div class="service-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Nemlendirici Cilt Bakımı</h3>
+                                <p class="service-duration">60 dakika</p>
+                                <p class="service-price">₺1.450</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 3 -->
+                        <a href="hotels.html?service=Anti-Aging Cilt Bakımı" class="service-card" data-service-id="anti-aging-facial">
+                            <div class="service-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Anti-Aging Cilt Bakımı</h3>
+                                <p class="service-duration">90 dakika</p>
+                                <p class="service-price">₺2.250</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 4 -->
+                        <a href="hotels.html?service=Detoks Cilt Bakımı" class="service-card" data-service-id="detox-facial">
+                            <div class="service-icon">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Detoks Cilt Bakımı</h3>
+                                <p class="service-duration">60 dakika</p>
+                                <p class="service-price">₺1.550</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 5 -->
+                        <a href="hotels.html?service=Kolajen Cilt Bakımı" class="service-card" data-service-id="collagen-facial">
+                            <div class="service-icon">
+                                <i class="fas fa-dna"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Kolajen Cilt Bakımı</h3>
+                                <p class="service-duration">75 dakika</p>
+                                <p class="service-price">₺1.950</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 6 -->
+                        <a href="hotels.html?service=Akne Cilt Bakımı" class="service-card" data-service-id="acne-facial">
+                            <div class="service-icon">
+                                <i class="fas fa-pump-medical"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Akne Cilt Bakımı</h3>
+                                <p class="service-duration">60 dakika</p>
+                                <p class="service-price">₺1.650</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
-
-                <!-- Service Card 3 -->
-                <div class="card" style="margin-bottom: var(--spacing-md);">
-                    <div style="display: flex; padding: var(--spacing-md);">
-                        <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aG90JTIwc3RvbmUlMjBtYXNzYWdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Sıcak Taş Terapisi" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover;">
-                        <div style="margin-left: var(--spacing-md); flex: 1;">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                <div>
-                                    <h3 style="margin: 0; font-size: var(--font-size-md);">Sıcak Taş Terapisi</h3>
-                                    <p style="margin: 4px 0 0; font-size: var(--font-size-xs); color: var(--text-muted);">90 dakika</p>
-                                </div>
-                                <div style="text-align: right;">
-                                    <p style="margin: var(--spacing-xs) 0 0; font-weight: 600; color: var(--primary-color);">₺2.250</p>
-                                </div>
+                
+                <!-- Medical Spa Category -->
+                <div class="category-section" id="medical-category">
+                    <h2 class="category-title">Medikal Spa</h2>
+                    <div class="service-grid">
+                        <!-- Service Card 1 -->
+                        <a href="hotels.html?service=Medikal Cilt Bakımı" class="service-card" data-service-id="medical-facial">
+                            <div class="service-icon">
+                                <i class="fas fa-clinic-medical"></i>
                             </div>
-                            <p style="margin: var(--spacing-sm) 0; font-size: var(--font-size-sm);">Isıtılmış taşlar, gergin kasları ısıtmak ve gevşetmek için vücudun belirli bölgelerine yerleştirilir.</p>
-                            <div style="margin-top: var(--spacing-md); text-align: right;">
-                                <a href="services.html?service=hot-stone" class="btn btn-primary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">Otelleri Gör</a>
+                            <div class="service-content">
+                                <h3 class="service-name">Medikal Cilt Bakımı</h3>
+                                <p class="service-duration">90 dakika</p>
+                                <p class="service-price">₺2.350</p>
                             </div>
-                        </div>
+                        </a>
+                        
+                        <!-- Service Card 2 -->
+                        <a href="hotels.html?service=Mikrodermabrazyon" class="service-card" data-service-id="microdermabrasion">
+                            <div class="service-icon">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Mikrodermabrazyon</h3>
+                                <p class="service-duration">45 dakika</p>
+                                <p class="service-price">₺1.850</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 3 -->
+                        <a href="hotels.html?service=Kimyasal Peeling" class="service-card" data-service-id="chemical-peel">
+                            <div class="service-icon">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Kimyasal Peeling</h3>
+                                <p class="service-duration">30 dakika</p>
+                                <p class="service-price">₺1.550</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 4 -->
+                        <a href="hotels.html?service=LED Terapi" class="service-card" data-service-id="led-therapy">
+                            <div class="service-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">LED Terapi</h3>
+                                <p class="service-duration">45 dakika</p>
+                                <p class="service-price">₺1.750</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 5 -->
+                        <a href="hotels.html?service=Oksijen Terapi" class="service-card" data-service-id="oxygen-therapy">
+                            <div class="service-icon">
+                                <i class="fas fa-lungs"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Oksijen Terapi</h3>
+                                <p class="service-duration">60 dakika</p>
+                                <p class="service-price">₺1.950</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 6 -->
+                        <a href="hotels.html?service=Lazer Terapi" class="service-card" data-service-id="laser-therapy">
+                            <div class="service-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Lazer Terapi</h3>
+                                <p class="service-duration">30 dakika</p>
+                                <p class="service-price">₺2.150</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
-
-                <!-- Service Card 4 -->
-                <div class="card" style="margin-bottom: var(--spacing-md);">
-                    <div style="display: flex; padding: var(--spacing-md);">
-                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGZhY2lhbCUyMHRyZWF0bWVudHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Lüks Cilt Bakımı" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover;">
-                        <div style="margin-left: var(--spacing-md); flex: 1;">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                <div>
-                                    <h3 style="margin: 0; font-size: var(--font-size-md);">Lüks Cilt Bakımı</h3>
-                                    <p style="margin: 4px 0 0; font-size: var(--font-size-xs); color: var(--text-muted);">75 dakika</p>
-                                </div>
-                                <div style="text-align: right;">
-                                    <p style="margin: var(--spacing-xs) 0 0; font-weight: 600; color: var(--primary-color);">₺1.750</p>
-                                </div>
+                
+                <!-- Hot Stone Category -->
+                <div class="category-section" id="hotstone-category">
+                    <h2 class="category-title">Sıcak Taş Spa</h2>
+                    <div class="service-grid">
+                        <!-- Service Card 1 -->
+                        <a href="hotels.html?service=Sıcak Taş Terapisi" class="service-card" data-service-id="hot-stone">
+                            <div class="service-icon">
+                                <i class="fas fa-fire"></i>
                             </div>
-                            <p style="margin: var(--spacing-sm) 0; font-size: var(--font-size-sm);">Cildinizi temizlemek, peeling yapmak ve nemlendirmek için yüksek kaliteli ürünler kullanan premium bir cilt bakımı.</p>
-                            <div style="margin-top: var(--spacing-md); text-align: right;">
-                                <a href="services.html?service=luxury-facial" class="btn btn-primary" style="padding: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm);">Otelleri Gör</a>
+                            <div class="service-content">
+                                <h3 class="service-name">Sıcak Taş Terapisi</h3>
+                                <p class="service-duration">90 dakika</p>
+                                <p class="service-price">₺2.250</p>
                             </div>
-                        </div>
+                        </a>
+                        
+                        <!-- Service Card 2 -->
+                        <a href="hotels.html?service=Sıcak Taş Sırt Masajı" class="service-card" data-service-id="hot-stone-back">
+                            <div class="service-icon">
+                                <i class="fas fa-fire-alt"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Sıcak Taş Sırt Masajı</h3>
+                                <p class="service-duration">60 dakika</p>
+                                <p class="service-price">₺1.850</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 3 -->
+                        <a href="hotels.html?service=Sıcak Taş Yüz Masajı" class="service-card" data-service-id="hot-stone-facial">
+                            <div class="service-icon">
+                                <i class="fas fa-smile"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Sıcak Taş Yüz Masajı</h3>
+                                <p class="service-duration">45 dakika</p>
+                                <p class="service-price">₺1.550</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 4 -->
+                        <a href="hotels.html?service=Delüks Sıcak Taş Terapisi" class="service-card" data-service-id="hot-stone-deluxe">
+                            <div class="service-icon">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Delüks Sıcak Taş Terapisi</h3>
+                                <p class="service-duration">120 dakika</p>
+                                <p class="service-price">₺2.950</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 5 -->
+                        <a href="hotels.html?service=Sıcak Taş Aromaterapi" class="service-card" data-service-id="hot-stone-aromatherapy">
+                            <div class="service-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Sıcak Taş Aromaterapi</h3>
+                                <p class="service-duration">90 dakika</p>
+                                <p class="service-price">₺2.450</p>
+                            </div>
+                        </a>
+                        
+                        <!-- Service Card 6 -->
+                        <a href="hotels.html?service=Çiftler için Sıcak Taş Masajı" class="service-card" data-service-id="hot-stone-couples">
+                            <div class="service-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="service-content">
+                                <h3 class="service-name">Çiftler için Sıcak Taş Masajı</h3>
+                                <p class="service-duration">90 dakika</p>
+                                <p class="service-price">₺4.250</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -129,13 +440,17 @@
                 <i class="fas fa-home"></i>
                 <span>Ana Sayfa</span>
             </a>
-            <a href="booking.html" class="nav-item" data-page="booking">
-                <i class="far fa-calendar"></i>
-                <span>Rezervasyon</span>
-            </a>
             <a href="services.html" class="nav-item active" data-page="services">
                 <i class="fas fa-spa"></i>
                 <span>Hizmetler</span>
+            </a>
+            <a href="calendar.html" class="nav-item" data-page="calendar">
+                <i class="far fa-calendar-alt"></i>
+                <span>Takvim</span>
+            </a>
+            <a href="user-profile.html" class="nav-item" data-page="profile">
+                <i class="fas fa-user"></i>
+                <span>Profil</span>
             </a>
         </div>
     </div>
@@ -144,6 +459,7 @@
     <script src="js/page-transitions.js"></script>
     <script src="js/hotel-data.js"></script>
     <script src="js/loading-animation.js"></script>
+    <script src="js/booking-cache.js"></script>
     <script>
         // Add animation for profile icon
         document.addEventListener('DOMContentLoaded', function() {
@@ -166,6 +482,37 @@
                 }
             `;
             document.head.appendChild(style);
+            
+            // Add click event listeners to all service cards to save selection to cache
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Get service name from the card
+                    const serviceName = this.querySelector('.service-name').textContent;
+                    const serviceId = this.dataset.serviceId;
+                    const servicePrice = this.querySelector('.service-price').textContent;
+                    const serviceDuration = this.querySelector('.service-duration').textContent;
+                    
+                    // Create booking data object
+                    const bookingData = {
+                        service: serviceName,
+                        serviceId: serviceId,
+                        price: servicePrice,
+                        duration: serviceDuration,
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    // Save to cache
+                    saveBookingToCache(bookingData);
+                    console.log('Service selection saved to cache:', bookingData);
+                });
+            });
+            
+            // Check if there's a cached service selection
+            const cachedBooking = getBookingFromCache();
+            if (cachedBooking && cachedBooking.service) {
+                console.log('Found cached service selection:', cachedBooking.service);
+            }
         });
 
         // Get the category from URL parameters
@@ -178,49 +525,73 @@
             const titleElement = document.getElementById('service-category-title');
             if (titleElement) {
                 switch (category) {
-                    case 'massage':
+                    case 'massage.html':
                         titleElement.textContent = 'Masaj Terapileri';
+                        document.getElementById('massage-category').scrollIntoView({ behavior: 'smooth' });
                         break;
-                    case 'facial':
-                        titleElement.textContent = 'Lüks Cilt Bakımları';
+                    case 'facial.html':
+                        titleElement.textContent = 'Cilt Bakımları';
+                        document.getElementById('facial-category').scrollIntoView({ behavior: 'smooth' });
                         break;
-                    case 'treatment':
-                        titleElement.textContent = 'Spa Tedavileri';
+                    case 'treatment.html':
+                        titleElement.textContent = 'Medikal Spa';
+                        document.getElementById('medical-category').scrollIntoView({ behavior: 'smooth' });
                         break;
-                    case 'hotstone':
+                    case 'hotstone.html':
                         titleElement.textContent = 'Sıcak Taş Terapileri';
+                        document.getElementById('hotstone-category').scrollIntoView({ behavior: 'smooth' });
                         break;
                     default:
-                        titleElement.textContent = 'Lüks Spa Hizmetleri';
+                        titleElement.textContent = 'Spa Hizmetleri';
                 }
             }
         }
         
         // If a service is selected, show hotels that offer this service
         if (service) {
-            // Get the container for service cards
-            const serviceContainer = document.querySelector('.container div[style="margin-bottom: 80px;"]');
+            // Hide all category sections
+            const categoryContainers = document.querySelectorAll('.category-section');
+            categoryContainers.forEach(container => {
+                container.style.display = 'none';
+            });
             
-            // Clear the container
-            serviceContainer.innerHTML = '';
+            // Get the container for service cards
+            const serviceContainer = document.getElementById('service-container');
             
             // Set the title based on the service
             const titleElement = document.getElementById('service-category-title');
             let serviceName = 'Spa Hizmeti';
             
-            if (service === 'swedish-massage') {
-                serviceName = 'İsveç Masajı';
-                titleElement.textContent = 'İsveç Masajı Sunan Oteller';
-            } else if (service === 'deep-tissue') {
-                serviceName = 'Derin Doku Masajı';
-                titleElement.textContent = 'Derin Doku Masajı Sunan Oteller';
-            } else if (service === 'hot-stone') {
-                serviceName = 'Sıcak Taş Terapisi';
-                titleElement.textContent = 'Sıcak Taş Terapisi Sunan Oteller';
-            } else if (service === 'luxury-facial') {
-                serviceName = 'Lüks Cilt Bakımı';
-                titleElement.textContent = 'Lüks Cilt Bakımı Sunan Oteller';
-            }
+            // Map service IDs to service names
+            const serviceNames = {
+                'swedish-massage': 'İsveç Masajı',
+                'deep-tissue': 'Derin Doku Masajı',
+                'aromatherapy': 'Aromaterapi Masajı',
+                'thai-massage': 'Thai Masajı',
+                'sports-massage': 'Spor Masajı',
+                'reflexology': 'Refleksoloji',
+                'luxury-facial': 'Lüks Cilt Bakımı',
+                'hydrating-facial': 'Nemlendirici Cilt Bakımı',
+                'anti-aging-facial': 'Anti-Aging Cilt Bakımı',
+                'detox-facial': 'Detoks Cilt Bakımı',
+                'collagen-facial': 'Kolajen Cilt Bakımı',
+                'acne-facial': 'Akne Cilt Bakımı',
+                'medical-facial': 'Medikal Cilt Bakımı',
+                'microdermabrasion': 'Mikrodermabrazyon',
+                'chemical-peel': 'Kimyasal Peeling',
+                'led-therapy': 'LED Terapi',
+                'oxygen-therapy': 'Oksijen Terapi',
+                'laser-therapy': 'Lazer Terapi',
+                'hot-stone': 'Sıcak Taş Terapisi',
+                'hot-stone-back': 'Sıcak Taş Sırt Masajı',
+                'hot-stone-facial': 'Sıcak Taş Yüz Masajı',
+                'hot-stone-deluxe': 'Delüks Sıcak Taş Terapisi',
+                'hot-stone-aromatherapy': 'Sıcak Taş Aromaterapi',
+                'hot-stone-couples': 'Çiftler için Sıcak Taş Masajı'
+            };
+            
+            serviceName = serviceNames[service] || 'Spa Hizmeti';
+            titleElement.textContent = `${serviceName} Sunan Oteller`;
             
             // Add CSS for hotel cards
             const style = document.createElement('style');
@@ -406,56 +777,62 @@
                     descriptionDiv.className = 'hotel-details-section';
                     descriptionDiv.innerHTML = `
                         <h4 class="hotel-details-title">Otel Hakkında</h4>
-                        <p>${hotel.aciklama}</p>
+                        <p>${hotel.aciklama || 'Bilgi bulunmamaktadır.'}</p>
                     `;
                     detailsDiv.appendChild(descriptionDiv);
                     
                     // Hotel services
-                    const servicesDiv = document.createElement('div');
-                    servicesDiv.className = 'hotel-details-section';
-                    servicesDiv.innerHTML = `
-                        <h4 class="hotel-details-title">Sunulan Hizmetler</h4>
-                        <ul style="padding-left: 20px; margin: 0;">
-                            ${hotel.hizmetler.map(hizmet => `<li>${hizmet}</li>`).join('')}
-                        </ul>
-                    `;
-                    detailsDiv.appendChild(servicesDiv);
+                    if (hotel.hizmetler && hotel.hizmetler.length > 0) {
+                        const servicesDiv = document.createElement('div');
+                        servicesDiv.className = 'hotel-details-section';
+                        servicesDiv.innerHTML = `
+                            <h4 class="hotel-details-title">Sunulan Hizmetler</h4>
+                            <ul style="padding-left: 20px; margin: 0;">
+                                ${hotel.hizmetler.map(hizmet => `<li>${hizmet}</li>`).join('')}
+                            </ul>
+                        `;
+                        detailsDiv.appendChild(servicesDiv);
+                    }
                     
                     // Customer reviews
-                    const reviewsDiv = document.createElement('div');
-                    reviewsDiv.className = 'hotel-details-section';
-                    reviewsDiv.innerHTML = `
-                        <h4 class="hotel-details-title">Müşteri Yorumları</h4>
-                        ${hotel.yorumlar.map(yorum => `
-                            <div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                    <strong>${yorum.kullanici}</strong>
-                                    <div>
-                                        ${Array(yorum.yildiz).fill('<i class="fas fa-star" style="color: gold;"></i>').join('')}
-                                        ${Array(5 - yorum.yildiz).fill('<i class="far fa-star" style="color: #ccc;"></i>').join('')}
+                    if (hotel.yorumlar && hotel.yorumlar.length > 0) {
+                        const reviewsDiv = document.createElement('div');
+                        reviewsDiv.className = 'hotel-details-section';
+                        reviewsDiv.innerHTML = `
+                            <h4 class="hotel-details-title">Müşteri Yorumları</h4>
+                            ${hotel.yorumlar.map(yorum => `
+                                <div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                        <strong>${yorum.kullanici}</strong>
+                                        <div>
+                                            ${Array(yorum.yildiz).fill('<i class="fas fa-star" style="color: gold;"></i>').join('')}
+                                            ${Array(5 - yorum.yildiz).fill('<i class="far fa-star" style="color: #ccc;"></i>').join('')}
+                                        </div>
                                     </div>
+                                    <p style="margin: 0;">${yorum.yorum}</p>
                                 </div>
-                                <p style="margin: 0;">${yorum.yorum}</p>
-                            </div>
-                        `).join('')}
-                    `;
-                    detailsDiv.appendChild(reviewsDiv);
+                            `).join('')}
+                        `;
+                        detailsDiv.appendChild(reviewsDiv);
+                    }
                     
                     // Google Maps
-                    const mapDiv = document.createElement('div');
-                    mapDiv.className = 'hotel-details-section';
-                    mapDiv.innerHTML = `
-                        <h4 class="hotel-details-title">Konum</h4>
-                        <iframe 
-                            width="100%" 
-                            height="200" 
-                            frameborder="0" 
-                            style="border:0; border-radius: 8px;" 
-                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(hotel.adres)}" 
-                            allowfullscreen>
-                        </iframe>
-                    `;
-                    detailsDiv.appendChild(mapDiv);
+                    if (hotel.adres) {
+                        const mapDiv = document.createElement('div');
+                        mapDiv.className = 'hotel-details-section';
+                        mapDiv.innerHTML = `
+                            <h4 class="hotel-details-title">Konum</h4>
+                            <iframe 
+                                width="100%" 
+                                height="200" 
+                                frameborder="0" 
+                                style="border:0; border-radius: 8px;" 
+                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(hotel.adres)}" 
+                                allowfullscreen>
+                            </iframe>
+                        `;
+                        detailsDiv.appendChild(mapDiv);
+                    }
                     
                     hotelCard.appendChild(detailsDiv);
                     button.textContent = 'Gizle';
@@ -464,6 +841,10 @@
             
             // Show loading overlay
             showLoadingOverlay("Oteller yükleniyor...", 2000, () => {
+                // Create a new container for hotels
+                const hotelsContainer = document.createElement('div');
+                hotelsContainer.className = 'hotels-container';
+                
                 // Filter hotels (in a real app, this would be based on which hotels offer the service)
                 // For demo, we'll just show all hotels
                 const hotels = window.hotelData || [];
@@ -480,7 +861,7 @@
                     hotelCard.className = 'hotel-card';
                     
                     // Use the image URL from the hotel data
-                    const imageUrl = hotel.fotograf_linki;
+                    const imageUrl = hotel.fotograf_linki || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aG90ZWwlMjBzcGF8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60';
                     
                     hotelCard.innerHTML = `
                         <div style="position: relative;">
@@ -493,16 +874,16 @@
                             <div class="hotel-header">
                                 <div>
                                     <h3 class="hotel-title">${hotel.sube_adi}</h3>
-                                    <p class="hotel-subtitle">${hotel.otel_isim}</p>
+                                    <p class="hotel-subtitle">${hotel.otel_isim || 'Lüks Otel & Spa'}</p>
                                 </div>
                                 <div class="hotel-rating">
                                     <i class="fas fa-star"></i>
-                                    <span>${hotel.google_yildiz.toFixed(1)}</span>
+                                    <span>${hotel.google_yildiz ? hotel.google_yildiz.toFixed(1) : '4.5'}</span>
                                 </div>
                             </div>
                             <div class="hotel-address">
                                 <i class="fas fa-map-marker-alt"></i>
-                                <span>${hotel.adres}</span>
+                                <span>${hotel.adres || 'İstanbul, Türkiye'}</span>
                             </div>
                             <div class="hotel-actions">
                                 <button class="hotel-action-btn btn-view" onclick="toggleHotelDetails(this, '${hotel.sube_adi}')">Görüntüle</button>
@@ -511,7 +892,7 @@
                         </div>
                     `;
                     
-                    serviceContainer.appendChild(hotelCard);
+                    hotelsContainer.appendChild(hotelCard);
                     
                     // Add event listener to favorite button
                     const favoriteBtn = hotelCard.querySelector('.hotel-favorite');
@@ -535,7 +916,11 @@
                         Tüm Otelleri Görüntüle
                     </a>
                 `;
-                serviceContainer.appendChild(viewAllButton);
+                hotelsContainer.appendChild(viewAllButton);
+                
+                // Replace the service container with the hotels container
+                serviceContainer.innerHTML = '';
+                serviceContainer.appendChild(hotelsContainer);
             });
         }
     </script>

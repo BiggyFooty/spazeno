@@ -386,11 +386,15 @@
     <script src="js/hotel-data.js"></script>
     <script src="js/loading-animation.js"></script>
     <script src="js/booking-data.js"></script>
+    <script src="js/booking-cache.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize booking data
+            // Check for cached booking data first
+            const cachedBooking = getBookingFromCache();
+            
+            // Initialize booking data with defaults or cached values
             let bookingData = {
-                service: "Klasik Masaj (İsviçre Masajı)",
+                service: cachedBooking?.service || "Klasik Masaj (İsviçre Masajı)",
                 date: "Per 13",
                 fullDate: "2025-03-13",
                 time: "11:00",
@@ -402,7 +406,169 @@
             
             // Get URL parameters
             const urlParams = new URLSearchParams(window.location.search);
+            const serviceParam = urlParams.get('service');
             const hotelParam = urlParams.get('hotel');
+            
+            console.log('Cached booking data:', cachedBooking);
+            console.log('URL service parameter:', serviceParam);
+            
+            // Check if we have a cached service selection (and no URL parameter)
+            if (cachedBooking && cachedBooking.service && !serviceParam) {
+                console.log('Using cached service selection:', cachedBooking.service);
+                bookingData.service = cachedBooking.service;
+                
+                // Find and select the appropriate service option based on cached data
+                const serviceOptions = document.querySelectorAll('.service-option');
+                let foundService = false;
+                
+                serviceOptions.forEach(option => {
+                    // Try to match by service name or heading text
+                    const serviceName = option.dataset.service;
+                    const serviceHeading = option.querySelector('.service-option-info h4')?.textContent;
+                    
+                    if (serviceName === cachedBooking.service || 
+                        serviceHeading === cachedBooking.service ||
+                        (cachedBooking.service.includes(serviceName) && serviceName)) {
+                        
+                        // Update UI
+                        serviceOptions.forEach(o => {
+                            o.classList.remove('active');
+                            if (o.querySelector('.service-option-check i')) {
+                                o.querySelector('.service-option-check i').className = 'fas fa-circle';
+                            }
+                        });
+                        option.classList.add('active');
+                        if (option.querySelector('.service-option-check i')) {
+                            option.querySelector('.service-option-check i').className = 'fas fa-check-circle';
+                        }
+                        
+                        // Find and activate the correct category pill
+                        const categoryContent = option.closest('.category-content');
+                        if (categoryContent) {
+                            const categoryId = categoryContent.id;
+                            const categoryName = categoryId.split('-')[0];
+                            
+                            // Activate the correct category pill
+                            const categoryPills = document.querySelectorAll('.category-pill');
+                            categoryPills.forEach(pill => {
+                                pill.classList.remove('active');
+                                if (pill.dataset.category === categoryName) {
+                                    pill.classList.add('active');
+                                }
+                            });
+                            
+                            // Show the correct category content
+                            const categoryContents = document.querySelectorAll('.category-content');
+                            categoryContents.forEach(content => {
+                                content.classList.remove('active');
+                            });
+                            categoryContent.classList.add('active');
+                        }
+                        
+                        foundService = true;
+                    }
+                });
+                
+                if (!foundService) {
+                    console.log('Could not find matching service for cached selection:', cachedBooking.service);
+                }
+            }
+            
+            // URL parameters take precedence over cached data
+            if (serviceParam) {
+                bookingData.service = serviceParam;
+                
+                // Find and select the appropriate service option
+                const serviceOptions = document.querySelectorAll('.service-option');
+                let foundService = false;
+                
+                serviceOptions.forEach(option => {
+                    // Check if this option matches the requested service
+                    if (option.querySelector('.service-option-info h4').textContent === serviceParam) {
+                        // Update UI
+                        serviceOptions.forEach(o => {
+                            o.classList.remove('active');
+                            if (o.querySelector('.service-option-check i')) {
+                                o.querySelector('.service-option-check i').className = 'fas fa-circle';
+                            }
+                        });
+                        option.classList.add('active');
+                        if (option.querySelector('.service-option-check i')) {
+                            option.querySelector('.service-option-check i').className = 'fas fa-check-circle';
+                        }
+                        
+                        // Find and activate the correct category pill
+                        const categoryContent = option.closest('.category-content');
+                        if (categoryContent) {
+                            const categoryId = categoryContent.id;
+                            const categoryName = categoryId.split('-')[0]; // e.g., "massage" from "massage-content"
+                            
+                            // Activate the correct category pill
+                            const categoryPills = document.querySelectorAll('.category-pill');
+                            categoryPills.forEach(pill => {
+                                pill.classList.remove('active');
+                                if (pill.dataset.category === categoryName) {
+                                    pill.classList.add('active');
+                                }
+                            });
+                            
+                            // Show the correct category content
+                            const categoryContents = document.querySelectorAll('.category-content');
+                            categoryContents.forEach(content => {
+                                content.classList.remove('active');
+                            });
+                            categoryContent.classList.add('active');
+                        }
+                        
+                        foundService = true;
+                    }
+                });
+                
+                // If we didn't find an exact match, try to find a partial match
+                if (!foundService) {
+                    serviceOptions.forEach(option => {
+                        const serviceName = option.dataset.service;
+                        if (serviceName && serviceParam.includes(serviceName)) {
+                            // Update UI
+                            serviceOptions.forEach(o => {
+                                o.classList.remove('active');
+                                if (o.querySelector('.service-option-check i')) {
+                                    o.querySelector('.service-option-check i').className = 'fas fa-circle';
+                                }
+                            });
+                            option.classList.add('active');
+                            if (option.querySelector('.service-option-check i')) {
+                                option.querySelector('.service-option-check i').className = 'fas fa-check-circle';
+                            }
+                            
+                            // Find and activate the correct category pill
+                            const categoryContent = option.closest('.category-content');
+                            if (categoryContent) {
+                                const categoryId = categoryContent.id;
+                                const categoryName = categoryId.split('-')[0];
+                                
+                                // Activate the correct category pill
+                                const categoryPills = document.querySelectorAll('.category-pill');
+                                categoryPills.forEach(pill => {
+                                    pill.classList.remove('active');
+                                    if (pill.dataset.category === categoryName) {
+                                        pill.classList.add('active');
+                                    }
+                                });
+                                
+                                // Show the correct category content
+                                const categoryContents = document.querySelectorAll('.category-content');
+                                categoryContents.forEach(content => {
+                                    content.classList.remove('active');
+                                });
+                                categoryContent.classList.add('active');
+                            }
+                            
+                            foundService = true;
+                        }
+                    });
+                }
+            }
             
             // Update hotel information if provided
             if (hotelParam) {
@@ -470,7 +636,15 @@
                     // Update booking data
                     const serviceName = this.dataset.service;
                     bookingData.service = serviceName;
+                    
+                    // Save to both booking data and cache
                     saveBookingData(bookingData);
+                    saveBookingToCache({
+                        service: serviceName,
+                        serviceId: this.dataset.serviceId || '',
+                        timestamp: new Date().toISOString()
+                    });
+                    
                     console.log('Updated service:', bookingData.service);
                 });
             });
