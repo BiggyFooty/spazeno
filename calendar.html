@@ -173,12 +173,19 @@
         .btn-cancel:hover {
             background-color: #FCA5A5;
         }
+        
+        .no-bookings {
+            text-align: center;
+            color: var(--text-muted);
+            padding: var(--spacing-xl);
+            border: 1px dashed var(--border-color);
+            border-radius: var(--border-radius-md);
+            margin-top: var(--spacing-md);
+        }
     </style>
 </head>
 <body class="calendar-page">
     <div class="app-shell">
-        <!-- Status Bar removed as requested -->
-
         <!-- Header -->
         <div class="header">
             <a href="booking-confirmation.html" class="back-button">
@@ -271,10 +278,10 @@
                 <div class="calendar-day">
                     <span class="calendar-day-number">12</span>
                 </div>
-                <div class="calendar-day active has-event">
+                <div class="calendar-day" data-day="13">
                     <span class="calendar-day-number">13</span>
                 </div>
-                <div class="calendar-day">
+                <div class="calendar-day" data-day="14">
                     <span class="calendar-day-number">14</span>
                 </div>
                 <div class="calendar-day">
@@ -352,22 +359,10 @@
             </div>
             
             <div class="bookings-list" style="margin-bottom: 100px;">
-                <h3>13 Mart için Rezervasyonlar</h3>
+                <h3 id="bookings-date-title">Rezervasyonlar</h3>
                 
-                <div class="booking-item" style="background-color: #FFFFFF; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); padding: var(--spacing-lg);">
-                    <div class="booking-header">
-                        <div>
-                            <h4 class="booking-title" style="font-size: var(--font-size-lg); color: var(--primary-color);">İsveç Masajı</h4>
-                            <p class="booking-time">11:30 - 12:30</p>
-                        </div>
-                        <span class="booking-id" style="font-size: var(--font-size-xs); color: var(--text-muted);">SPZ-80978</span>
-                    </div>
-                    <p class="booking-location" style="margin: var(--spacing-md) 0;">Grand Luxury Resort Spa</p>
-                    
-                    <div style="display: flex; gap: var(--spacing-md); margin-top: var(--spacing-lg);">
-                        <button class="btn btn-secondary" style="flex: 1; padding: var(--spacing-md);" onclick="window.location.href='booking.html'">Yeniden Planla</button>
-                        <button class="btn" style="flex: 1; padding: var(--spacing-md); background-color: #FEE2E2; color: #DC2626;" onclick="if(confirm('Bu rezervasyonu iptal etmek istediğinizden emin misiniz?')){alert('Rezervasyon başarıyla iptal edildi!');window.location.href='home.html';}">İptal Et</button>
-                    </div>
+                <div id="booking-container">
+                    <!-- Booking items will be inserted here dynamically -->
                 </div>
             </div>
         </div>
@@ -386,10 +381,6 @@
                 <i class="fas fa-spa"></i>
                 <span>Hizmetler</span>
             </a>
-            <a href="profile-summary.html" class="nav-item" data-page="profile">
-                <i class="far fa-user"></i>
-                <span>Profil</span>
-            </a>
         </div>
     </div>
 
@@ -397,112 +388,178 @@
     <script src="js/booking-data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Get booking details from the booking data function
+            // Get booking details from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Get booking details from localStorage as backup
             const bookingData = getBookingData() || {};
             
-            // Get booking details from URL parameters as fallback
-            const urlParams = new URLSearchParams(window.location.search);
-            const bookingId = bookingData.bookingId || urlParams.get('bookingId') || 'SPZ-80978';
+            // Combine URL parameters with localStorage data, prioritizing URL parameters
+            const bookingDetails = {
+                service: urlParams.get('service') || bookingData.service || '',
+                hotel: urlParams.get('hotel') || bookingData.hotel || '',
+                date: urlParams.get('date') || bookingData.date || '',
+                fullDate: urlParams.get('fullDate') || bookingData.fullDate || '',
+                time: urlParams.get('time') || bookingData.time || '',
+                gender: urlParams.get('gender') || bookingData.gender || '',
+                bookingId: urlParams.get('bookingId') || bookingData.bookingId || '',
+                timestamp: urlParams.get('timestamp') || bookingData.timestamp || ''
+            };
             
-            // Update booking details in the list
-            const bookingIdElement = document.querySelector('.booking-id');
-            if (bookingIdElement) {
-                bookingIdElement.textContent = bookingId;
+            // Generate booking ID if not provided
+            if (!bookingDetails.bookingId) {
+                bookingDetails.bookingId = 'SPZ-' + Math.floor(10000 + Math.random() * 90000);
             }
             
-            // Update booking title (service name)
-            const bookingTitleElement = document.querySelector('.booking-title');
-            if (bookingTitleElement && bookingData.service) {
-                bookingTitleElement.textContent = bookingData.service;
-            }
-            
-            // Update booking time
-            const bookingTimeElement = document.querySelector('.booking-time');
-            if (bookingTimeElement && bookingData.time) {
-                // Calculate end time (assuming 1 hour duration)
-                const startTime = bookingData.time;
-                let [hours, minutes] = startTime.split(':').map(Number);
-                let endHours = hours + 1;
-                let endMinutes = minutes;
-                
-                if (endHours > 23) {
-                    endHours = 0;
-                }
-                
-                const endTime = `${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
-                bookingTimeElement.textContent = `${startTime} - ${endTime}`;
-            }
-            
-            // Update booking location (hotel name)
-            const bookingLocationElement = document.querySelector('.booking-location');
-            if (bookingLocationElement && bookingData.hotel) {
-                bookingLocationElement.textContent = `${bookingData.hotel} Spa`;
-            }
-            
-            // Highlight the correct day in the calendar
-            if (bookingData.date) {
-                // Extract the day number from the date (e.g., "Per 13" -> "13")
-                const dayMatch = bookingData.date.match(/\d+/);
+            // Extract day number from date (e.g., "Per 13" -> "13")
+            let bookingDay = '';
+            if (bookingDetails.date) {
+                const dayMatch = bookingDetails.date.match(/\d+/);
                 if (dayMatch) {
-                    const dayNumber = dayMatch[0];
+                    bookingDay = dayMatch[0];
+                }
+            }
+            
+            // Find and activate the corresponding calendar day
+            const calendarDays = document.querySelectorAll('.calendar-day');
+            let activeDay = null;
+            
+            calendarDays.forEach(day => {
+                const dayNumberElement = day.querySelector('.calendar-day-number');
+                if (dayNumberElement && bookingDay && dayNumberElement.textContent === bookingDay) {
+                    day.classList.add('active', 'has-event');
+                    activeDay = day;
+                }
+            });
+            
+            // If no active day was found, default to the first non-other-month day
+            if (!activeDay) {
+                for (const day of calendarDays) {
+                    if (!day.classList.contains('other-month')) {
+                        day.classList.add('active');
+                        activeDay = day;
+                        break;
+                    }
+                }
+            }
+            
+            // Update bookings list title
+            const bookingsDateTitle = document.getElementById('bookings-date-title');
+            if (bookingsDateTitle && activeDay) {
+                const dayNumber = activeDay.querySelector('.calendar-day-number').textContent;
+                bookingsDateTitle.textContent = `${dayNumber} Mart için Rezervasyonlar`;
+            }
+            
+            // Create booking item if we have booking details
+            const bookingContainer = document.getElementById('booking-container');
+            if (bookingContainer) {
+                if (bookingDetails.service && bookingDetails.date && bookingDetails.time) {
+                    // Calculate end time (assuming 1 hour duration)
+                    const startTime = bookingDetails.time;
+                    let [hours, minutes] = startTime.split(':').map(Number);
+                    let endHours = hours + 1;
+                    let endMinutes = minutes;
                     
-                    // Find and activate the corresponding calendar day
-                    const calendarDays = document.querySelectorAll('.calendar-day');
-                    calendarDays.forEach(day => {
-                        const dayNumberElement = day.querySelector('.calendar-day-number');
-                        if (dayNumberElement && dayNumberElement.textContent === dayNumber) {
-                            // Remove active class from all days
-                            calendarDays.forEach(d => d.classList.remove('active', 'has-event'));
-                            
-                            // Add active and has-event classes to the booking day
-                            day.classList.add('active', 'has-event');
-                            
-                            // Update bookings list title
-                            document.querySelector('.bookings-list h3').textContent = `${dayNumber} Mart için Rezervasyonlar`;
+                    if (endHours > 23) {
+                        endHours = 0;
+                    }
+                    
+                    const endTime = `${endHours.toString().padStart(2, '0')}:${endMinutes.toString().padStart(2, '0')}`;
+                    
+                    // Create booking item HTML
+                    const bookingItem = document.createElement('div');
+                    bookingItem.className = 'booking-item';
+                    bookingItem.style.backgroundColor = '#FFFFFF';
+                    bookingItem.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.08)';
+                    bookingItem.style.padding = 'var(--spacing-lg)';
+                    
+                    bookingItem.innerHTML = `
+                        <div class="booking-header">
+                            <div>
+                                <h4 class="booking-title" style="font-size: var(--font-size-lg); color: var(--primary-color);">${bookingDetails.service}</h4>
+                                <p class="booking-time">${startTime} - ${endTime}</p>
+                            </div>
+                            <span class="booking-id" style="font-size: var(--font-size-xs); color: var(--text-muted);">${bookingDetails.bookingId}</span>
+                        </div>
+                        <p class="booking-location" style="margin: var(--spacing-md) 0;">${bookingDetails.hotel} Spa</p>
+                        
+                        <div style="display: flex; gap: var(--spacing-md); margin-top: var(--spacing-lg);">
+                            <button class="btn btn-secondary" style="flex: 1; padding: var(--spacing-md);" id="reschedule-btn">Yeniden Planla</button>
+                            <button class="btn" style="flex: 1; padding: var(--spacing-md); background-color: #FEE2E2; color: #DC2626;" id="cancel-btn">İptal Et</button>
+                        </div>
+                    `;
+                    
+                    bookingContainer.appendChild(bookingItem);
+                    
+                    // Add event listeners to buttons
+                    document.getElementById('reschedule-btn').addEventListener('click', function() {
+                        window.location.href = 'booking.html';
+                    });
+                    
+                    document.getElementById('cancel-btn').addEventListener('click', function() {
+                        if (confirm('Bu rezervasyonu iptal etmek istediğinizden emin misiniz?')) {
+                            alert('Rezervasyon başarıyla iptal edildi!');
+                            window.location.href = 'home.html';
                         }
                     });
+                    
+                    // Show booking only on the correct day
+                    showBookingForDay(bookingDay);
+                } else {
+                    // No booking data available
+                    const noBookingsMessage = document.createElement('div');
+                    noBookingsMessage.className = 'no-bookings';
+                    noBookingsMessage.textContent = 'Bu tarih için rezervasyon bulunmamaktadır.';
+                    bookingContainer.appendChild(noBookingsMessage);
                 }
             }
             
             // Calendar day click event
-            const calendarDays = document.querySelectorAll('.calendar-day');
             calendarDays.forEach(day => {
                 day.addEventListener('click', function() {
+                    // Update UI
                     calendarDays.forEach(d => d.classList.remove('active'));
                     this.classList.add('active');
                     
                     // Update bookings list title
                     const dayNumber = this.querySelector('.calendar-day-number').textContent;
-                    document.querySelector('.bookings-list h3').textContent = `${dayNumber} Mart için Rezervasyonlar`;
+                    document.getElementById('bookings-date-title').textContent = `${dayNumber} Mart için Rezervasyonlar`;
                     
-                    // In a real app, this would fetch bookings for the selected date
-                    // For this demo, we'll just show/hide the booking item
-                    const bookingItem = document.querySelector('.booking-item');
-                    if (dayNumber === '13') {
-                        bookingItem.style.display = 'block';
-                    } else {
-                        bookingItem.style.display = 'none';
-                    }
+                    // Show booking for the selected day
+                    showBookingForDay(dayNumber);
                 });
             });
             
-            // Booking action buttons
-            const rescheduleBtn = document.querySelector('.btn-reschedule');
-            if (rescheduleBtn) {
-                rescheduleBtn.addEventListener('click', function() {
-                    window.location.href = 'booking.html';
-                });
+            // Function to show booking for a specific day
+            function showBookingForDay(dayNumber) {
+                const bookingItem = document.querySelector('.booking-item');
+                const noBookingsMessage = document.querySelector('.no-bookings');
+                
+                if (!bookingItem && !noBookingsMessage) return;
+                
+                if (bookingDay === dayNumber) {
+                    // Show booking for this day
+                    if (bookingItem) bookingItem.style.display = 'block';
+                    if (noBookingsMessage) noBookingsMessage.style.display = 'none';
+                } else {
+                    // No booking for this day
+                    if (bookingItem) bookingItem.style.display = 'none';
+                    
+                    if (noBookingsMessage) {
+                        noBookingsMessage.style.display = 'block';
+                    } else {
+                        const newNoBookingsMessage = document.createElement('div');
+                        newNoBookingsMessage.className = 'no-bookings';
+                        newNoBookingsMessage.textContent = 'Bu tarih için rezervasyon bulunmamaktadır.';
+                        document.getElementById('booking-container').appendChild(newNoBookingsMessage);
+                    }
+                }
             }
             
-            const cancelBtn = document.querySelector('.btn-cancel');
-            if (cancelBtn) {
-                cancelBtn.addEventListener('click', function() {
-                    if (confirm('Bu rezervasyonu iptal etmek istediğinizden emin misiniz?')) {
-                        alert('Rezervasyon başarıyla iptal edildi!');
-                        window.location.href = 'home.html';
-                    }
-                });
-            }
+            // Log booking details for debugging
+            console.log('Booking details from URL parameters:', Object.fromEntries(urlParams.entries()));
+            console.log('Booking details from localStorage:', bookingData);
+            console.log('Final booking details:', bookingDetails);
         });
     </script>
 </body>

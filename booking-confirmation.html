@@ -25,8 +25,6 @@
 </head>
 <body class="confirmation-page">
     <div class="app-shell">
-        <!-- Status Bar removed as requested -->
-
         <!-- Header -->
         <div class="header">
             <a href="home.html" class="back-button">
@@ -58,28 +56,28 @@
                     
                     <div style="margin-bottom: var(--spacing-md);">
                         <h3 style="font-size: var(--font-size-md); margin-bottom: var(--spacing-xs);">Hizmet</h3>
-                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="service-name">İsveç Masajı</p>
+                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="service-name"></p>
                     </div>
                     
                     <div style="margin-bottom: var(--spacing-md);">
                         <h3 style="font-size: var(--font-size-md); margin-bottom: var(--spacing-xs);">Otel Spa</h3>
-                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="hotel-name">Grand Luxury Resort</p>
+                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="hotel-name"></p>
                     </div>
                     
                     <div style="margin-bottom: var(--spacing-md);">
                         <h3 style="font-size: var(--font-size-md); margin-bottom: var(--spacing-xs);">Tarih & Saat</h3>
-                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="booking-datetime">13 Mart 2025, 10:30</p>
+                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="booking-datetime"></p>
                     </div>
                     
                     <div style="margin-bottom: var(--spacing-md);">
                         <h3 style="font-size: var(--font-size-md); margin-bottom: var(--spacing-xs);">Konum</h3>
-                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="location-name">Grand Luxury Resort Spa</p>
-                        <p style="font-size: var(--font-size-sm); color: var(--text-muted);" id="location-address">123 Wellness Caddesi, İstanbul</p>
+                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="location-name"></p>
+                        <p style="font-size: var(--font-size-sm); color: var(--text-muted);" id="location-address"></p>
                     </div>
                     
                     <div>
                         <h3 style="font-size: var(--font-size-md); margin-bottom: var(--spacing-xs);">Rezervasyon Kodu</h3>
-                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="booking-id">SPZ-12345</p>
+                        <p style="font-size: var(--font-size-md); font-weight: 500;" id="booking-id"></p>
                     </div>
                 </div>
             </div>
@@ -120,93 +118,74 @@
     <script src="js/booking-data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Get booking details from the booking data function
+            // Get booking details from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Get booking details from localStorage as backup
             const bookingData = getBookingData() || {};
             
-            // Get URL parameters as fallback
-            const urlParams = new URLSearchParams(window.location.search);
-            const hotelParam = urlParams.get('hotel') || bookingData.hotel;
-            const serviceParam = urlParams.get('service') || bookingData.service;
-            const dateParam = urlParams.get('date') || bookingData.date;
-            const timeParam = urlParams.get('time') || bookingData.time;
-            const genderParam = urlParams.get('gender') || bookingData.gender;
+            // Combine URL parameters with localStorage data, prioritizing URL parameters
+            const bookingDetails = {
+                service: urlParams.get('service') || bookingData.service || '',
+                hotel: urlParams.get('hotel') || bookingData.hotel || '',
+                date: urlParams.get('date') || bookingData.date || '',
+                fullDate: urlParams.get('fullDate') || bookingData.fullDate || '',
+                time: urlParams.get('time') || bookingData.time || '',
+                gender: urlParams.get('gender') || bookingData.gender || '',
+                bookingId: urlParams.get('bookingId') || bookingData.bookingId || '',
+                timestamp: urlParams.get('timestamp') || bookingData.timestamp || ''
+            };
             
-            // Set booking ID
-            const bookingId = bookingData.bookingId || 'SPZ-' + Math.floor(10000 + Math.random() * 90000);
-            document.getElementById('booking-id').textContent = bookingId;
-            
-            // Set service name based on service parameter
-            if (serviceParam) {
-                const serviceElement = document.getElementById('service-name');
-                if (serviceElement) {
-                    serviceElement.textContent = serviceParam;
-                }
+            // Generate booking ID if not provided
+            if (!bookingDetails.bookingId) {
+                bookingDetails.bookingId = 'SPZ-' + Math.floor(10000 + Math.random() * 90000);
             }
             
-            // Set booking date and time based on parameters
+            // Set service name
+            const serviceElement = document.getElementById('service-name');
+            if (serviceElement && bookingDetails.service) {
+                serviceElement.textContent = bookingDetails.service;
+            }
+            
+            // Set booking date and time
             const dateElement = document.getElementById('booking-datetime');
-            if (dateElement && dateParam && timeParam) {
-                // Get current year
+            if (dateElement && bookingDetails.date && bookingDetails.time) {
                 const year = new Date().getFullYear();
-                dateElement.textContent = `${dateParam} ${year}, ${timeParam}`;
-                
-                // Log for debugging
-                console.log('Setting date and time from parameters:', `${dateParam} ${year}, ${timeParam}`);
-            } else if (dateElement) {
-                // Fallback to default date/time generation
-                // Get tomorrow's date
-                const tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                
-                // Format the date
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                const formattedDate = tomorrow.toLocaleDateString('tr-TR', options);
-                
-                // Set random time
-                const hours = [9, 10, 11, 14, 15, 16];
-                const randomHour = hours[Math.floor(Math.random() * hours.length)];
-                const minutes = ['00', '30'];
-                const randomMinute = minutes[Math.floor(Math.random() * minutes.length)];
-                
-                dateElement.textContent = `${formattedDate}, ${randomHour}:${randomMinute}`;
-                
-                // Log for debugging
-                console.log('Setting date and time from fallback:', dateElement.textContent);
+                dateElement.textContent = `${bookingDetails.date} ${year}, ${bookingDetails.time}`;
+                console.log('Setting date and time:', `${bookingDetails.date} ${year}, ${bookingDetails.time}`);
             }
             
-            // Set hotel name based on hotel parameter
-            if (hotelParam) {
+            // Set hotel name and location
+            if (bookingDetails.hotel) {
                 const hotelElement = document.getElementById('hotel-name');
                 const locationNameElement = document.getElementById('location-name');
                 const locationAddressElement = document.getElementById('location-address');
                 
-                if (hotelElement && locationNameElement && locationAddressElement) {
-                    // Find the hotel in the data
-                    const hotels = window.hotelData || [];
-                    const selectedHotel = hotels.find(h => h.sube_adi === hotelParam);
-                    
-                    if (selectedHotel) {
-                        hotelElement.textContent = selectedHotel.sube_adi;
-                        locationNameElement.textContent = `${selectedHotel.sube_adi} Spa`;
-                        locationAddressElement.textContent = selectedHotel.adres;
-                    } else {
-                        // Fallback if hotel not found
-                        hotelElement.textContent = hotelParam;
-                        locationNameElement.textContent = `${hotelParam} Spa`;
-                        locationAddressElement.textContent = 'İstanbul, Türkiye';
-                    }
+                // Find the hotel in the data
+                const hotels = window.hotelData || [];
+                const selectedHotel = hotels.find(h => h.sube_adi === bookingDetails.hotel);
+                
+                if (selectedHotel) {
+                    if (hotelElement) hotelElement.textContent = selectedHotel.sube_adi;
+                    if (locationNameElement) locationNameElement.textContent = `${selectedHotel.sube_adi} Spa`;
+                    if (locationAddressElement) locationAddressElement.textContent = selectedHotel.adres;
+                } else {
+                    if (hotelElement) hotelElement.textContent = bookingDetails.hotel;
+                    if (locationNameElement) locationNameElement.textContent = `${bookingDetails.hotel} Spa`;
+                    if (locationAddressElement) locationAddressElement.textContent = 'İstanbul, Türkiye';
                 }
             }
             
+            // Set booking ID
+            const bookingIdElement = document.getElementById('booking-id');
+            if (bookingIdElement && bookingDetails.bookingId) {
+                bookingIdElement.textContent = bookingDetails.bookingId;
+            }
+            
             // Log booking details for debugging
-            console.log('Booking details from booking-data.js:', bookingData);
-            console.log('Booking details from URL:', { 
-                hotel: hotelParam, 
-                service: serviceParam, 
-                date: dateParam, 
-                time: timeParam, 
-                gender: genderParam 
-            });
+            console.log('Booking details from URL parameters:', Object.fromEntries(urlParams.entries()));
+            console.log('Booking details from localStorage:', bookingData);
+            console.log('Final booking details:', bookingDetails);
         });
     </script>
 </body>

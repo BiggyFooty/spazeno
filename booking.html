@@ -8,47 +8,43 @@
     <link rel="stylesheet" href="css/styles.css">
     <style>
         @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.7;
-            }
-            70% {
-                transform: scale(1.2);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0;
-            }
+            0% { transform: scale(1); opacity: 0.7; }
+            70% { transform: scale(1.2); opacity: 0; }
+            100% { transform: scale(1); opacity: 0; }
         }
         
         @keyframes heartbeat {
-            0% {
-                transform: scale(1);
-            }
-            14% {
-                transform: scale(1.1);
-            }
-            28% {
-                transform: scale(1);
-            }
-            42% {
-                transform: scale(1.1);
-            }
-            70% {
-                transform: scale(1);
-            }
+            0% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); }
         }
         
-        .btn-animated {
-            animation: heartbeat 1.5s infinite;
+        .btn-animated { animation: heartbeat 1.5s infinite; }
+        
+        .category-content { display: none; }
+        .category-content.active { display: block; }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body class="booking-page">
     <div class="app-shell">
-        <!-- Status Bar removed as requested -->
-
         <!-- Header -->
         <div class="header">
             <a href="javascript:history.back()" class="back-button">
@@ -68,49 +64,204 @@
             <form id="booking-form">
                 <!-- Service Selection -->
                 <div class="booking-form-section">
-                    <h3>Spa Hizmetleri</h3>
+                    <h3>Premium Spa Hizmetleri</h3>
                     
                     <div class="category-pills">
                         <div class="category-pill active" data-category="massage">Masaj</div>
                         <div class="category-pill" data-category="facial">Lüks Cilt Bakımı</div>
                         <div class="category-pill" data-category="treatment">Spa Tedavisi</div>
                         <div class="category-pill" data-category="hotstone">Sıcak Taş</div>
-                        <div class="category-pill" data-category="aromatherapy">Aromaterapi</div>
                     </div>
                 </div>
 
-                <!-- Service Options -->
-                <div class="booking-form-section">
-                    <h3>Hizmet Seçin</h3>
-                    
-                    <div class="service-options">
-                        <div class="service-option active">
-                            <div class="service-option-info">
-                                <h4>İsveç Masajı</h4>
-                                <p>60 dakika • ₺1.590</p>
+                <!-- Category Content Sections -->
+                <div class="category-content active" id="massage-content">
+                    <div class="booking-form-section">
+                        <h3>Masaj Seçenekleri</h3>
+                        
+                        <div class="service-options">
+                            <div class="service-option active" data-service="İsveç Masajı">
+                                <div class="service-option-info">
+                                    <h4>Klasik Masaj (İsviçre Masajı)</h4>
+                                    <p>60 dakika • ₺1.590</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
                             </div>
-                            <div class="service-option-check">
-                                <i class="fas fa-check-circle"></i>
+                            
+                            <div class="service-option" data-service="Derin Doku Masajı">
+                                <div class="service-option-info">
+                                    <h4>Derin Doku Masajı</h4>
+                                    <p>90 dakika • ₺2.050</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service="Aromaterapi Masajı">
+                                <div class="service-option-info">
+                                    <h4>Aromaterapi Masajı</h4>
+                                    <p>75 dakika • ₺1.750</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service="Hint Başı Masajı">
+                                <div class="service-option-info">
+                                    <h4>Hint Başı Masajı</h4>
+                                    <p>45 dakika • ₺1.250</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service="Soft Masaj">
+                                <div class="service-option-info">
+                                    <h4>Soft Masaj</h4>
+                                    <p>60 dakika • ₺1.450</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service="Anti-Stres Masajı">
+                                <div class="service-option-info">
+                                    <h4>Anti-Stres Masajı</h4>
+                                    <p>75 dakika • ₺1.850</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service="Gümüş Eldiven Masajı">
+                                <div class="service-option-info">
+                                    <h4>Gümüş Eldiven Masajı</h4>
+                                    <p>90 dakika • ₺2.150</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                
+                <div class="category-content" id="facial-content">
+                    <div class="booking-form-section">
+                        <h3>Cilt Bakımı Seçenekleri</h3>
                         
-                        <div class="service-option">
-                            <div class="service-option-info">
-                                <h4>Derin Doku Masajı</h4>
-                                <p>90 dakika • ₺2.050</p>
+                        <div class="service-options">
+                            <div class="service-option" data-service="Hydrafacial">
+                                <div class="service-option-info">
+                                    <h4>Hydrafacial</h4>
+                                    <p>60 dakika • ₺1.950</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
                             </div>
-                            <div class="service-option-check">
-                                <i class="fas fa-circle"></i>
+                            
+                            <div class="service-option" data-service="Anti-Aging Bakım">
+                                <div class="service-option-info">
+                                    <h4>Yaşlanma Karşıtı Bakım</h4>
+                                    <p>75 dakika • ₺2.250</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service="Pumpkin Peel">
+                                <div class="service-option-info">
+                                    <h4>Pumpkin Peel (Bal Kabağı Peelingi)</h4>
+                                    <p>45 dakika • ₺1.650</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service="Black Peel">
+                                <div class="service-option-info">
+                                    <h4>Black Peel (Siyah Pirinç Peelingi)</h4>
+                                    <p>45 dakika • ₺1.750</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                
+                <div class="category-content" id="treatment-content">
+                    <div class="booking-form-section">
+                        <h3>Medikal Masaj Seçenekleri</h3>
                         
-                        <div class="service-option">
-                            <div class="service-option-info">
-                                <h4>Aromaterapi Masajı</h4>
-                                <p>75 dakika • ₺1.750</p>
+                        <div class="service-options">
+                            <div class="service-option" data-service="Spor Masajı">
+                                <div class="service-option-info">
+                                    <h4>Spor Masajı</h4>
+                                    <p>60 dakika • ₺1.750</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
                             </div>
-                            <div class="service-option-check">
-                                <i class="fas fa-circle"></i>
+                            
+                            <div class="service-option" data-service="Terapötik Masaj">
+                                <div class="service-option-info">
+                                    <h4>Terapötik Masaj</h4>
+                                    <p>90 dakika • ₺2.350</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service="Kas ve Eklem Ağrıları İçin Medikal Masaj">
+                                <div class="service-option-info">
+                                    <h4>Kas ve Eklem Ağrıları İçin Medikal Masaj</h4>
+                                    <p>75 dakika • ₺2.150</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="category-content" id="hotstone-content">
+                    <div class="booking-form-section">
+                        <h3>Sıcak Taşlı Masaj Seçenekleri</h3>
+                        
+                        <div class="service-options">
+                            <div class="service-option" data-service="Klasik Sıcak Taş">
+                                <div class="service-option-info">
+                                    <h4>Sıcak Taş Masajı (Volkanik Taşlarla)</h4>
+                                    <p>75 dakika • ₺1.850</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="service-option" data-service="Volkanik Taş Terapisi">
+                                <div class="service-option-info">
+                                    <h4>Çakra Açıcı Sıcak Taş Terapisi</h4>
+                                    <p>90 dakika • ₺2.150</p>
+                                </div>
+                                <div class="service-option-check">
+                                    <i class="fas fa-circle"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -137,13 +288,13 @@
                     <h3>Terapist Cinsiyet Tercihi</h3>
                     
                     <div class="gender-options">
-                        <div class="gender-option active">
+                        <div class="gender-option active" data-gender="Erkek">
                             <span>Erkek</span>
                         </div>
-                        <div class="gender-option">
+                        <div class="gender-option" data-gender="Kadın">
                             <span>Kadın</span>
                         </div>
-                        <div class="gender-option">
+                        <div class="gender-option" data-gender="Fark Etmez">
                             <span>Fark Etmez</span>
                         </div>
                     </div>
@@ -154,31 +305,31 @@
                     <h3>Tarih Seçin</h3>
                     
                     <div class="date-picker">
-                        <div class="date-item" data-date="2025-03-12">
+                        <div class="date-item" data-date="2025-03-12" data-day="Çar" data-date-num="12">
                             <span class="day">Çar</span>
                             <span class="date">12</span>
                         </div>
-                        <div class="date-item active" data-date="2025-03-13">
+                        <div class="date-item active" data-date="2025-03-13" data-day="Per" data-date-num="13">
                             <span class="day">Per</span>
                             <span class="date">13</span>
                         </div>
-                        <div class="date-item" data-date="2025-03-14">
+                        <div class="date-item" data-date="2025-03-14" data-day="Cum" data-date-num="14">
                             <span class="day">Cum</span>
                             <span class="date">14</span>
                         </div>
-                        <div class="date-item" data-date="2025-03-15">
+                        <div class="date-item" data-date="2025-03-15" data-day="Cmt" data-date-num="15">
                             <span class="day">Cmt</span>
                             <span class="date">15</span>
                         </div>
-                        <div class="date-item" data-date="2025-03-16">
+                        <div class="date-item" data-date="2025-03-16" data-day="Paz" data-date-num="16">
                             <span class="day">Paz</span>
                             <span class="date">16</span>
                         </div>
-                        <div class="date-item" data-date="2025-03-17">
+                        <div class="date-item" data-date="2025-03-17" data-day="Pzt" data-date-num="17">
                             <span class="day">Pzt</span>
                             <span class="date">17</span>
                         </div>
-                        <div class="date-item" data-date="2025-03-18">
+                        <div class="date-item" data-date="2025-03-18" data-day="Sal" data-date-num="18">
                             <span class="day">Sal</span>
                             <span class="date">18</span>
                         </div>
@@ -190,21 +341,24 @@
                     <h3>Saat Seçin</h3>
                     
                     <div class="time-slots">
-                        <div class="time-slot">09:00</div>
-                        <div class="time-slot">10:00</div>
-                        <div class="time-slot active">11:00</div>
-                        <div class="time-slot">12:00</div>
-                        <div class="time-slot disabled">13:00</div>
-                        <div class="time-slot">14:00</div>
-                        <div class="time-slot">15:00</div>
-                        <div class="time-slot disabled">16:00</div>
-                        <div class="time-slot">17:00</div>
+                        <div class="time-slot" data-time="09:00">09:00</div>
+                        <div class="time-slot" data-time="10:00">10:00</div>
+                        <div class="time-slot active" data-time="11:00">11:00</div>
+                        <div class="time-slot" data-time="12:00">12:00</div>
+                        <div class="time-slot disabled" data-time="13:00">13:00</div>
+                        <div class="time-slot" data-time="14:00">14:00</div>
+                        <div class="time-slot" data-time="15:00">15:00</div>
+                        <div class="time-slot disabled" data-time="16:00">16:00</div>
+                        <div class="time-slot" data-time="17:00">17:00</div>
                     </div>
                 </div>
                 
-                <!-- Confirm Button - Moved outside the section for better positioning -->
+                <!-- Hotel Section (will be added dynamically if needed) -->
+                <div id="hotel-section-container"></div>
+                
+                <!-- Confirm Button -->
                 <div style="padding: 0 var(--spacing-md); margin-bottom: 100px;">
-                    <a href="booking-confirmation.html" class="btn btn-primary btn-block btn-animated" style="position: relative; z-index: 10;">Rezervasyonu Onayla</a>
+                    <a href="#" id="confirm-booking" class="btn btn-primary btn-block btn-animated" style="position: relative; z-index: 10;">Rezervasyonu Onayla</a>
                 </div>
             </form>
         </div>
@@ -215,9 +369,10 @@
                 <i class="fas fa-home"></i>
                 <span>Ana Sayfa</span>
             </a>
-            <a href="booking.html" class="nav-item active" data-page="booking">
-                <i class="far fa-calendar"></i>
-                <span>Rezervasyon</span>
+            <a href="calendar.html" class="nav-item" data-page="calendar" style="position: relative;">
+                <i class="far fa-calendar-alt"></i>
+                <span>Ajanda</span>
+                <div class="notification-badge">2</div>
             </a>
             <a href="services.html" class="nav-item" data-page="services">
                 <i class="fas fa-spa"></i>
@@ -233,10 +388,11 @@
     <script src="js/booking-data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Get existing booking data or initialize new
-            let currentBooking = getBookingData() || {
-                service: "İsveç Masajı",
+            // Initialize booking data
+            let bookingData = {
+                service: "Klasik Masaj (İsviçre Masajı)",
                 date: "Per 13",
+                fullDate: "2025-03-13",
                 time: "11:00",
                 gender: "Erkek",
                 hotel: "",
@@ -246,63 +402,19 @@
             
             // Get URL parameters
             const urlParams = new URLSearchParams(window.location.search);
-            const serviceParam = urlParams.get('service');
             const hotelParam = urlParams.get('hotel');
             
-            // Update booking data with URL parameters if available
-            if (serviceParam) {
-                currentBooking.service = serviceParam;
-            }
-            
+            // Update hotel information if provided
             if (hotelParam) {
-                currentBooking.hotel = hotelParam;
-            }
-            
-            // Save the initial booking data
-            saveBookingData(currentBooking);
-            
-            // Set service based on URL parameter
-            if (serviceParam) {
-                const categoryPills = document.querySelectorAll('.category-pill');
-                const serviceOptions = document.querySelectorAll('.service-option');
+                bookingData.hotel = hotelParam;
                 
-                // Set default active service
-                let activeServiceIndex = 0;
-                
-                if (serviceParam === 'swedish-massage') {
-                    // Already default active
-                } else if (serviceParam === 'deep-tissue') {
-                    activeServiceIndex = 1;
-                } else if (serviceParam === 'hot-stone') {
-                    // Not in the list, would need to add it
-                } else if (serviceParam === 'luxury-facial') {
-                    // Switch to facial category
-                    categoryPills.forEach(pill => pill.classList.remove('active'));
-                    document.querySelector('.category-pill[data-category="facial"]').classList.add('active');
-                }
-                
-                // Set active service option
-                if (activeServiceIndex > 0 && activeServiceIndex < serviceOptions.length) {
-                    serviceOptions.forEach(option => {
-                        option.classList.remove('active');
-                        option.querySelector('.service-option-check i').className = 'fas fa-circle';
-                    });
-                    
-                    serviceOptions[activeServiceIndex].classList.add('active');
-                    serviceOptions[activeServiceIndex].querySelector('.service-option-check i').className = 'fas fa-check-circle';
-                }
-            }
-            
-            // Set hotel information if provided
-            if (hotelParam) {
                 // Find the hotel in the data
                 const hotels = window.hotelData || [];
                 const selectedHotel = hotels.find(h => h.sube_adi === hotelParam);
                 
                 if (selectedHotel) {
                     // Add hotel information section
-                    const bookingForm = document.querySelector('.booking-form');
-                    const confirmButton = bookingForm.querySelector('div[style="padding: 0 var(--spacing-md); margin-bottom: 100px;"]');
+                    const hotelSectionContainer = document.getElementById('hotel-section-container');
                     
                     // Create hotel info section
                     const hotelSection = document.createElement('div');
@@ -331,164 +443,35 @@
                         </div>
                     `;
                     
-                    // Insert before the confirm button
-                    bookingForm.insertBefore(hotelSection, confirmButton);
-                    
-                    // Update the confirm button to include hotel information and service information
-                    const confirmButtonLink = confirmButton.querySelector('a');
-                    const currentHref = confirmButtonLink.getAttribute('href');
-                    
-                    // Get the selected service
-                    const activeServiceOption = document.querySelector('.service-option.active');
-                    let serviceName = 'İsveç Masajı'; // Default
-                    
-                    if (activeServiceOption) {
-                        serviceName = activeServiceOption.querySelector('h4').textContent;
-                    }
-                    
-                    // Get the selected date
-                    const activeDateItem = document.querySelector('.date-item.active');
-                    let dateText = '';
-                    
-                    if (activeDateItem) {
-                        const day = activeDateItem.querySelector('.day').textContent;
-                        const date = activeDateItem.querySelector('.date').textContent;
-                        dateText = `${day} ${date}`;
-                    }
-                    
-                    // Get the selected time
-                    const activeTimeSlot = document.querySelector('.time-slot.active');
-                    let timeText = '';
-                    
-                    if (activeTimeSlot) {
-                        timeText = activeTimeSlot.textContent;
-                    }
-                    
-                    // Get the selected gender
-                    const activeGenderOption = document.querySelector('.gender-option.active');
-                    let genderText = '';
-                    
-                    if (activeGenderOption) {
-                        genderText = activeGenderOption.querySelector('span').textContent;
-                    }
-                    
-                    // Update the URL with all the selected information
-                    confirmButtonLink.setAttribute('href', `${currentHref}?hotel=${encodeURIComponent(selectedHotel.sube_adi)}&service=${encodeURIComponent(serviceName)}&date=${encodeURIComponent(dateText)}&time=${encodeURIComponent(timeText)}&gender=${encodeURIComponent(genderText)}`);
+                    // Add to the container
+                    hotelSectionContainer.appendChild(hotelSection);
                 }
             }
             
-            // Show loading animation when confirming booking
-            const confirmButton = document.querySelector('.btn-animated');
-            if (confirmButton) {
-                confirmButton.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Get the selected service
-                    const activeServiceOption = document.querySelector('.service-option.active');
-                    let serviceName = 'İsveç Masajı'; // Default
-                    
-                    if (activeServiceOption) {
-                        serviceName = activeServiceOption.querySelector('h4').textContent;
-                    }
-                    
-                    // Get the selected date
-                    const activeDateItem = document.querySelector('.date-item.active');
-                    let dateText = '';
-                    
-                    if (activeDateItem) {
-                        const day = activeDateItem.querySelector('.day').textContent;
-                        const date = activeDateItem.querySelector('.date').textContent;
-                        dateText = `${day} ${date}`;
-                    }
-                    
-                    // Get the selected time
-                    const activeTimeSlot = document.querySelector('.time-slot.active');
-                    let timeText = '';
-                    
-                    if (activeTimeSlot) {
-                        timeText = activeTimeSlot.textContent;
-                    }
-                    
-                    // Get the selected gender
-                    const activeGenderOption = document.querySelector('.gender-option.active');
-                    let genderText = '';
-                    
-                    if (activeGenderOption) {
-                        genderText = activeGenderOption.querySelector('span').textContent;
-                    }
-                    
-                    // Get the selected hotel from URL parameter
-                    let hotelName = '';
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const hotelParam = urlParams.get('hotel');
-                    
-                    if (hotelParam) {
-                        hotelName = hotelParam;
-                    } else {
-                        // Fallback to looking for hotel in the DOM
-                        const hotelElement = document.querySelector('.booking-form-section h4');
-                        if (hotelElement) {
-                            hotelName = hotelElement.textContent;
-                        }
-                    }
-                    
-                    // Create booking details object
-                    const bookingDetails = {
-                        service: serviceName,
-                        date: dateText,
-                        time: timeText,
-                        gender: genderText,
-                        hotel: hotelName
-                    };
-                    
-                    // Show loading overlay with "Randevu Oluşturuluyor" message
-                    showLoadingOverlay("Randevu Oluşturuluyor...", 1500, () => {
-                        // Save booking details to global variable and localStorage
-                        saveBookingData(bookingDetails);
-                        
-                        // Log for debugging
-                        console.log('Booking data saved:', getBookingData());
-                        
-                        // Show success message after data is saved
-                        showLoadingOverlay("Randevunuz Oluşturuldu!", 1500, () => {
-                            const href = this.getAttribute('href');
-                            // Add all the selected information to the URL
-                            window.location.href = `${href}?service=${encodeURIComponent(serviceName)}&date=${encodeURIComponent(dateText)}&time=${encodeURIComponent(timeText)}&gender=${encodeURIComponent(genderText)}&hotel=${encodeURIComponent(hotelName)}`;
-                        });
-                    });
-                });
-            }
-            
-            // Service category selection
-            const categoryPills = document.querySelectorAll('.category-pill');
-            categoryPills.forEach(pill => {
-                pill.addEventListener('click', function() {
-                    categoryPills.forEach(p => p.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Update service options based on category (in a real app)
-                    // For now, we'll just log the category
-                    console.log('Selected category:', this.dataset.category);
-                });
-            });
+            // Save initial booking data
+            saveBookingData(bookingData);
             
             // Service option selection
             const serviceOptions = document.querySelectorAll('.service-option');
             serviceOptions.forEach(option => {
                 option.addEventListener('click', function() {
+                    // Update UI
                     serviceOptions.forEach(o => {
                         o.classList.remove('active');
-                        o.querySelector('.service-option-check i').className = 'fas fa-circle';
+                        if (o.querySelector('.service-option-check i')) {
+                            o.querySelector('.service-option-check i').className = 'fas fa-circle';
+                        }
                     });
                     this.classList.add('active');
-                    this.querySelector('.service-option-check i').className = 'fas fa-check-circle';
+                    if (this.querySelector('.service-option-check i')) {
+                        this.querySelector('.service-option-check i').className = 'fas fa-check-circle';
+                    }
                     
-                    // Update booking data with selected service
-                    const serviceName = this.querySelector('h4').textContent;
-                    const currentBooking = getBookingData();
-                    currentBooking.service = serviceName;
-                    saveBookingData(currentBooking);
-                    console.log('Updated service:', currentBooking.service);
+                    // Update booking data
+                    const serviceName = this.dataset.service;
+                    bookingData.service = serviceName;
+                    saveBookingData(bookingData);
+                    console.log('Updated service:', bookingData.service);
                 });
             });
             
@@ -496,15 +479,15 @@
             const genderOptions = document.querySelectorAll('.gender-option');
             genderOptions.forEach(option => {
                 option.addEventListener('click', function() {
+                    // Update UI
                     genderOptions.forEach(o => o.classList.remove('active'));
                     this.classList.add('active');
                     
-                    // Update booking data with selected gender
-                    const genderText = this.querySelector('span').textContent;
-                    const currentBooking = getBookingData();
-                    currentBooking.gender = genderText;
-                    saveBookingData(currentBooking);
-                    console.log('Updated gender:', currentBooking.gender);
+                    // Update booking data
+                    const genderText = this.dataset.gender;
+                    bookingData.gender = genderText;
+                    saveBookingData(bookingData);
+                    console.log('Updated gender:', bookingData.gender);
                 });
             });
             
@@ -512,17 +495,20 @@
             const dateItems = document.querySelectorAll('.date-item');
             dateItems.forEach(item => {
                 item.addEventListener('click', function() {
+                    // Update UI
                     dateItems.forEach(d => d.classList.remove('active'));
                     this.classList.add('active');
                     
-                    // Update booking data with selected date
-                    const day = this.querySelector('.day').textContent;
-                    const date = this.querySelector('.date').textContent;
+                    // Update booking data
+                    const day = this.dataset.day;
+                    const date = this.dataset.dateNum;
+                    const fullDate = this.dataset.date;
                     const dateText = `${day} ${date}`;
-                    const currentBooking = getBookingData();
-                    currentBooking.date = dateText;
-                    saveBookingData(currentBooking);
-                    console.log('Updated date:', currentBooking.date);
+                    
+                    bookingData.date = dateText;
+                    bookingData.fullDate = fullDate;
+                    saveBookingData(bookingData);
+                    console.log('Updated date:', bookingData.date, 'Full date:', bookingData.fullDate);
                 });
             });
             
@@ -530,23 +516,79 @@
             const timeSlots = document.querySelectorAll('.time-slot:not(.disabled)');
             timeSlots.forEach(slot => {
                 slot.addEventListener('click', function() {
+                    // Update UI
                     timeSlots.forEach(s => s.classList.remove('active'));
                     this.classList.add('active');
                     
-                    // Update booking data with selected time
-                    const timeText = this.textContent;
-                    const currentBooking = getBookingData();
-                    currentBooking.time = timeText;
-                    saveBookingData(currentBooking);
-                    console.log('Updated time:', currentBooking.time);
+                    // Update booking data
+                    const timeText = this.dataset.time;
+                    bookingData.time = timeText;
+                    saveBookingData(bookingData);
+                    console.log('Updated time:', bookingData.time);
                 });
             });
             
-            // Form submission
-            const bookingForm = document.getElementById('booking-form');
-            bookingForm.addEventListener('submit', function(e) {
+            // Category pill selection
+            const categoryPills = document.querySelectorAll('.category-pill');
+            const categoryContents = document.querySelectorAll('.category-content');
+            
+            categoryPills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    // Update UI
+                    categoryPills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const category = this.dataset.category;
+                    categoryContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(`${category}-content`).classList.add('active');
+                    
+                    console.log('Selected category:', category);
+                });
+            });
+            
+            // Confirm booking
+            const confirmButton = document.getElementById('confirm-booking');
+            confirmButton.addEventListener('click', function(e) {
                 e.preventDefault();
-                window.location.href = 'booking-confirmation.html';
+                
+                // Get the latest booking data
+                const currentBookingData = getBookingData();
+                
+                // Ensure we have all required data
+                if (!currentBookingData.service || !currentBookingData.date || !currentBookingData.time || !currentBookingData.gender) {
+                    alert('Lütfen tüm alanları doldurun.');
+                    return;
+                }
+                
+                // Generate booking ID if not already set
+                if (!currentBookingData.bookingId) {
+                    currentBookingData.bookingId = 'SPZ-' + Math.floor(10000 + Math.random() * 90000);
+                }
+                
+                // Add timestamp
+                currentBookingData.timestamp = new Date().toISOString();
+                
+                // Save final booking data
+                saveBookingData(currentBookingData);
+                console.log('Final booking data saved:', currentBookingData);
+                
+                // Show loading animation
+                showLoadingOverlay("Randevu Oluşturuluyor...", 1500, function() {
+                    // Show success message
+                    showLoadingOverlay("Randevunuz Oluşturuldu!", 1500, function() {
+                        // Prepare URL parameters
+                        const params = new URLSearchParams();
+                        Object.entries(currentBookingData).forEach(([key, value]) => {
+                            if (value) params.append(key, value);
+                        });
+                        
+                        // Redirect to confirmation page
+                        window.location.href = 'booking-confirmation.html?' + params.toString();
+                    });
+                });
             });
         });
     </script>
